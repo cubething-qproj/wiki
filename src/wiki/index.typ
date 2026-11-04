@@ -14,21 +14,21 @@ area below.
     if portal == none { continue }
     let order = orders.find(o => o.area == a.id)
     let topics = if order == none { () } else { order.topics }
-      html.elem("div", attrs: (class: "portal"))[
-        == #link(page-url(portal.name))[#portal.title]
-        #portal.summary
-        #html.elem("details")[
-          #html.elem("summary")[Topics]
-          #html.elem("dl", attrs: (class: "topics"))[
-            #for (label, these) in topic-groups(a.id, topics: topics) {
-              html.elem("dt", if label == none [Articles] else [#label])
-              html.elem(
-                "dd",
-                these.map(p => link(page-url(p.name), p.title)).join[ · ],
-              )
-            }
-          ]
+    html.elem("div", attrs: (class: "portal"))[
+      == #link(page-url(portal.name))[#portal.title]
+      #portal.summary
+      #html.elem("details")[
+        #html.elem("summary")[Topics]
+        #html.elem("dl", attrs: (class: "topics"))[
+          #for (label, these) in topic-groups(a.id, topics: topics) {
+            html.elem("dt", if label == none [Articles] else [#label])
+            html.elem(
+              "dd",
+              these.map(p => link(page-url(p.name), p.title)).join[ · ],
+            )
+          }
         ]
       ]
+    ]
   }
 }

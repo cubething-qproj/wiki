@@ -222,7 +222,12 @@
 
 #let nav(collection) = html.elem("header")[
   #html.elem("h1")[
-    #html.elem("img", attrs: (src: "/media/icon.webp", alt: "qproj eye icon", width: "40", height: "40"))
+    #html.elem("img", attrs: (
+      src: "/media/icon.webp",
+      alt: "qproj eye icon",
+      width: "40",
+      height: "40",
+    ))
     #if collection == "documents" { [qproj design docs] } else { [qproj wiki] }
   ]
   #html.elem("nav", attrs: (aria-label: "Collections"))[
@@ -230,15 +235,18 @@
       #link("/" + collection + "/index.html")[home] |
       #if collection == "documents" {
         link("/documents/status.html")[status]
-      } else {
-        link("/wiki/maintenance.html")[maintenance]
-      } |
+      } else { link("/wiki/maintenance.html")[maintenance] } |
       #link(if collection == "wiki" { "/documents/index.html" } else { "/wiki/index.html" })[
         #if collection == "wiki" { [docs] } else { [wiki] }
       ] |
-      #link("#")[#html.elem("span", attrs: (class: "toggle-lights"))[toggle theme]]
+      #link("#")[#html.elem("span", attrs: (
+        class: "toggle-lights",
+      ))[toggle theme]]
     ]
-    #html.elem("search", attrs: (id: "search", aria-label: "Search " + collection))
+    #html.elem("search", attrs: (
+      id: "search",
+      aria-label: "Search " + collection,
+    ))
   ]
 ]
 
