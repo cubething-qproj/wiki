@@ -192,6 +192,42 @@ class RenderedTests(unittest.TestCase):
                 self.assertTrue((self.out / image["src"].lstrip("/")).is_file())
             self.assertIn("historical", " ".join(page.text).lower())
 
+    def test_topic_navigation_and_category_membership(self):
+        home = self.html("/wiki/index.html")
+        rows = re.findall(r"<dt>(.*?)</dt>\s*<dd>(.*?)</dd>", home, re.DOTALL)
+        self.assertTrue(rows)
+        catalogue = {p["url"]: p for p in self.pages}
+        listed = []
+        for term, definition in rows:
+            topic_url, = Page(term).links
+            members = Page(definition).links
+            self.assertTrue(members)
+            self.assertNotIn(" — ", "".join(Page(definition).text))
+            category = self.html(topic_url)
+            self.assertNotIn("data-pagefind-body", category)
+            body = re.search(r"<main\b.*?</main>", category, re.DOTALL)
+            assert body is not None
+            listing = re.search(r"<ul>(.*?)</ul>", body[0], re.DOTALL)
+            assert listing is not None
+            self.assertEqual(set(Page(listing[1]).links), set(members))
+            titles = ["".join(Page(text).text) for text in re.findall(
+                r"<li><a[^>]*>(.*?)</a>", listing[1], re.DOTALL
+            )]
+            self.assertEqual(titles, sorted(titles, key=str.casefold))
+            area = catalogue[members[0]]["area"]
+            portal = self.html(f"/wiki/{area}.html")
+            self.assertIn(topic_url, Page(portal).links)
+            self.assertIn(f"/wiki/{area}.html", Page(body[0]).links)
+            for url in members:
+                self.assertEqual(catalogue[url]["kind"], "article")
+                self.assertEqual(catalogue[url]["area"], area)
+            listed.extend(members)
+        self.assertCountEqual(listed, [p["url"] for p in self.pages if p["kind"] == "article"])
+        summary = "How the qproj organization nests its repositories and builds them as one Cargo workspace."
+        self.assertIn(summary, "".join(Page(self.html("/wiki/topic-project-organization.html")).text))
+        self.assertNotIn(summary, "".join(Page(home).text))
+        self.assertNotIn(summary, "".join(Page(self.html("/wiki/project.html")).text))
+
     def test_collection_indexes_and_legacy_redirects(self):
         for collection in ["wiki", "documents"]:
             self.assertTrue((self.out / collection / "pagefind/pagefind.js").is_file())

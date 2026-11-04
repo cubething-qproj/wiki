@@ -15,6 +15,7 @@ section fragments. This is a local-only site: do not publish papers or book extr
 src/
   main.typ                 # Bundle entry point and legacy redirects
   template.typ             # Shared page, link, callout and gallery helpers
+  topic.typ                # Generated topic pages with article descriptions
   wiki/index.typ           # Wiki home page and generated topic links
   wiki/<area>/             # Topic articles; index.typ is the area's portal
   documents/<area>/        # Selected designs, reports and historical records
@@ -99,6 +100,14 @@ An area's `src/wiki/<area>/index.typ` is its authored portal. It also uses
 `article`, has editor ID `portal-<area>`, and is served at `/wiki/<area>.html`.
 Author the introduction and reading route; `article-list("area")` supplies its
 inventory. Portals are excluded from topic search.
+
+Home and portal pages use compact definition lists: topic names link to generated
+pages such as `/wiki/topic-project-organization.html`, and article links appear
+inline without descriptions. Topic pages link back to their portal and list
+articles alphabetically by title, with descriptions. Membership comes from the
+existing `topic:` metadata; no separate category inventory is maintained.
+Areas without topics use an `Articles` category; unassigned articles in a mixed
+area use `Other`. Topic pages are excluded from search.
 
 Records in `src/documents/` and `src/reference/` use `wiki-page`. Set
 `document-type` independently of `status`; reference files default to reference,

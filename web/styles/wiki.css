@@ -127,3 +127,28 @@ sup.cn {
     display: grid;
     grid-template-columns: 50% 50%;
 }
+
+/* Compact topic links, shared by home and portal pages. */
+.topics {
+    display: grid;
+    grid-template-columns: fit-content(30%) minmax(0, 1fr);
+    gap: .4em 1em;
+    font-size: .85em;
+}
+.topics dt { font-weight: bold; overflow-wrap: normal; }
+.topics dd { margin: 0; }
+
+@media (max-width: 40em) {
+    .main-page-cards { grid-template-columns: 1fr; }
+}
+
+/* Raised Madoromi surfaces keep dark panels distinct from the kami page. */
+.dark :is(.portal, aside.callout, details[open], #search input) {
+    background: var(--madoromi-nijimi1);
+}
+.dark summary {
+    background: var(--madoromi-nijimi2);
+}
+.dark #search input {
+    color: var(--madoromi-sumi);
+}

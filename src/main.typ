@@ -1,6 +1,7 @@
 // Build the Quell wiki and document library as separate reading collections.
 // Only the source catalogue, editor and rendering helpers are shared.
 #import "template.typ": *
+#import "topic.typ": topic-page
 
 /// Preserve old record URLs without indexing duplicate copies of their bodies.
 #let redirect(url) = {
@@ -81,4 +82,25 @@
     ],
     collection: collection,
   ))
+}
+
+// Topics reuse authored article metadata without becoming searchable articles.
+#context {
+  let portals = all-pages().filter(p => p.kind == "portal")
+  let urls = ()
+  for portal in portals {
+    for (label, pages) in topic-groups(portal.area) {
+      let url = topic-url(portal.area, label)
+      assert(
+        url not in urls and url not in manifest.pages.map(p => p.url),
+        message: "duplicate topic URL: " + url,
+      )
+      urls.push(url)
+      document(url.slice(1), title: [Topic: #topic-name(label)], topic-page(
+        portal,
+        label,
+        pages,
+      ))
+    }
+  }
 }

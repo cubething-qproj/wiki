@@ -601,14 +601,25 @@
   (groups + other).filter(g => g.at(1).len() > 0)
 }
 
-/// Collapsible topic containers shared by the wiki home and authored portals.
+/// The displayed topic name, including the fallback for areas without topics.
+#let topic-name(topic) = if topic == none { "Articles" } else { topic }
+
+/// Area-qualified topic URL; punctuation and spaces become hyphens.
+#let topic-url(area, topic) = {
+  let slug = lower(topic-name(topic))
+    .replace(regex("[^a-z0-9]+"), "-")
+    .trim("-")
+  "/wiki/topic-" + area + "-" + slug + ".html"
+}
+
+/// Compact topic rows shared by the wiki home and authored portals.
 #let topic-list(area, topics: ()) = context {
-  for (label, pages) in topic-groups(area, topics: topics) {
-    html.elem("details", attrs: (class: "topic"))[
-      #html.elem("summary", if label == none [Articles] else [Articles: #label])
-      #list(..pages.map(p => [#link(page-url(p.name), p.title) — #p.summary]))
-    ]
-  }
+  html.elem("dl", attrs: (class: "topics"))[
+    #for (label, pages) in topic-groups(area, topics: topics) {
+      html.elem("dt", link(topic-url(area, label), topic-name(label)))
+      html.elem("dd", pages.map(p => link(page-url(p.name), p.title)).join[ · ])
+    }
+  ]
 }
 
 /// Generated article inventory for an authored portal, grouped by topic (see
