@@ -211,12 +211,17 @@ addEventListener('DOMContentLoaded', () => {
   set document(title: title)
   context {
     let name = current.get()
+    // A page compiled on its own (tinymist checks pages one at a time, since
+    // it can't enable the bundle feature) has no name: skip what needs the
+    // bundle.
+    if name == none { return shell(title, body) }
     let e = entry(name)
     let area = areas.find(a => a.id == e.area)
     [#metadata((name: name, area: e.area, title: title, status: status, summary: summary)) <wiki-page>]
     shell(title, {
       html.elem("p", attrs: (class: "meta"))[
         #badge(status) · #link(e.area + ".html", if area == none { e.area } else { area.title }) · changed #e.date
+        · #link("editor/?page=" + name)[edit]
       ]
       body
       let from = backlinks(name)
