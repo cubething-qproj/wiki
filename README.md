@@ -46,6 +46,10 @@ just --justfile .docs/wiki/justfile build
 just --justfile .docs/wiki/justfile test
 ```
 
+Search forms submit to `/wiki/search.html?q=…` or `/documents/search.html?q=…`.
+These pages use Pagefind’s JavaScript API to render plain HTML results, with
+ten results per batch. The topbar loads no search UI framework.
+
 Build before running the Python checks. They cover discovery, collection
 boundaries, links/assets, outlines, galleries and related-document ordering.
 Do not start two builders for the same `out/` and `.out-next/` directories.

@@ -87,6 +87,8 @@ class CatalogueTests(unittest.TestCase):
             ("src/documents/pcg/shared.typ", "src/wiki/pcg/shared.typ"),
             ("src/wiki/pcg/pcg.typ", "src/wiki/pcg/index.typ"),
             ("src/wiki/index/index.typ",),
+            ("src/wiki/pcg/search.typ",),
+            ("src/documents/pcg/search.typ",),
         ]:
             with self.subTest(paths=paths), self.assertRaises(ValueError):
                 self.discover(*paths)
@@ -194,9 +196,13 @@ class RenderedTests(unittest.TestCase):
         for collection in ["wiki", "documents"]:
             self.assertTrue((self.out / collection / "pagefind/pagefind.js").is_file())
             self.assertIn(
-                f"/{collection}/pagefind/pagefind-ui.js",
+                f'action="/{collection}/search.html"',
                 self.html(f"/{collection}/index.html"),
             )
+            search = self.html(f"/{collection}/search.html")
+            self.assertIn('id="search-results"', search)
+            self.assertNotIn("data-pagefind-body", search)
+            self.assertNotIn("pagefind-ui", search)
         wiki_links = Page(self.html("/wiki/index.html")).links
         self.assertNotIn("/documents/quell-hex-terrain-r11-design.html", wiki_links)
         document_links = Page(self.html("/documents/pcg.html")).links

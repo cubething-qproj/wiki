@@ -246,7 +246,21 @@
     #html.elem("search", attrs: (
       id: "search",
       aria-label: "Search " + collection,
-    ))
+    ))[
+      #html.elem("form", attrs: (
+        action: "/" + collection + "/search.html",
+        method: "get",
+      ))[
+        #html.elem("input", attrs: (
+          type: "search",
+          name: "q",
+          placeholder: "Search…",
+          aria-label: "Search " + collection,
+          required: "",
+        ))
+        #html.elem("button", attrs: (type: "submit"))[Search]
+      ]
+    ]
   ]
 ]
 
@@ -268,11 +282,6 @@
     counter(target).update(0)
   }
   show raw.where(lang: "mermaid"): mermaid-block
-  let search-root = "/" + collection + "/pagefind/"
-  html.elem("link", attrs: (
-    rel: "stylesheet",
-    href: search-root + "pagefind-ui.css",
-  ))
   html.elem("script", attrs: (src: "/web/scripts/theme.js"))
   html.elem("link", attrs: (rel: "stylesheet", href: "/web/styles/palette.css"))
   html.elem("link", attrs: (rel: "stylesheet", href: "/web/styles/fonts.css"))
@@ -284,12 +293,12 @@
     attrs: (class: collection)
       + if indexed { (data-pagefind-body: "") } else { (:) },
   )[
-    #if title != none { html.elem("h1", title) }
+    #if title != none {
+      html.elem("h1", attrs: (data-pagefind-meta: "title"), title)
+    }
     #body
   ]
   html.elem("script", attrs: (type: "module", src: "/web/scripts/mermaid.js"))
-  // A classic script, not an import, so Vite serves it untouched.
-  html.elem("script", attrs: (src: search-root + "pagefind-ui.js"))
   html.elem("script", attrs: (src: "/web/scripts/main.js", defer: ""))
 }
 
@@ -592,14 +601,21 @@
   (groups + other).filter(g => g.at(1).len() > 0)
 }
 
+/// Collapsible topic containers shared by the wiki home and authored portals.
+#let topic-list(area, topics: ()) = context {
+  for (label, pages) in topic-groups(area, topics: topics) {
+    html.elem("details", attrs: (class: "topic"))[
+      #html.elem("summary", if label == none [Articles] else [Articles: #label])
+      #list(..pages.map(p => [#link(page-url(p.name), p.title) — #p.summary]))
+    ]
+  }
+}
+
 /// Generated article inventory for an authored portal, grouped by topic (see
 /// `topic-groups`). Records the topic order so the home page can match it.
 #let article-list(area, topics: ()) = context {
   [#metadata((area: area, topics: topics))<topic-order>]
-  for (label, pages) in topic-groups(area, topics: topics) {
-    if label != none { html.elem("h3", label) }
-    list(..pages.map(p => [#link(page-url(p.name), p.title) — #p.summary]))
-  }
+  topic-list(area, topics: topics)
 }
 
 /// The wiki's generated maintenance index: page flags, inline markers, and authorship.
@@ -717,4 +733,19 @@
       #page-table(these)
     ]
   }
+}
+
+#let topic(title, a, topics) = context {
+  html.elem("details")[
+    #html.elem("summary")[#title]
+    #html.elem("dl", attrs: (class: "topics"))[
+      #for (label, these) in topic-groups(a.id, topics: topics) {
+        html.elem("dt", if label == none [Articles] else [#label])
+        html.elem(
+          "dd",
+          these.map(p => link(page-url(p.name), p.title)).join[ · ],
+        )
+      }
+    ]
+  ]
 }

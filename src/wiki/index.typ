@@ -6,29 +6,20 @@ to explore generated landscapes, read real philosophy found along the way, and
 debate the characters they meet. Start with the project overview, or pick an
 area below.
 
-#context {
-  let pages = all-pages()
-  let orders = query(<topic-order>).map(m => m.value)
-  for a in areas {
-    let portal = pages.find(p => p.kind == "portal" and p.area == a.id)
-    if portal == none { continue }
-    let order = orders.find(o => o.area == a.id)
-    let topics = if order == none { () } else { order.topics }
-    html.elem("div", attrs: (class: "portal"))[
-      == #link(page-url(portal.name))[#portal.title]
-      #portal.summary
-      #html.elem("details")[
-        #html.elem("summary")[Topics]
-        #html.elem("dl", attrs: (class: "topics"))[
-          #for (label, these) in topic-groups(a.id, topics: topics) {
-            html.elem("dt", if label == none [Articles] else [#label])
-            html.elem(
-              "dd",
-              these.map(p => link(page-url(p.name), p.title)).join[ · ],
-            )
-          }
-        ]
+#html.div(class: "main-page-cards")[
+  #context {
+    let pages = all-pages()
+    let orders = query(<topic-order>).map(m => m.value)
+    for a in areas {
+      let portal = pages.find(p => p.kind == "portal" and p.area == a.id)
+      if portal == none { continue }
+      let order = orders.find(o => o.area == a.id)
+      let topics = if order == none { () } else { order.topics }
+      html.elem("div", attrs: (class: "portal"))[
+        == #link(page-url(portal.name))[#portal.title]
+        #portal.summary
+        #topic-list(a.id, topics: topics)
       ]
-    ]
+    }
   }
-}
+]

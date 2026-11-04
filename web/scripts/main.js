@@ -1,10 +1,4 @@
 addEventListener("DOMContentLoaded", () => {
-  if (window.PagefindUI)
-    new PagefindUI({
-      element: "#search",
-      showSubResults: true,
-      resetStyles: false,
-    });
   // Blog-style gallery controls enhance native touch and keyboard scrolling.
   for (const wrap of document.querySelectorAll(".carousel-wrap")) {
     const list = wrap.querySelector(".carousel");

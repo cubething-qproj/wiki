@@ -18,6 +18,13 @@ test:
 smoke:
     bun tests/browser.mjs
 
+check:
+    #!/usr/bin/env bash
+    set -Eeuo pipefail
+    bunx biome format ./src ./scripts ./web ./static
+    bunx biome lint ./src ./scripts ./web ./static
+    typstyle --check ./src/
+
 format:
     #!/usr/bin/env bash
     set -Eeuo pipefail

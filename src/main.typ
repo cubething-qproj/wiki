@@ -60,3 +60,25 @@
   ))
   document(a.id + ".html", redirect("/documents/" + a.id + ".html"))
 }
+
+#for collection in ("wiki", "documents") {
+  document(collection + "/search.html", title: [Search], shell(
+    [Search],
+    [
+      #html.elem("p", attrs: (
+        id: "search-status",
+        role: "status",
+      ))[Enter a search above.]
+      #html.elem("ol", attrs: (
+        id: "search-results",
+        data-index: "/" + collection + "/pagefind/pagefind.js",
+      ))
+      #html.elem("noscript")[Search requires JavaScript.]
+      #html.elem("script", attrs: (
+        type: "module",
+        src: "/web/scripts/search.js",
+      ))
+    ],
+    collection: collection,
+  ))
+}

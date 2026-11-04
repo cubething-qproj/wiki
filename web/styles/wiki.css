@@ -1,50 +1,129 @@
 /* Wiki additions to the verbatim blog main.css. */
 @media (prefers-color-scheme: dark) {
-  html:not([data-madoromi]) {
-    --background: linear-gradient(in oklab, #000, var(--madoromi-kami) 100%);
-    --text: #fff;
-    --code-bg: #fff1;
-  }
+    html:not([data-madoromi]) {
+        --background: linear-gradient(
+            in oklab,
+            #000,
+            var(--madoromi-kami) 100%
+        );
+        --text: #fff;
+        --code-bg: #fff1;
+    }
 }
-body { overflow-wrap: anywhere; }
-header nav { display: flex; flex-wrap: wrap; gap: .5em 1em; align-items: center; }
-header nav > span { flex: 0 1 auto; }
-button { font: inherit; color: inherit; cursor: pointer; }
+html {
+    background: var(--madoromi-kami);
+}
+body {
+    overflow-wrap: anywhere;
+}
+header nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em 1em;
+    align-items: center;
+}
+header nav > span {
+    flex: 0 1 auto;
+}
+button {
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+}
 #search {
-  position: relative;
-  flex: 1 1 10em;
-  min-width: 0;
-  --pagefind-ui-scale: .6;
-  --pagefind-ui-background: var(--madoromi-kami);
-  --pagefind-ui-text: var(--text);
-  --pagefind-ui-primary: var(--accent);
-  --pagefind-ui-border: var(--madoromi-kasure0);
+    flex: 1 1 10em;
+    min-width: 0;
 }
-code { font-family: "Libertinus Mono", monospace; }
-pre, math[display="block"] { overflow-x: auto; }
-pre.mermaid { display: block; }
-img { height: auto; }
-figure { margin: 1em 0; }
-table { border-collapse: collapse; width: 100%; }
-th, td { text-align: left; vertical-align: top; padding: .25em .5em; border-bottom: 1px solid var(--madoromi-kasure0); }
-aside.callout { margin: 1em 0; }
-.note, .meta, .byline, .backlinks, sup.cn { color: var(--madoromi-usuzumi1); }
-.related-documents, .backlinks { margin-top: 2em; }
-/* Portal topics stay beside their wrapping article links, as in a navbox. */
-.topics { display: grid; grid-template-columns: fit-content(30%) minmax(0, 1fr); gap: .5em 1em; }
-.topics dt { font-weight: bold; text-align: right; overflow-wrap: normal; }
-.topics dd { margin: 0; }
-/* Let the blog carousel shrink within the reading column. */
-.carousel { min-width: 0; }
-.carousel li { min-width: 0; }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+#search form {
+    display: flex;
+    gap: 0.5em;
+}
+#search input {
+    width: 100%;
+    min-width: 0;
+    padding: 0.333em 0.5em;
+    border: 0;
+    border-radius: 0.25em;
+    background: var(--madoromi-chitsu);
+    font: inherit;
+}
+#search input::placeholder {
+    color: var(--madoromi-usuzumi1);
+}
+#search button {
+    flex-shrink: 0;
+    white-space: nowrap;
+    border: 0;
+    background: transparent;
+    color: var(--accent);
+}
+#search-results {
+    padding-left: 1.5em;
+}
+#search-results li {
+    margin: 1.5em 0;
+}
+#search-results h2 {
+    font-size: 1.2em;
+    margin-bottom: 0.3em;
+}
+#search-results p {
+    margin: 0;
+}
 
-#search .pagefind-ui__drawer {
-  position: absolute;
-  right: 0;
-  width: min(36em, calc(100vw - 2em));
-  max-height: 70vh;
-  overflow: auto;
-  background: var(--madoromi-kami);
-  z-index: 1;
+pre,
+math[display="block"] {
+    overflow-x: auto;
+}
+pre.mermaid {
+    display: block;
+}
+img {
+    height: auto;
+}
+figure {
+    margin: 1em 0;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th,
+td {
+    text-align: left;
+    vertical-align: top;
+    padding: 0.25em 0.5em;
+    border-bottom: 1px solid var(--madoromi-kasure0);
+}
+aside.callout {
+    margin: 1em 0;
+}
+.note,
+.meta,
+.byline,
+.backlinks,
+sup.cn {
+    color: var(--madoromi-usuzumi1);
+}
+.related-documents,
+.backlinks {
+    margin-top: 2em;
+}
+
+/* Let the blog carousel shrink within the reading column. */
+.carousel {
+    min-width: 0;
+}
+.carousel li {
+    min-width: 0;
+}
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+}
+
+
+.main-page-cards {
+    display: grid;
+    grid-template-columns: 50% 50%;
 }
