@@ -51,7 +51,7 @@
 // ---- styles and scripts ----
 
 #let css = "
-:root { --bg:#fbfaf7; --fg:#1f2328; --muted:#636c76; --line:#d0d7de;
+:root { color-scheme:light dark; --bg:#fbfaf7; --fg:#1f2328; --muted:#636c76; --line:#d0d7de;
   --link:#0b63ce; --explain:#eaf3ff; --explain-bar:#3b82f6;
   --decide:#fff5e0; --decide-bar:#d97706; --open:#f3eefe; --open-bar:#7c3aed; }
 @media (prefers-color-scheme: dark) {
@@ -60,8 +60,14 @@
     --decide:#33270f; --decide-bar:#d97706; --open:#251a3d; --open-bar:#a78bfa; } }
 body { background:var(--bg); color:var(--fg); margin:0;
   font:17px/1.55 system-ui, sans-serif; }
-header { border-bottom:1px solid var(--line); padding:.6rem 1rem; font-size:.95rem; }
-header a { margin-right:1rem; }
+header { border-bottom:1px solid var(--line); padding:.6rem 1rem; font-size:.95rem;
+  display:flex; align-items:center; gap:1rem; position:relative; }
+#search { margin-left:auto; width:min(26rem, 55vw); --pagefind-ui-scale:.75;
+  --pagefind-ui-background:var(--bg); --pagefind-ui-text:var(--fg);
+  --pagefind-ui-border:var(--line); --pagefind-ui-primary:var(--link); }
+#search .pagefind-ui__drawer { position:absolute; right:1rem; width:min(36rem, 90vw); z-index:10;
+  background:var(--bg); border:1px solid var(--line); padding:0 1rem; max-height:70vh; overflow:auto; }
+#search .pagefind-ui__drawer:empty { display:none; }
 main { max-width:46rem; margin:0 auto; padding:1rem 1.2rem 4rem; }
 a { color:var(--link); }
 h1 { font-size:1.7rem; margin-bottom:.3rem; }
@@ -151,23 +157,39 @@ mermaid.initialize({ startOnLoad: true, securityLevel: 'loose', deterministicIds
 
 // ---- page shells ----
 
+/// Loads Pagefind's search UI into `#search`. The index is built by
+/// `pagefind --site out` into `out/pagefind/`, so it only exists after a full
+/// `just build` or under `just serve`.
+#let search-js = "
+addEventListener('DOMContentLoaded', () => {
+  if (window.PagefindUI) new PagefindUI({ element: '#search', showSubResults: true, resetStyles: false });
+});
+"
+
 #let nav = html.elem("header")[
   #link("index.html")[home]
   #link("explainers.html")[explainers]
   #link("status.html")[status]
+  #html.elem("div", attrs: (id: "search"))
 ]
 
-/// Styles, nav, title and the Mermaid loader around a body. Used directly by
-/// generated pages; authored pages go through `wiki-page`.
-#let shell(title, body) = {
+/// Styles, nav, title and the Mermaid and search loaders around a body. Used
+/// directly by generated pages; authored pages go through `wiki-page`. Only
+/// `indexed` pages are searchable, so search finds pages, not the indexes
+/// that list them.
+#let shell(title, body, indexed: false) = {
   show raw.where(lang: "mermaid"): mermaid-block
+  html.elem("link", attrs: (rel: "stylesheet", href: "pagefind/pagefind-ui.css"))
   html.elem("style", css)
   nav
-  html.elem("main")[
+  html.elem("main", attrs: if indexed { (data-pagefind-body: "") } else { (:) })[
     #html.elem("h1", title)
     #body
   ]
   html.elem("script", attrs: (type: "module"), mermaid-js)
+  // A classic script, not an import, so Vite serves it untouched.
+  html.elem("script", attrs: (src: "pagefind/pagefind-ui.js"))
+  html.elem("script", search-js)
 }
 
 /// The manifest entry for a page by name.
@@ -201,7 +223,7 @@ mermaid.initialize({ startOnLoad: true, securityLevel: 'loose', deterministicIds
       if from.len() > 0 {
         html.elem("p", attrs: (class: "backlinks"))[What links here: #from.join(", ")]
       }
-    })
+    }, indexed: true)
   }
 }
 

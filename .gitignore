@@ -1,2 +1,4 @@
 out/
+.out-next/
 manifest.json
+node_modules/
