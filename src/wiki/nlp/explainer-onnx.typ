@@ -19,8 +19,6 @@ non-generative models such as #l("explainer-embeddings")[embedding],
 #l("explainer-nli")[NLI] and #l("explainer-gliner2")[GLiNER] models.
 Generative models would use #l("explainer-quantization")[llama.cpp] instead.
 
-#wip("quell-reading-notes-design", "debate-pipeline")
-
 = External links <onnx-external>
 
 - #link("https://onnx.ai/")[ONNX] — the format.

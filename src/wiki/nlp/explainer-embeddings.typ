@@ -19,8 +19,7 @@ values near 0 mean the texts are unrelated. Each text is embedded once. After
 that, comparing two texts is just a dot product, so searching thousands of
 candidates is cheap.
 
-Models with two encoders that embed each text separately, as here, are called
-*bi-encoders*. They are fast but somewhat coarse. A
+Models that embed each text separately, as here, are called *bi-encoders*. They are fast but somewhat coarse. A
 #l("explainer-cross-encoders")[cross-encoder] reads both texts together and is
 usually more accurate, at a higher cost.
 
@@ -42,8 +41,6 @@ Embeddings are planned for three jobs:
   passage, for #l("explainer-in-context-learning")[few-shot prompting].
 - *Checking terms*: testing whether two phrasings in an argument mean the
   same thing.
-
-#wip("quell-reading-notes-design", "debate-spike")
 
 = External links <embeddings-external>
 

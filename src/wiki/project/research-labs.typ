@@ -5,9 +5,9 @@
   documents: ("quell-hex-terrain-r11-design", "quell-reading-notes-design", "debate-gold"),
 )
 
-Some of Quell's systems are hard to judge from inside the game. They include
-a trail generator that must feel "lost but readable", or a model that has to
-recognize what a player's note is about. Such questions are worked out in
+Some of Quell's systems are hard to judge from inside the game: for example,
+whether a trail generator feels "lost but readable", or whether a model
+recognizes what a player's note is about. Such questions are worked out in
 *labs* under `misc/labs/`. These are small local repositories, built for fast
 iteration and measurement. The game never depends on them. Once an approach
 has been chosen, it is ported to Rust.
@@ -28,7 +28,7 @@ has been chosen, it is ported to Rust.
   [Python, uv; INCEpTION],
   [Which concepts is a player's highlight or note about? It defines the
     annotation data format and validates data sets. It is meant to compare
-    interpreters, from authored annotations to small local models.],
+    ways of interpreting notes, from authored annotations to small local models.],
   [xAIF editor \ `misc/labs/xAIF`],
   [Svelte, TypeScript],
   [What argument structure does a text have? It is a browser editor for
@@ -37,11 +37,11 @@ has been chosen, it is ported to Rust.
 )
 
 hex-lab is the most mature of the three. The current Rust generator in the
-`hex_paths` development screen follows the lab's experiment 15 (`exp/15-density`),
-which had a 15-experiment history behind it.#footnote[The module documentation
+`hex_paths` development screen follows the lab's experiment 15
+(`exp/15-density`).#footnote[The module documentation
 of `bin/quell/src/screen/dev/hex_paths/mod.rs` names the lab tag and arm it
 follows.] note-lab so far has its data format, a `check` command and
-"tier 0" concept coverage. No model interpreters have been measured yet. The
+#l("reading-notes#notes-tiers")[tier 0] concept coverage. No model interpreters have been measured yet. The
 xAIF editor is in use: it has produced the reviewed argument maps described in
 #l("argument-maps").
 
@@ -71,7 +71,8 @@ The language labs work with excerpts from real philosophy books, which must
 not be published. In note-lab, everything under `data/` is ignored by Git except
 a small invented fixture. The xAIF editor's example maps quote passages and are
 committed only to its local repository. None of the three labs has a remote,
-and this wiki, which can quote the same material, is also local-only.
+and the wiki (`.docs/wiki/`), which can quote the same material, is also
+local-only.
 
 Whether the game can ship such texts is a separate licensing question. See
 #l("debate-system").

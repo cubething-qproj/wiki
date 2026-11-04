@@ -31,8 +31,6 @@ suggestion, so a reviewer knows where to look first. That only helps if the
 confidences are calibrated, so calibration is one of the measures each
 automated approach is to be scored on.
 
-#wip("debate-gold")
-
 = References <calibration-references>
 
 - Guo, C., Pleiss, G., Sun, Y., & Weinberger, K. Q. (2017). On calibration of

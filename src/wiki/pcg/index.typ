@@ -5,26 +5,25 @@
 )
 
 Quell's exploration spaces separate the landscape from the landmarks and paths
-arranged over it.
+arranged over it. The generator runs in a development screen, where boards can
+be generated and inspected.
 
-= Start here
+Start with #l("terrain-generation"), which covers the landscape pipeline and
+the difference between fixed ground and replaceable layouts. Then read
+#l("trail-layout") for landmarks, route constraints and regeneration.
 
-+ Read #l("terrain-generation") for the landscape pipeline and the distinction
-  between fixed ground and replaceable layouts.
-+ Continue to #l("trail-layout") for landmarks, route constraints and regeneration.
+#wip("quell-world-generation-design")[Covers: generated terrain in the playable world.]
 
-The generator runs today in a development screen, where boards can be
-generated and inspected. Turning it into playable levels is still a proposal.
-
-#wip("quell-world-generation-design")[Generated terrain is not yet part of the
-playable world.]
-
-= Topics
+= Topics <pcg-topics>
 
 #article-list("pcg")
 
-= Development records
+= Records <pcg-records>
 
-Proposals and implementation history live in the separate
-#link("/documents/pcg.html")[PCG document library]. They are supporting records,
-not prerequisites for reading the topic articles.
+Proposals and implementation history are in the
+#link("/documents/pcg.html")[PCG document library].
+
+= See also <pcg-see-also>
+
+- #l("research-labs") — hex-lab, where the generator was prototyped.
+- #l("portal-gameplay-3d") — the player and cameras that would explore these spaces.

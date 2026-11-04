@@ -92,7 +92,7 @@ There are four kinds of documentation, each with its own home:
 - *Procedural records* in `.docs/`: designs, plans, issues and handoffs, sorted
   into `done/`, `retired/` and `wont-do/` as they age. Papers in `.docs/reference/`
   are local-only.
-- *This wiki*, in `.docs/wiki/`, is a nested repository. It also holds a
+- *The wiki*, in `.docs/wiki/`, is a nested repository. It also holds a
   #link("/documents/index.html")[document library] of selected records.
 
 = See also <layout-see-also>

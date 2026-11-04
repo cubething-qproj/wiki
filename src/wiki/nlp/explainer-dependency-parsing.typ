@@ -26,8 +26,6 @@ parsers are trained on news and web text, so they may struggle with the long
 sentences and older syntax of philosophical writing. That is something the
 gold maps would measure.
 
-#wip("debate-pipeline")
-
 = External links <parsing-external>
 
 - #link("https://spacy.io/")[spaCy] — the parser library.

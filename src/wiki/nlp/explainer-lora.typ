@@ -8,7 +8,7 @@
 *Low-rank adaptation* (LoRA) is a cheap way to fine-tune a large model. The
 original weights are left untouched. Small additional matrices are trained
 alongside some of the weight matrices and added to their output. Because
-these matrices are low-rank, there are few of them to train. Fine-tuning
+these matrices are low-rank, they add few parameters to train. Fine-tuning
 therefore needs far less memory than retraining the whole model, and the
 result is a small file that can be applied on top of the base model.
 
@@ -19,8 +19,6 @@ fine-tuned on reviewed argument maps would no longer need worked examples in
 every prompt, which would shorten prompts and speed up processing on a CPU.
 It needs a substantial amount of reviewed data first, so it is deferred until
 the source materials have settled.
-
-#wip("debate-spike")
 
 = See also <lora-see-also>
 

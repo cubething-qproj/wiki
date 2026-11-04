@@ -8,8 +8,7 @@
 Quell's terrain generator creates the ground beneath its exploration spaces.
 The essential separation is between the *landscape*, which stays fixed, and
 #l("trail-layout")[the landmarks and trails], which can be regenerated over it.
-This article describes the generator as it runs in the hex-path development
-screen.#footnote[
+The generator currently runs in the hex-path development screen.#footnote[
   Implementation checked against `bin/quell/src/screen/dev/hex_paths/terrain/mod.rs`
   and `data/board.rs` in the same screen. The world-streaming proposal is a separate
   #doc("quell-world-generation-design")[design document].]

@@ -19,8 +19,8 @@ the text entails it. To ask whether an argument rests on cause, for example,
 the hypothesis could be "the premise describes a cause of the conclusion".
 The label with the strongest entailment wins.
 
-NLI models are small. DeBERTa-v3-xsmall, for instance, is about 70 MB, and it
-runs well on a CPU.
+Small NLI models exist. DeBERTa-v3-xsmall, for instance, is about 70 MB, and
+it runs well on a CPU.
 
 = In Quell <nli-quell>
 
@@ -28,8 +28,6 @@ The proposed argument-analysis pipeline uses NLI at several steps. It would
 check whether one statement supports or opposes another, whether a reworded
 statement still means the same as the original, and which lever best fits an
 argument.
-
-#wip("debate-pipeline")
 
 = See also <nli-see-also>
 

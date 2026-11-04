@@ -29,8 +29,6 @@ uses them as examples. It tests whether a small local model can write valid
 #l("argument-maps")[argument maps] this way. If enough gold data accumulates,
 #l("explainer-lora")[fine-tuning] could make the examples unnecessary.
 
-#wip("debate-spike")
-
 = References <icl-references>
 
 - Brown, T. B., et al. (2020). Language models are few-shot learners.

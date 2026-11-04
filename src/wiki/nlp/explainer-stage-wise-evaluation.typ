@@ -13,9 +13,9 @@ makes are its own.
 
 For argument maps, that means:
 
-- to score how levers are chosen, provide the correct canonical statements;
+- to score segmentation, provide only the text;
 - to score reconstruction, provide the correct segments and relations;
-- to score segmentation, provide only the text.
+- to score lever choice, provide the correct canonical statements.
 
 A model that produces the whole map in one go has no separate steps to feed.
 Its output is scored instead by part: locutions, relations, statement fields
@@ -25,10 +25,9 @@ and levers, each compared against the gold map.
 
 All candidate approaches to building #l("argument-maps")[argument maps] are
 to be scored this way against the reviewed gold maps. The evaluation is split
-by writer, so that no writer's own text helps label their work. Individual
+by writer, so that examples from one writer are never used to label that
+writer's own texts. Individual
 bad cases are to be inspected before summary statistics are computed.
-
-#wip("debate-gold")
 
 = See also <stage-wise-see-also>
 

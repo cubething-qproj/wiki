@@ -62,7 +62,7 @@
 /// Fail the build if `name` isn't a page, and record a link to it.
 #let record-link(name) = {
   if name not in known { panic("unknown wiki page: " + name) }
-  [#metadata((from: current.get(), to: name)) <wikilink>]
+  [#metadata((from: current.get(), to: name))<wikilink>]
 }
 
 /// Link to a wiki page: `#l("debate-spike")`, `#l("debate-spike")[the spike]`,
@@ -364,12 +364,19 @@
 #let wiki-home() = context {
   [Quell is a game in development, built with Bevy. The plan is for its players
     to explore generated landscapes, read real philosophy found along the way, and
-    debate the characters they meet. Start with a portal or a topic below.]
-  let portals = all-pages().filter(p => p.kind == "portal")
-  for p in portals { html.elem("p")[*#link(page-url(p.name), p.title)* — #p.summary] }
-  html.elem("h2")[Articles]
-  for p in all-pages().filter(p => p.kind == "article").sorted(key: p => p.name) {
-    html.elem("p")[#link(page-url(p.name), p.title) — #p.summary]
+    debate the characters they meet. Start with the project overview, or pick an
+    area below.]
+  let pages = all-pages()
+  for a in areas {
+    let portal = pages.find(p => p.kind == "portal" and p.area == a.id)
+    if portal == none { continue }
+    html.elem("h2", link(page-url(portal.name), portal.title))
+    html.elem("p", portal.summary)
+    html.elem("ul")[
+      #for p in pages.filter(p => p.kind == "article" and p.area == a.id).sorted(key: p => p.name) {
+        html.elem("li")[#link(page-url(p.name), p.title) — #p.summary]
+      }
+    ]
   }
 }
 

@@ -5,7 +5,7 @@
   documents: ("debate-pipeline",),
 )
 
-A #l("explainer-embeddings")[embedding model] encodes each text on its own,
+An #l("explainer-embeddings")[embedding model] encodes each text on its own,
 so texts can be embedded in advance and compared cheaply. A *cross-encoder*
 instead reads two texts together and outputs a single score for the pair,
 for example "how well does this passage answer this question?". Because the
@@ -24,8 +24,6 @@ In the proposed argument-analysis pipeline, a cross-encoder is one candidate
 for deciding whether two phrasings are "the same term". That decision
 determines an argument's #l("explainer-pta")[form]. Like every other
 candidate, it would be measured against the reviewed gold maps.
-
-#wip("debate-pipeline")
 
 = See also <cross-encoders-see-also>
 

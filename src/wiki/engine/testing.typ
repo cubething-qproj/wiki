@@ -5,12 +5,13 @@
 )
 
 Quell and most of the `lib/` crates are tested through `q_test_harness`, a
-small shared crate for running Bevy apps under `cargo nextest`. It supports two kinds of test. A
+small shared crate for running Bevy apps under `cargo nextest`. It supports
+two kinds of test. A
 *full-app* test runs an ordinary app loop until the test writes `AppExit`. A
 *selected-schedule* test feeds synthetic input and advances only the schedules
 it names. Choosing between them is a decision about what the test is meant to
-show.#footnote[The harness's README and Rust docs, and the `q-test-harness`
-agent skill, cover its API. This article covers how it is used.]
+show.#footnote[The harness's API is documented in its README, its Rust docs
+and the `q-test-harness` agent skill.]
 
 #contents()
 
@@ -20,8 +21,8 @@ agent skill, cover its API. This article covers how it is used.]
 uses a single-threaded executor and a timeout that fails a stalled test. A test
 is written as numbered *steps*, each a system that runs while the step is
 current. Steps can wait for a condition, make assertions, and then advance to
-the next step. Assertion helpers write an error exit, and helpers can find an
-entity by name.
+the next step. Assertion helpers end the test with an error exit, and finder
+helpers look up entities by name.
 
 Full-app tests are the right choice when the question involves scheduling or
 lifecycle. Examples include screen transitions, process exit, or whether

@@ -29,8 +29,6 @@ valid, such as statement types, scopes and #l("explainer-pta")[lever]
 keywords. Wrong choices are left for the editor's checks and human review to
 catch.
 
-#wip("debate-spike")
-
 = See also <decoding-see-also>
 
 - #l("explainer-quantization") — the llama.cpp runtime and model format.

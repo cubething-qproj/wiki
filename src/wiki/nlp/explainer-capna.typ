@@ -34,8 +34,6 @@ is weak, a character could answer with the critical question its type invites.
 A response that names the kind of weakness, without supplying the fix, would
 also make brute-force guessing less useful.
 
-#wip("capna-based-flow", "debate-evaluation")
-
 = See also <capna-see-also>
 
 - #l("explainer-pta") — the types whose critical questions CAPNA uses.

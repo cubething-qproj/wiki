@@ -7,8 +7,7 @@
 
 The Quell crate (`bin/quell`) is organized around two ideas from its engine
 libraries. *Screens* decide what part of the game is running. *Services* provide
-the behavior that screens use. This article describes the structure as it
-stands in the code.#footnote[Checked against `bin/quell/src/` after the Bevy 0.20
+the behavior that screens use.#footnote[Checked against `bin/quell/src/` after the Bevy 0.20
 migration. The crate's own `docs/architecture.md` describes the same
 conventions, but parts of it predate the current layout. It mentions a `mise`
 CLI and a main-menu screen, neither of which exists now.]
@@ -55,13 +54,11 @@ switches screens, every entity not marked persistent is despawned. See
   [Previews terrain-first trail generation; see #l("terrain-generation").],
 )
 
-The world screen is a test level, not the game world. Procedural generation
-currently runs only in the `hex_paths` development screen. The `worldgen`
-service still contains a placeholder plane, and the world screen does not spawn
-it.
+The world screen loads a test level, not the game world. The `worldgen` service
+holds only a placeholder plane, which the world screen does not spawn.
 
-#wip("quell-world-generation-design")[Generated terrain is not yet connected
-to playable levels.]
+#wip("quell-world-generation-design")[Covers: generated terrain in the world
+screen. Generation currently runs only in the `hex_paths` development screen.]
 
 = Services <app-services>
 
@@ -101,8 +98,7 @@ because the Jackdaw editor builds the game without choosing features.
 
 Within a module, `data.rs` holds types and `systems.rs` holds systems. A small
 `plugin` function, or `plugin.rs`, does the registration. Type definitions come
-before free functions. This shared convention is the same in every crate. It
-is recorded in the org's agent instructions rather than duplicated here.
+before free functions. Every crate in the organization follows the same layout.
 
 = See also <app-see-also>
 

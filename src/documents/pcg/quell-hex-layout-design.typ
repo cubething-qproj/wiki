@@ -293,8 +293,8 @@ join ports.
   (branches ≈ 1.15 in every arm). The spanner and loop passes are built
   to avoid redundancy, so lostness needs a structural change, not just
   noise.
-+ #strong[Noise costs teases and pushes routes into the connection
-  pass.] Noisy routes fail the tease guard more often, so the connection
++ *Noise costs teases and pushes routes into the connection
+  pass.* Noisy routes fail the tease guard more often, so the connection
   pass is used on 52% of boards against 27%, and fewer teases hold (1.60
   against 1.84).
 + *Bench spacing helps only a little* (79% → 64% of boards with

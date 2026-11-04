@@ -9,7 +9,7 @@ Status: *draft, 2026-10-16. For review.*
 
 Follows the hex terrain work (#l("quell-hex-terrain-design")) and
 the async generation issue (`.docs/issues/quell-worldgen-0-async.md`).
-The `hex_paths` screen becomes the level *editor*\; `WorldScreen`
+The `hex_paths` screen becomes the level *editor*; `WorldScreen`
 becomes the place where levels are *played*. The greybox scene
 stays with its own screen for controller work.
 
@@ -247,8 +247,8 @@ The cache is an optimisation; the save stays authoritative.
   LOD 0 detail are ready. Then spawn the player at the spawn pad.
   `Update` streams chunks.
 - *Greybox*: the `greybox_arena` dev screen already loads
-  `greybox_scene.bsn`\; WorldScreen stops loading it.
-- #strong[hex\_paths]: unchanged apart from depending on
+  `greybox_scene.bsn`; WorldScreen stops loading it.
+- *`hex_paths`*: unchanged apart from depending on
   `service/worldgen`, plus the dev-only "play this level" button.
 
 == Out of scope

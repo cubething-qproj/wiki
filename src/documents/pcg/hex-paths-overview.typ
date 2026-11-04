@@ -95,8 +95,8 @@ October 7. I could not recover that thread's last message.
   unload. Generation is synchronous in this implementation; the cache
   does not make a first simulation asynchronous.
 
-+ #strong[Choose a board for play features, then translate water onto
-    hexes.]
++ *Choose a board for play features, then translate water onto
+    hexes.*
 
   `Window::choose` samples 60 default candidate positions and rotations
   that fit inside the region. Each candidate is scored for creek tiles,
@@ -181,11 +181,11 @@ October 7. I could not recover that thread's last message.
   pins and deals its own deck; it differs from regenerating the current
   arrangement.
 
-+ #strong[Build useful routes while preserving the experience of a
-    tease.]
++ *Build useful routes while preserving the experience of a
+    tease.*
 
   Dijkstra searches the corner graph. Each edge has a symmetric terrain
-  cost `exp(aversion × |rise|)`\; off-board and closed-creek edges have
+  cost `exp(aversion × |rise|)`; off-board and closed-creek edges have
   infinite cost. Starting the search from all six corners of a pad
   treats any entrance as usable. The existing trail network exposes only
   laid edges and gives pad perimeters an almost-zero plaza cost. This
@@ -284,8 +284,8 @@ October 7. I could not recover that thread's last message.
   a player-centred regeneration from a fresh layout even though both
   increment the count.
 
-+ #strong[The preview explains the result, and tests cover particular
-    properties.]
++ *The preview explains the result, and tests cover particular
+    properties.*
 
   Screen loading creates the orbit camera, billboard assets, and
   settings panel. On readiness it requests generation. Chained

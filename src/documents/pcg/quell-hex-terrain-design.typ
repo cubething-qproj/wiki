@@ -99,8 +99,8 @@ come from the Python prototype and show the round-8 rules.
 
 == Idea
 Real trails come from how easy the ground is to walk. So generate the
-ground first, then let people walk it. #strong[Trails bend to the
-terrain, not the other way round:] generation changes the terrain as
+ground first, then let people walk it. *Trails bend to the
+terrain, not the other way round:* generation changes the terrain as
 little as it can (pads, and the shortfall of a tease drop; §4).
 
 - *Heights live on hex corners.* Each tile's fill is a gradient
@@ -228,7 +228,7 @@ with the viewer standing at the lip, looking down.
   generated once without escarpments to learn it. The real run uses the
   same seed, so the sites are identical.
 - Ranking, best first:
-  + pairs the viewer can *already see*\;
+  + pairs the viewer can *already see*;
   + then pairs where the ground *already drops* furthest from
     viewer to target (up to the top of `tease_height`, beyond which more
     drop doesn't help);
@@ -281,7 +281,7 @@ skipped pairs.
 
 Each built pair is routed with Dijkstra over the terrain:
 
-- walking an existing trail costs 0.6 ×, so trails *merge*\;
+- walking an existing trail costs 0.6 ×, so trails *merge*;
 - walking right alongside one without joining costs 2.5 ×, so they
   don't *shadow* each other.
 

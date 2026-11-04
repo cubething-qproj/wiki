@@ -1,7 +1,7 @@
 #import "../../template.typ": *
 #show: article.with(
   title: [Debate],
-  summary: [The planned mechanic in which players read real philosophy, build arguments and debate NPCs.],
+  summary: [The planned mechanic in which players read real philosophy, build arguments and debate the characters they meet.],
   documents: (
     "debate",
     "debate-game",
@@ -14,16 +14,16 @@
 
 Debate is Quell's planned central mechanic. Players read in-world texts, which
 are excerpts of real philosophy. They highlight and take notes, build
-arguments from what they have found, and debate non-player characters on
+arguments from what they have found, and debate the game's characters on
 questions without easy answers. Some debates must be won to progress; others
-only change the conversation. Between runs, players keep only what they have
-learned, as in a knowledge-based roguelite.
+only change the conversation. Each run starts over, but players keep what they
+have learned. Their progress is knowledge rather than items or levels, as in a
+knowledge-based roguelite.#footnote[The current plan is the draft-2 plan map
+of 2026-11-03, which supersedes the first roadmap in
+`.docs/designs/quell-debate-roadmap.typ`.]
 
-#wip("debate", "debate-game")[Quell has no reading, debate or dialogue code.
-What follows is design intent, supported by research in the labs. The plan is
-a draft, and several of its basic choices are still open.#footnote[The current
-plan is the draft-2 plan map of 2026-11-03, which supersedes the first roadmap
-in `.docs/designs/quell-debate-roadmap.typ`.]]
+#wip("debate", "debate-game")[What follows is design intent, supported by
+research in the labs. Several of its basic choices are still open.]
 
 #contents()
 
@@ -34,16 +34,16 @@ flowchart TB
   READ["read in-world texts"] --> HL["highlight and take notes"]
   HL --> BANK[("collected statements")]
   BANK --> ARGUE["build an argument"]
-  ARGUE --> DEB["debate an NPC"]
-  DEB -->|NPC answers| ARGUE
+  ARGUE --> DEB["debate a character"]
+  DEB -->|character answers| ARGUE
   DEB -->|win or move on| NEXT["next area or run"]
   NEXT -->|keep what you know| READ
 ```
 
-- *Reading.* A highlight snaps to a statement that has already been
-  identified in the text's #l("argument-maps")[argument map], so the game
-  always knows which statement the player chose. Notes remain free text; see
-  #l("reading-notes").
+- *Reading.* In the plan, a highlight snaps to a statement that has already
+  been identified in the text's #l("argument-maps")[argument map], so the game
+  always knows which statement the player chose. Notes remain free text. See
+  #l("reading-notes#notes-state") for how this relates to the notes lab.
 - *Arguing.* Two forms of input will be tried, to see how each feels:
   - in a *thinking editor*, the player links a premise to a conclusion and
     picks the kind of connection;
@@ -92,28 +92,31 @@ an argument is *good*, and who wins, is later research. The leading
 candidates are:
 
 - *CAPNA*: judging an argument in stages (relevance, reasoning, language).
-  Each type of argument has its own critical questions, which could become
-  what the NPC says in reply;
+  Each kind of argument invites its own critical questions, which could
+  become what the character says in reply;
 - *Dung's abstract argumentation*: a debate as a graph of attacks, in which
   the arguments that survive are the ones that win;
-- *value-based argumentation*: each NPC ranks values, so the same argument
+- *value-based argumentation*: each character ranks values, so the same argument
   can succeed against one character and fail against another.
 
 Each has its own article: #l("explainer-capna"), #l("explainer-dung") and
 #l("explainer-value-based").
 
-#undecided[How a debate is won. Is it satisfying to lose because an NPC ranks
-values differently, or must the game say so explicitly?]
+= Open questions <debate-open>
 
-#undecided[Whether players argue in free text, in the thinking editor, or
-both. This depends partly on whether runtime parsing works.]
-
-#undecided[How the game prevents brute force when a player could try every
-pair of statements. Ideas include a cost per submission, feedback that names
-the kind of failure but not the fix, and confirming in batches.]
-
-#undecided[Whether the PTA's 50 argument types are too many to teach. The
-editor could show broad families of connection and keep full codes internal.]
+#undecided[
+  - *How a debate is won.* If characters rank values differently, is it
+    satisfying to lose on values alone, or must the game say so explicitly
+    ("you won't move me on liberty")?
+  - *How players argue*: in free text, in the thinking editor, or both. This
+    depends partly on whether runtime parsing works.
+  - *How to prevent brute force* when a player could try every pair of
+    statements. Ideas include a cost per submission, feedback that names the
+    kind of failure but not the fix, and confirming in batches.
+  - *Whether 50 argument types is too many to teach.* The editor could show
+    broad families of connection, such as cause, example, analogy and
+    authority, and keep the full codes internal.
+]
 
 = Where it would live in Quell <debate-in-quell>
 

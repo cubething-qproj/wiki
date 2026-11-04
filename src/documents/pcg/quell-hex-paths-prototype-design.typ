@@ -12,8 +12,8 @@ Superseded by
 shipped in quell \#49 and \#51.
 ]
 
-Status: #strong[Approved by Ada on 2026-10-09. Implementation proceeds
-one step at a time.]
+Status: *Approved by Ada on 2026-10-09. Implementation proceeds
+one step at a time.*
 
 Before pushing: rebase and sign the unsigned step 1 commit `b094306`.
 
@@ -221,7 +221,7 @@ Debug panel: a `bevy_ui` side panel built from feathers controls
 (requires enabling Bevy's `bevy_feathers` feature for quell):
 
 - number inputs / sliders for `HexPathsSettings` fields;
-- checkboxes for `HexPathsView` toggles, slider for `step_duration`\;
+- checkboxes for `HexPathsView` toggles, slider for `step_duration`;
 - "Regenerate" button (re-runs generation with the current settings;
   with `seed: None` that is a new board);
 - `BoardStats` as text.
@@ -255,7 +255,7 @@ mid-edge.
 Unit tests in `src/` against `generate`, over a range of seeds:
 
 - spawn and every node are connected under the crossing rule (BFS);
-- `Path` tiles have 2--3 spokes; spawn within `spawn_spokes`\;
+- `Path` tiles have 2--3 spokes; spawn within `spawn_spokes`;
 - spacing constraints hold;
 - dealt traits match the deck exactly;
 - impossible settings return an error rather than panicking or looping.

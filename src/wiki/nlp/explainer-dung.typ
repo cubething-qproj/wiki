@@ -9,8 +9,6 @@
 debate as a directed graph. Each node is an argument, and an arrow from $A$ to
 $B$ means "$A$ attacks $B$". The model deliberately ignores what the arguments
 say. It asks only which arguments can stand together, given who attacks whom.
-It is a candidate for deciding who wins a debate in Quell. See
-#l("debate-system#debate-judging").
 
 #contents()
 
@@ -31,9 +29,9 @@ stay undecided.
 
 ```mermaid
 flowchart RL
-  C["C: player undercuts the counter"]:::acc --> B["B: NPC's counter"]:::rej
+  C["C: player undercuts the counter"]:::acc --> B["B: character's counter"]:::rej
   B --> A["A: player's rebuttal"]:::acc
-  A --> N["NPC's thesis"]:::rej
+  A --> N["character's thesis"]:::rej
   classDef acc fill:#dcfce7,stroke:#166534,color:#111
   classDef rej fill:#fee2e2,stroke:#991b1b,color:#111
 ```
@@ -44,15 +42,14 @@ the thesis A attacks is rejected.
 
 = In Quell <dung-quell>
 
-Under this model, winning a debate could mean that the character's thesis is
-outside the grounded extension: the player has made an attack that the
-character cannot answer. The computation is a simple loop, so its cost is
-negligible at the scale of a conversation.
+Under this model, a player could win a debate by getting the character's
+thesis rejected: attacked by an argument the character cannot answer. The
+computation is a simple loop, so its cost is negligible at the scale of a
+conversation.
 
-#wip("debate-evaluation")[How a debate is won has not been designed. Abstract
-argumentation is one of several candidates, along with
-#l("explainer-capna")[CAPNA] and #l("explainer-value-based")[value-based
-argumentation].]
+#undecided[How a debate is won. Abstract argumentation is one of several
+candidates, along with #l("explainer-capna")[CAPNA] and
+#l("explainer-value-based")[value-based argumentation].]
 
 = See also <dung-see-also>
 

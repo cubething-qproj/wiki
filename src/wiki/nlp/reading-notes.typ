@@ -9,12 +9,10 @@ While reading in-world texts, the player highlights passages and writes notes
 in their own words. Non-player characters are meant to respond when the player
 has engaged with particular ideas. To do that, the game needs *concept ids*,
 short stable names such as `slave_morality`, derived from those highlights and
-notes. This article explains the planned approach and what note-lab has built
-so far.#footnote[Checked against `misc/labs/nlp/README.md` and its Git
+notes.#footnote[Checked against `misc/labs/nlp/README.md` and its Git
 history.]
 
-#wip("quell-reading-notes-design")[The game has no reading or notes code. The
-lab work is described below.]
+#wip("quell-reading-notes-design")[The work so far is in note-lab.]
 
 #contents()
 

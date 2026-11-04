@@ -9,8 +9,8 @@ or a development sandbox. It corresponds to a scene or a room in other engines.
 The `q_screens` crate gives each screen a load–ready–unload lifecycle. When the
 game switches screens, it removes the previous screen's entities. Both of
 qproj's games are built on it: Quell and the visual novel `vn-jun-26`.
-#footnote[Checked against `lib/q_screens/src/` (version 0.2). The crate's Rust
-docs and the `q-screens` agent skill are the API reference.]
+#footnote[Checked against `lib/q_screens/src/` (version 0.2). The API is
+documented in the crate's Rust docs and the `q-screens` agent skill.]
 
 The name is unrelated to Bevy's `Scene`, which is serialized entity data.
 Quell's screens often spawn Jackdaw scenes.
@@ -58,8 +58,8 @@ this after its player model has loaded. Screens without such systems skip
 straight through. By default, `Update` systems wait until the screen is
 `Ready`. A non-blocking load strategy lets them run during loading as well.
 
-Loading is the screen's state machine. Services should not build their own
-loading states alongside it.
+The screen lifecycle is the game's loading state machine. Services hook into
+it, rather than adding loading states of their own.
 
 = What gets cleaned up <screens-cleanup>
 

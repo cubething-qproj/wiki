@@ -13,11 +13,6 @@ properties. Version 3.1 has 50 types. The accompanying *Argument Type
 Identification Procedure* (ATIP) is a step-by-step method for finding the type
 of a real argument.
 
-Quell uses the PTA to describe the structure of the arguments in its texts.
-The plan is for players to build arguments out of statements they have read,
-and for the game to recognize what kind of argument they have made. See
-#l("argument-maps") and #l("debate-system").
-
 #contents()
 
 = Three statements <pta-statements>
@@ -69,8 +64,8 @@ is always written conclusion first:
   The minister example is *VF*: a value judgement supported by a fact.
 - *β*: the scope of each subject: *s* (singular), *p* (particular, "some")
   or *u* (universal, "all"). The lawn example is *su*.
-- *γ*: whether the two relations are *i* (identical, as peace is to war as
-  truth is to lies) or *d* (different).
+- *γ*: *i* if the subjects relate to each other as the predicates do (peace
+  is to war as truth is to lies), and *d* otherwise.
 - *δ*: whose authority the premise invokes: *I* (the arguer's own), *II*
   (the listener's, as in threats or rewards) or *III* (a third party, such as
   an expert).
@@ -112,6 +107,11 @@ same subject" is an interpretive decision, and the form depends on it.
 
 = In Quell <pta-quell>
 
+Quell uses the PTA to describe the structure of the arguments in its texts.
+The plan is for players to build arguments out of statements they have read,
+and for the game to recognize what kind of argument they have made. See
+#l("argument-maps") and #l("debate-system").
+
 In the lab's argument-map editor, steps 3 and 4 are mechanical. Once each
 statement has been reformulated and analysed, the editor derives the form and
 substance by rule, and the annotator chooses only the lever. The same rules
@@ -122,9 +122,8 @@ provided the player builds it from statements that have already been analysed.
 ATIP as rules plus statistical judgements is in
 #doc("pta-atip-algorithm")[ATIP as an algorithm].]
 
-#undecided[Whether 50 types is too many to teach in a game. One option is to
-show players broad families of lever (cause, example, analogy, authority) and
-keep the full codes internal.]
+Whether 50 types is too many to teach in a game is one of the
+#l("debate-system#debate-open")[open questions] about debate.
 
 = See also <pta-see-also>
 

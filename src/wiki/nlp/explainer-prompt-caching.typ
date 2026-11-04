@@ -22,8 +22,6 @@ Prompt processing is a large part of a small model's running time on a CPU.
 Caching the fixed part of the prompt is one of the cost reductions the
 argument-analysis spike would try once it works at all.
 
-#wip("debate-spike")
-
 = See also <caching-see-also>
 
 - #l("explainer-in-context-learning") — why prompts contain examples.

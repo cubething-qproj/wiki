@@ -5,8 +5,8 @@
   summary: [The consolidated round-11 terrain and trail generator, with subsequent experiment fixes.],
 )
 
-Status: #strong[Round 11, 2026-10-13. Python experiments settled. Next:
-re-plan the Rust port against this.]
+Status: *Round 11, 2026-10-13. Python experiments settled. Next:
+re-plan the Rust port against this.*
 
 This document consolidates rounds 1--10 into the current algorithm:
 

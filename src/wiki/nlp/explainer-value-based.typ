@@ -24,11 +24,8 @@ character's ranking of values could be part of their personality. The same
 argument would then win against one character and fail against another, and the
 game would never have to declare any value judgement true.
 
-#wip("debate-evaluation")
-
-#undecided[Whether it is satisfying to lose a debate because a character
-simply ranks values differently, or whether the game must say so explicitly
-("you won't move me on liberty").]
+Whether losing on values would feel fair to the player is one of the
+#l("debate-system#debate-open")[open questions] about debate.
 
 = See also <value-see-also>
 

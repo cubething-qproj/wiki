@@ -7,46 +7,32 @@
 Quell is meant to let players practise real philosophical debate. That needs
 two kinds of groundwork. One is a model of argument structure, detailed enough
 for the game to understand what a player has built. The other is a way to tell
-what a player's notes are about. This area covers the plan, the research that
-supports it, and the techniques that research draws on.
+what a player's notes are about.
 
 #wip("debate", "debate-game")[The work so far lives in the labs.]
 
-= Start here <nlp-start>
+Start with #l("debate-system"), the intended mechanic and what is still
+undecided. #l("argument-maps") describes the reviewed graphs of each text that
+debates would be built from, and #l("reading-notes") covers how a player's
+highlights and notes would be interpreted.
 
-+ #l("debate-system") — the intended mechanic, its constraints, and what is
-  still undecided.
-+ #l("argument-maps") — the reviewed graphs of each text that debates would be
-  built from.
-+ #l("reading-notes") — interpreting highlights and free-text notes as
-  concepts.
+The remaining articles explain the ideas this work draws on. The
+argumentation theory begins with the #l("explainer-pta") and
+#l("explainer-iat"). For judging arguments and debates, see #l("explainer-capna"),
+#l("explainer-dung") and #l("explainer-value-based"). The language-processing
+techniques start from #l("explainer-embeddings") for understanding text and
+#l("explainer-in-context-learning") for generating it, with
+#l("explainer-stage-wise-evaluation") for measuring the results.
 
-= Argumentation theory <nlp-theory>
-
-- #l("explainer-pta") — classifying an argument by form, substance and lever.
-- #l("explainer-iat") — mapping the arguments of a whole text or dialogue.
-- #l("explainer-capna") — judging whether an argument is good.
-- #l("explainer-dung") and #l("explainer-value-based") — deciding which
-  arguments survive a debate.
-- #l("explainer-argument-mining") — finding arguments in text automatically.
-
-= Language-processing techniques <nlp-techniques>
-
-- Understanding text: #l("explainer-embeddings"), #l("explainer-cross-encoders"),
-  #l("explainer-nli"), #l("explainer-gliner2") and
-  #l("explainer-dependency-parsing").
-- Generating text with small models: #l("explainer-in-context-learning"),
-  #l("explainer-constrained-decoding"), #l("explainer-prompt-caching"),
-  #l("explainer-lora") and #l("explainer-quantization").
-- Running models in the game: #l("explainer-onnx").
-- Measuring results: #l("explainer-stage-wise-evaluation") and
-  #l("explainer-calibration").
-
-= All topics <nlp-topics>
+= Topics <nlp-topics>
 
 #article-list("nlp")
 
 = Records <nlp-records>
 
 The debate plan's pages, the ATIP algorithm note and the reading-notes design
-are in the #link("/documents/nlp.html")[NLP document library]. They are drafts.
+are drafts in the #link("/documents/nlp.html")[NLP document library].
+
+= See also <nlp-see-also>
+
+- #l("research-labs") — note-lab and the xAIF editor.

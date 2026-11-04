@@ -11,15 +11,18 @@ works out which supports or attacks which. Finding the argumentative units in
 carefully edited prose works reasonably well. Recovering the relations between
 them is much harder, especially when, as is usual, the connection is implicit.
 
-For Quell, argument mining is one possible way to produce
-#l("argument-maps")[argument maps] faster than annotating them by hand.
-
 = oAMF <mining-oamf>
 
 ARG-tech's open *Argument Mining Framework* (oAMF) chains mining modules,
 such as segmenters and relation classifiers, into pipelines. It reads and
 writes #l("explainer-iat")[xAIF], the format Quell's maps already use, so
 its output could be opened and reviewed directly in the lab's editor.
+
+= In Quell <mining-quell>
+
+Argument mining is one possible way to produce #l("argument-maps")[argument
+maps] faster than annotating them by hand. Because oAMF already writes xAIF, it
+is one of the candidate approaches to be compared against the gold maps.
 
 #undecided[Which oAMF modules exist, how well they handle philosophical
 texts, and whether they can run locally. These have not been researched.]

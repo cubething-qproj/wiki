@@ -7,9 +7,9 @@
 The player character is a kinematic capsule moved by Quell's own small
 controller, built on Avian physics' `MoveAndSlide`. Physics forces never push
 the player. Each fixed step, the controller decides where to move and lets
-Avian slide that motion along whatever it touches. This article describes the
-behavior implemented now. The controller is intentionally minimal, and several
-common features are absent by design.#footnote[Checked against
+Avian slide that motion along whatever it touches. The controller is
+deliberately minimal: there is no step-up, no support for moving platforms, and
+dynamic bodies do not push the player.#footnote[Checked against
 `bin/quell/src/service/player/`, especially the module documentation of
 `movement.rs`, which states the movement policy.]
 
@@ -35,7 +35,8 @@ moves the body and turns it toward that facing at a limited rate.
 
 Movement only happens while the tracking camera is the active camera and the
 window has focus. Switching to the free camera or leaving the window stops the
-player. Input released in the meantime does not resume when control returns.
+player. When control returns, the player does not keep moving on input that
+was released in the meantime.
 
 The update system belongs to the screen, so a screen with a player must
 schedule it, while the fixed-step movement is installed globally. See
@@ -56,7 +57,7 @@ schedule it, while the fixed-step movement is installed globally. See
   push the player.
 
 Sliding down a steep slope is slow and depends on the timestep, because only
-vertical velocity carries over between ticks. This is a known limitation of
+vertical velocity carries over between fixed steps. This is a known limitation of
 the current policy.
 
 = Spawning <movement-spawn>

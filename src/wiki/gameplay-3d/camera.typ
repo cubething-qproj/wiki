@@ -40,7 +40,7 @@ but this does not guarantee that the camera's near plane is clear as well.
 = Which camera is in charge <camera-ownership>
 
 The `is_active` flag on Bevy's `Camera` is the only record of which gameplay
-camera is selected. Nothing else stores the mode separately. Input is allowed
+camera is selected. Input is allowed
 or refused based on that selection, together with window focus and cursor
 capture:
 
@@ -51,7 +51,8 @@ capture:
   #l("player-movement").
 - The free camera's input gate keeps Bevy's controller disabled until it is
   armed. That happens only once the capture buttons and Escape have been
-  released, so a click or key press carried over from a reset does not take
+  released, so a click or key press carried over from switching cameras or
+  refocusing the window does not take
   control.
 
 In the world screen and the greybox arena, the player's tracking camera is the

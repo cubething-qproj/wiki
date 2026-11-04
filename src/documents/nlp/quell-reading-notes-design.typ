@@ -42,7 +42,7 @@ dev-split example notes). *Fine-tuning is deferred* until the
 designer has finalized materials; there isn't a big enough corpus yet.
 
 == Data format
-A data set is a directory (`misc/note-lab/data/<set>/`\; everything
+A data set is a directory (`misc/note-lab/data/<set>/`; everything
 except `data/fixture/` is gitignored):
 
 #table(

@@ -6,19 +6,12 @@
 
 Quell's playable 3D world is still at the greybox stage. A player character
 walks around a level authored in Jackdaw, followed by a third-person camera.
-This portal covers those foundations. Exploration content such as the
-generated trail networks is covered by #l("portal-pcg").
+Exploration content, such as the generated trail networks, is covered by
+#l("portal-pcg").
 
-= Start here <gameplay-start>
-
-+ #l("player-movement") — how the kinematic controller walks, handles slopes
-  and spawns.
-+ #l("camera") — the spring-arm tracking camera, the free camera, and how
-  they share input.
-
-= Topics <gameplay-topics>
-
-#article-list("gameplay-3d")
+#l("player-movement") explains how the kinematic controller walks, handles
+slopes and spawns. #l("camera") explains the spring-arm tracking camera, the
+free camera, and how the two share input.
 
 = Levels <gameplay-levels>
 
@@ -33,3 +26,12 @@ game's world. In the world-generation proposal, the world screen would play
 generated levels instead, and the greybox scene would move to its own screen.
 
 #wip("quell-world-generation-design")
+
+= Topics <gameplay-topics>
+
+#article-list("gameplay-3d")
+
+= See also <gameplay-see-also>
+
+- #l("application-structure") — the screens that host the player and cameras.
+- #l("portal-pcg") — terrain and trails for the playable world.

@@ -24,8 +24,6 @@ uses has to be small and quantized. The planned spike tests models of about
 1.5–3 billion parameters through `llama-server`. Smaller and larger sizes are
 later comparisons.
 
-#wip("debate-spike")
-
 = See also <quantization-see-also>
 
 - #l("explainer-constrained-decoding") — llama.cpp's grammar support.

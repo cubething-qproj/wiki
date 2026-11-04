@@ -5,7 +5,8 @@
 )
 
 *q_os* is the name for four of qproj's crates that borrow their ideas from an
-operating system. Work that spans many frames becomes a *process*. Processes
+operating system. In Quell, they power the development console. Work that
+spans many frames becomes a *process*. Processes
 exchange typed messages through file descriptors. A *terminal emulator*
 displays text, and a *shell* lets a person launch processes by typing commands.
 The aim is a familiar way to switch pieces of behavior on and off in a running
@@ -13,8 +14,7 @@ Bevy app, and eventually a scripting language for live editing.#footnote[The
 motivation is set out in `.docs/designs/q_os design.md`. That file is a short
 design note, not a specification.]
 
-In Quell, q_os currently powers only the development console. The crates are
-optional dependencies enabled by the `dev` feature.
+The crates are optional dependencies of Quell, enabled by its `dev` feature.
 
 #contents()
 
@@ -24,8 +24,8 @@ optional dependencies enabled by the `dev` feature.
 flowchart TB
   SHELL["q_shell<br/>jobs, commands, keyboard"] --> PROC["q_proc<br/>processes and I/O"]
   SHELL --> TERM["q_term<br/>terminal emulator"]
-  QUERY["q_query_lang<br/>World queries"]
-  LANG["qscript (planned)"] -.-> SHELL
+  QUERY["q_query_lang<br/>World queries"] -.->|"exposed as a command"| SHELL
+  LANG["qscript (planned)"] -.->|"would parse commands for"| SHELL
 ```
 
 #table(
@@ -109,13 +109,16 @@ The detailed ordering is documented with the crates and in the `q-os` agent skil
   already covers host files, and the qscript design lists a virtual
   filesystem as a non-goal.
 
-#wip[The planned shell language, qscript (`q_shell_lang`), has not been
-started. Its design direction, in `.docs/designs/q_shell_lang-design.md`,
-describes an imperative language with values, closures and frame-spanning
-sequencing. Its syntax is not yet specified.]
-
 #undecided[What the planned `q_coreutils` crate should contain. The q_os design
 note lists it with "contents TBD".]
+
+== qscript <qos-qscript>
+
+The planned shell language, qscript (`q_shell_lang`), is an imperative
+language with values, closures and sequencing that spans frames. Its design
+direction is in `.docs/designs/q_shell_lang-design.md`.
+
+#wip[Its syntax is not specified.]
 
 = See also <qos-see-also>
 

@@ -21,8 +21,6 @@ stance towards them, and any structured details. They are also a candidate
 for labelling statement types in argument analysis, so a single integration
 could serve both labs.
 
-#wip("quell-reading-notes-design")
-
 = External links <gliner-external>
 
 - #link("https://github.com/urchade/GLiNER")[GLiNER] — the original model and

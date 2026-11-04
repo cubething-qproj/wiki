@@ -56,7 +56,7 @@ Items marked `*` do not have solid procedures yet identified.
 - \*1: We have identified a possible analysis procedure: #l("pta-document-analysis").
 - \*3: NLP models could potentially do this? That or, use the train of
   subject/predicate analysis and pre-written embeddings to check for relevancy
-  using a simple model -\- are the subjects related, are levers related, are
+  using a simple model — are the subjects related, are levers related, are
   the predicates adjacent?
 - \*5: Needs more research
 
@@ -82,7 +82,7 @@ Questions:
 
 The dialogue choice would be fine-tuned. -\> See here:
 #link("https://github.com/NandhaKishorM/laya/blob/main/notebooks/laya_finetune_typed_decisions_2xT4_kaggle.ipynb")
-\-\-\> fine-tuning example based on this:
+→ fine-tuning example based on this:
 #link("https://huggingface.co/datasets/LocalLLaMA/typed-decisions") -\>
 DOES require both sets, obviously. Some fine-tuners say that the low
 hundreds is plenty of data. Even that much will need to be mocked.
@@ -174,7 +174,7 @@ Running examples:
   easier than defeating good (Y) (V)(u)
 
   #quote(block: true)[
-    ALT READING: ɑ VV -\- but nothing there fits, and the rewording is
+    ALT READING: ɑ VV — but nothing there fits, and the rewording is
     awkward at best. Perhaps as a rule of thumb: if it's a gerund
     ('defeating') then it's part of the subject Evil / will never beat
     good BECAUSE evil / is easier to defeat than good but if we were
@@ -269,8 +269,7 @@ often a hidden premise.
 Responses need to be based on what stage the analysis fails at, if it
 fails.
 
-*Define the response categories first,* as #emph[\(stage, target,
-  reason)]. A first cut:
+*Define the response categories first,* as _(stage, target, reason)_. A first cut:
 
 #table(
   columns: 3,
