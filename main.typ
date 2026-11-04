@@ -1,20 +1,32 @@
-// qproj design wiki: one Typst bundle, one HTML file per page.
-//
-// Serve with live reload: `just serve` (in this directory). That regenerates `manifest.json`
-// first; rerun it after adding, removing or renaming a page.
-// See `_template.typ` for how pages are written.
-
+// Build the Quell wiki and document library as separate reading collections.
+// Only the source catalogue, editor and rendering helpers are shared.
 #import "_template.typ": *
 
+/// Preserve old record URLs without indexing duplicate copies of their bodies.
+#let redirect(url) = {
+  html.elem("script", "location.replace(" + repr(url) + " + location.search + location.hash);")
+  html.elem("noscript")[
+    #html.elem("meta", attrs: (http-equiv: "refresh", content: "0;url=" + url))
+  ]
+  html.elem("p")[This page moved to #link(url)[#url].]
+}
+
 #for p in manifest.pages {
-  document(p.name + ".html", {
+  document(p.url.slice(1), {
     current.update(p.name)
     include p.path
   })
+  if p.kind == "document" {
+    document(p.name + ".html", redirect(p.url))
+  }
 }
 
-#document("index.html", title: [qproj design wiki], shell([qproj design wiki], home()))
-#document("status.html", title: [Status], shell([Pages by status], status-index()))
+#document("wiki/index.html", title: [Quell wiki], shell([Quell wiki], wiki-home(), collection: "wiki"))
+#document("documents/index.html", title: [Document library], shell([Document library], home()))
+#document("documents/status.html", title: [Document status], shell([Document status], status-index()))
+#document("index.html", redirect("/wiki/index.html"))
+#document("status.html", redirect("/documents/status.html"))
 #for a in areas {
-  document(a.id + ".html", title: a.title, shell(a.title, area-index(a)))
+  document("documents/" + a.id + ".html", title: a.title, shell(a.title, area-index(a)))
+  document(a.id + ".html", redirect("/documents/" + a.id + ".html"))
 }

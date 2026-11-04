@@ -1,4 +1,6 @@
-// Shared template for the qproj design wiki.
+// Shared rendering for Quell's wiki and separate document library.
+// Articles use `article` in articles/<area>/; portals live in portals/.
+// Existing area/*.typ files use `wiki-page` and remain document records.
 //
 // Pages are `.typ` files in an area directory (`nlp/`, `pcg/`, …). Each one
 // starts with
@@ -25,7 +27,11 @@
 #let areas = (
   (id: "nlp", title: [NLP and argumentation], about: [Argument mining, PTA and IAT, debate.]),
   (id: "pcg", title: [Procedural generation], about: [Terrain, hex boards, world generation.]),
-  (id: "gameplay-3d", title: [Gameplay: physics and 3D world], about: [Camera, character controller, world interaction.]),
+  (
+    id: "gameplay-3d",
+    title: [Gameplay: physics and 3D world],
+    about: [Camera, character controller, world interaction.],
+  ),
   (id: "gameplay-vn", title: [Gameplay: visual novel], about: [The visual novel games.]),
   (id: "narrative", title: [Narrative and writing], about: [Story, characters, dialogue.]),
   (id: "graphics", title: [Graphics], about: [Rendering, shaders, look.]),
@@ -68,20 +74,35 @@ header { border-bottom:1px solid var(--line); padding:.6rem 1rem; font-size:.95r
 #search .pagefind-ui__drawer { position:absolute; right:1rem; width:min(36rem, 90vw); z-index:10;
   background:var(--bg); border:1px solid var(--line); padding:0 1rem; max-height:70vh; overflow:auto; }
 #search .pagefind-ui__drawer:empty { display:none; }
-main { max-width:46rem; margin:0 auto; padding:1rem 1.2rem 4rem; }
+main { max-width:46rem; margin:0 auto; padding:1rem 1.2rem 4rem; overflow-wrap:anywhere; }
 a { color:var(--link); }
+main img { max-width:100%; height:auto; }
 h1 { font-size:1.7rem; margin-bottom:.3rem; }
 h2 { font-size:1.25rem; margin-top:2rem; }
-code { font-size:.9em; }
+code { font-size:.9em; white-space:pre-wrap; overflow-wrap:anywhere; }
+pre code { white-space:pre; overflow-wrap:normal; }
 pre:not(.mermaid) { background:var(--explain); padding:.7rem; overflow-x:auto; font-size:.85rem; }
-pre.mermaid { background:none; text-align:center; }
+pre.mermaid { background:none; text-align:center; overflow-x:auto; }
 table { border-collapse:collapse; width:100%; font-size:.95rem; }
 td, th { border:1px solid var(--line); padding:.3rem .5rem; vertical-align:top; text-align:left; }
 .date { white-space:nowrap; }
 aside { padding:.6rem .9rem; margin:1rem 0; border-left:4px solid; }
-aside.explain { background:var(--explain); border-color:var(--explain-bar); }
-aside.decide { background:var(--decide); border-color:var(--decide-bar); }
-aside.open { background:var(--open); border-color:var(--open-bar); }
+aside.callout { background:var(--explain); border-color:var(--explain-bar); }
+.callout-title { font-weight:700; margin-bottom:.3rem; }
+.contents { margin:1.5rem 0; padding:.7rem 1rem; border:1px solid var(--line); font-size:.9rem; }
+.contents summary { cursor:pointer; font-weight:600; }
+.contents ol { padding-left:1.2rem; }
+.contents a { text-decoration:none; }
+@media (min-width:80rem) {
+  main.wiki .contents { position:fixed; top:6rem; left:max(1rem, calc(50% - 39rem));
+    width:12rem; max-height:calc(100vh - 9rem); overflow:auto; margin:0; }
+}
+.related-documents { border-top:1px solid var(--line); margin-top:2rem; padding-top:.5rem; }
+body > section[role=doc-endnotes] { max-width:46rem; margin:0 auto; padding:1rem 1.2rem; }
+section[role=doc-endnotes] { font-size:.9rem; overflow-wrap:anywhere; }
+header .collection { font-weight:700; white-space:nowrap; }
+@media (max-width:40rem) { header { flex-wrap:wrap; gap:.5rem 1rem; }
+  #search { width:100%; margin-left:0; } }
 .note, .meta, .backlinks { color:var(--muted); font-size:.9rem; }
 .backlinks { border-top:1px solid var(--line); margin-top:3rem; padding-top:.6rem; }
 .badge { font-size:.75rem; padding:.05rem .45rem; border-radius:.6rem; border:1px solid var(--line);
@@ -92,12 +113,27 @@ aside.open { background:var(--open); border-color:var(--open-bar); }
 "
 
 #let mermaid-js = "
-import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs';
-const dark = matchMedia('(prefers-color-scheme: dark)').matches;
-mermaid.initialize({ startOnLoad: true, securityLevel: 'loose', deterministicIds: true, theme: dark ? 'dark' : 'default' });
+// An unavailable diagram CDN must not block DOMContentLoaded or search.
+if (document.querySelector('pre.mermaid')) {
+  import('https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs').then(async ({ default: mermaid }) => {
+    const dark = matchMedia('(prefers-color-scheme: dark)').matches;
+    mermaid.initialize({ startOnLoad: false, securityLevel: 'loose', deterministicIds: true, theme: dark ? 'dark' : 'default' });
+    await mermaid.run({ querySelector: 'pre.mermaid' });
+  }).catch(error => console.warn('Diagram rendering unavailable:', error));
+}
 "
 
 // ---- links ----
+
+/// The manifest entry for a page by name.
+#let entry(name) = manifest.pages.find(p => p.name == name)
+
+/// An authored page or generated document index's collection-qualified URL.
+#let page-url(name) = {
+  let e = entry(name)
+  if e == none { "/documents/" + name + ".html" } else { e.url }
+}
+
 
 /// The title of a page by name. Needs context.
 #let title-of(name) = if name in generated {
@@ -120,7 +156,7 @@ mermaid.initialize({ startOnLoad: true, securityLevel: 'loose', deterministicIds
   let parts = target.split("#")
   let name = parts.first()
   record-link(name)
-  let href = name + ".html" + if parts.len() > 1 { "#" + parts.at(1) } else { "" }
+  let href = page-url(name) + if parts.len() > 1 { "#" + parts.at(1) } else { "" }
   link(href, label.pos().at(0, default: title-of(name)))
 }
 
@@ -135,16 +171,25 @@ mermaid.initialize({ startOnLoad: true, securityLevel: 'loose', deterministicIds
 
 // ---- callouts ----
 
-/// A short inline explanation that links to the full explainer page.
-#let explain(name, title, body) = html.elem("aside", attrs: (class: "explain"))[
+/// An emoji, a visible type heading, and text, shared by all callout helpers.
+#let callout(kind: "note", icon: "📝", body) = html.elem("aside", attrs: (class: "callout"))[
+  #html.elem("div", attrs: (class: "callout-title"))[#icon #upper(kind.slice(0, 1))#kind.slice(1)]
+  #body
+]
+
+/// Mark an unresolved question without turning an article into a proceedings log.
+#let undecided(body) = callout(kind: "undecided", icon: "🤔", body)
+
+/// A short explanation linking to a supporting explainer document.
+#let explain(name, title, body) = callout(kind: "explanation", icon: "💡")[
   *#title.* #body #l("explainer-" + name)[More →]
 ]
 
-/// A decision that has been made, or is waiting on Ada.
-#let decide(body) = html.elem("aside", attrs: (class: "decide"))[*Decision:* #body]
+/// Preserve existing decision call sites using the common callout presentation.
+#let decide(body) = callout(kind: "decision", icon: "📌", body)
 
-/// A question that is open and not yet designed.
-#let open(body) = html.elem("aside", attrs: (class: "open"))[*Open:* #body]
+/// Compatibility for older documents' open-question callouts.
+#let open(body) = undecided(body)
 
 /// An in-page anchor for `#id` links; Typst labels don't emit ids in HTML.
 #let anchor(id) = html.elem("span", attrs: (id: id))
@@ -157,19 +202,31 @@ mermaid.initialize({ startOnLoad: true, securityLevel: 'loose', deterministicIds
 
 // ---- page shells ----
 
-/// Loads Pagefind's search UI into `#search`. The index is built by
-/// `pagefind --site out` into `out/pagefind/`, so it only exists after a full
-/// `just build` or under `just serve`.
+/// Initialize the collection's search and place native endnotes before its footer.
+/// The two Pagefind indexes are built by `just build` or the dev server.
 #let search-js = "
 addEventListener('DOMContentLoaded', () => {
   if (window.PagefindUI) new PagefindUI({ element: '#search', showSubResults: true, resetStyles: false });
+  // Typst appends native HTML endnotes outside the authored shell.
+  const notes = document.querySelector('body > section[role=doc-endnotes]');
+  const main = document.querySelector('main');
+  if (notes && main) {
+    const heading = document.createElement('h2');
+    heading.textContent = 'Notes and references';
+    notes.prepend(heading);
+    main.insertBefore(notes, main.querySelector('.related-documents, .backlinks'));
+  }
 });
 "
 
-#let nav = html.elem("header")[
-  #link("index.html")[home]
-  #link("explainers.html")[explainers]
-  #link("status.html")[status]
+#let nav(collection) = html.elem("header")[
+  #link("/" + collection + "/index.html", html.elem("span", attrs: (class: "collection"), if collection == "wiki" {
+    [Quell wiki]
+  } else { [Documents] }))
+  #if collection == "documents" { link("/documents/status.html")[status] }
+  #link(if collection == "wiki" { "/documents/index.html" } else { "/wiki/index.html" })[
+    #if collection == "wiki" { [Document library ↗] } else { [Quell wiki ↗] }
+  ]
   #html.elem("div", attrs: (id: "search"))
 ]
 
@@ -177,75 +234,208 @@ addEventListener('DOMContentLoaded', () => {
 /// directly by generated pages; authored pages go through `wiki-page`. Only
 /// `indexed` pages are searchable, so search finds pages, not the indexes
 /// that list them.
-#let shell(title, body, indexed: false) = {
+#let shell(title, body, indexed: false, collection: "documents") = {
   show raw.where(lang: "mermaid"): mermaid-block
-  html.elem("link", attrs: (rel: "stylesheet", href: "pagefind/pagefind-ui.css"))
+  let search-root = "/" + collection + "/pagefind/"
+  html.elem("link", attrs: (rel: "stylesheet", href: search-root + "pagefind-ui.css"))
   html.elem("style", css)
-  nav
-  html.elem("main", attrs: if indexed { (data-pagefind-body: "") } else { (:) })[
+  nav(collection)
+  html.elem("main", attrs: (class: collection) + if indexed { (data-pagefind-body: "") } else { (:) })[
     #html.elem("h1", title)
     #body
   ]
   html.elem("script", attrs: (type: "module"), mermaid-js)
   // A classic script, not an import, so Vite serves it untouched.
-  html.elem("script", attrs: (src: "pagefind/pagefind-ui.js"))
+  html.elem("script", attrs: (src: search-root + "pagefind-ui.js"))
   html.elem("script", search-js)
 }
 
-/// The manifest entry for a page by name.
-#let entry(name) = manifest.pages.find(p => p.name == name)
+/// Link explicitly to a document, rejecting article IDs and unknown records.
+#let doc(target, ..label) = context {
+  let name = target.split("#").first()
+  let e = entry(name)
+  assert(e != none and e.kind == "document", message: "unknown document: " + name)
+  l(target, ..label)
+}
 
-/// Pages that link to `name`, as links, excluding itself. Needs context.
+/// Pages that link to `name`, excluding itself and generated indexes.
+/// Wiki backlinks include articles only, not procedural records.
 #let backlinks(name) = {
   query(<wikilink>)
     .filter(m => m.value.to == name and m.value.from != name and m.value.from not in generated)
     .map(m => m.value.from)
     .dedup()
-    .map(n => link(n + ".html", title-of(n)))
+    .filter(n => entry(name).kind == "document" or entry(n).kind == "article")
+    .map(n => link(page-url(n), title-of(n)))
+}
+
+/// Explicitly selected documents, newest edited first, with stable tie ordering.
+#let related-documents(names) = context {
+  // Record the relation before query-dependent display and date ordering.
+  for name in names.dedup() { record-link(name) }
+  let records = names
+    .dedup()
+    .map(name => {
+      let e = entry(name)
+      assert(e != none and e.kind == "document", message: "unknown document: " + name)
+      let page = query(<wiki-page>).find(m => m.value.name == name)
+      (entry: e, page: if page == none { none } else { page.value })
+    })
+    .sorted(key: r => r.entry.name)
+    .sorted(key: r => r.entry.edited)
+    .rev()
+  html.elem("section", attrs: (class: "related-documents"))[
+    #html.elem("h2")[Related documents]
+    #for r in records {
+      html.elem("p")[
+        #link(r.entry.url, title-of(r.entry.name))
+        #if r.page != none { [ · #r.page.document-type · #badge(r.page.status)] }
+        #html.elem("span", attrs: (class: "meta"))[ · edited #r.entry.date]
+      ]
+    }
+  ]
+}
+
+/// Insert a generated, page-scoped contents block, normally after the lead.
+#let contents() = context {
+  let name = current.get()
+  let id = if name == none { "standalone" } else { name }
+  html.elem("details", attrs: (class: "contents", open: ""))[
+    #html.elem("summary")[Contents]
+    #outline(
+      title: none,
+      target: selector(heading).after(label("article-start-" + id)).before(label("article-end-" + id)),
+    )
+  ]
 }
 
 /// The show rule for an authored page: sets the title, records the page's
 /// metadata for indexes, and adds a status line and backlinks.
-#let wiki-page(title: none, status: "draft", summary: none, body) = {
-  assert(status in statuses, message: "unknown status: " + status)
+#let wiki-page(
+  title: none,
+  status: "draft",
+  summary: none,
+  document-type: none,
+  documents: (),
+  is-article: false,
+  body,
+) = {
+  if not is-article { assert(status in statuses, message: "unknown status: " + status) }
   set document(title: title)
   context {
     let name = current.get()
-    // A page compiled on its own (tinymist checks pages one at a time, since
-    // it can't enable the bundle feature) has no name: skip what needs the
-    // bundle.
-    if name == none { return shell(title, body) }
-    let e = entry(name)
-    let area = areas.find(a => a.id == e.area)
-    [#metadata((name: name, area: e.area, title: title, status: status, summary: summary)) <wiki-page>]
-    shell(title, {
-      html.elem("p", attrs: (class: "meta"))[
-        #badge(status) · #link(e.area + ".html", if area == none { e.area } else { area.title }) · changed #e.date
-        · #link("editor/?page=" + name)[edit]
-      ]
-      body
-      let from = backlinks(name)
-      if from.len() > 0 {
-        html.elem("p", attrs: (class: "backlinks"))[What links here: #from.join(", ")]
-      }
-    }, indexed: true)
+    let collection = if is-article { "wiki" } else { "documents" }
+    let e = if name == none { none } else { entry(name) }
+    let kind = if e == none { collection } else { e.kind }
+    let area = if e == none { none } else { areas.find(a => a.id == e.area) }
+    let type = if document-type != none { document-type } else if e != none and e.area == "explainers" {
+      "reference"
+    } else { "design" }
+    if e != none {
+      assert(is-article == (e.kind != "document"), message: "page uses the wrong collection template: " + name)
+      [#metadata((
+        name: name,
+        area: e.area,
+        kind: e.kind,
+        title: title,
+        status: status,
+        document-type: type,
+        summary: summary,
+      )) <wiki-page>]
+    }
+    shell(
+      title,
+      {
+        if e != none {
+          html.elem("p", attrs: (class: "meta"))[
+            #if not is-article { [#type · #badge(status) · ] }
+            #if area != none {
+              let portal = "portal-" + e.area
+              link(
+                if is-article { if entry(portal) == none { "/wiki/index.html" } else { page-url(portal) } } else {
+                  page-url(e.area)
+                },
+                area.title,
+              )
+            }
+            #if not is-article { [ · edited #e.date] }
+            · #link("/editor/?page=" + name)[Edit]
+          ]
+        }
+        if is-article and kind != "portal" {
+          // Queries span the bundle: markers keep this outline inside one article.
+          let start = "article-start-" + if name == none { "standalone" } else { name }
+          let end = "article-end-" + if name == none { "standalone" } else { name }
+          [#metadata(none)#label(start)]
+          body
+          [#metadata(none)#label(end)]
+        } else { body }
+        if is-article and documents.len() > 0 { related-documents(documents) }
+        if e != none {
+          // Isolate the query so updating backlinks does not recreate body links.
+          context {
+            let from = backlinks(name)
+            if from.len() > 0 {
+              html.elem("p", attrs: (class: "backlinks"))[What links here: #from.join(", ")]
+            }
+          }
+        }
+      },
+      indexed: e != none and kind != "portal",
+      collection: collection,
+    )
   }
 }
+
+/// A maintained Quell article, without procedural lifecycle badges.
+/// `documents` selects supporting record IDs, sorted by their actual edit times.
+#let article(title: none, summary: none, documents: (), body) = wiki-page(
+  title: title,
+  summary: summary,
+  documents: documents,
+  is-article: true,
+  body,
+)
 
 // ---- generated pages ----
 
 /// All authored pages' metadata, with their manifest dates. Needs context.
 #let all-pages() = query(<wiki-page>).map(m => m.value + (date: entry(m.value.name).date))
 
+/// Generated topic inventory for an authored portal, without procedural records.
+#let article-list(area) = context {
+  for p in all-pages().filter(p => p.kind == "article" and p.area == area).sorted(key: p => p.name) {
+    html.elem("p")[#link(page-url(p.name), p.title) — #p.summary]
+  }
+}
+
+/// The article collection's landing page, with authored portals and topic links.
+#let wiki-home() = context {
+  [A knowledge base about Quell and its development. Start with a portal or a topic below.]
+  let portals = all-pages().filter(p => p.kind == "portal")
+  for p in portals { html.elem("p")[*#link(page-url(p.name), p.title)* — #p.summary] }
+  html.elem("h2")[Articles]
+  for p in all-pages().filter(p => p.kind == "article").sorted(key: p => p.name) {
+    html.elem("p")[#link(page-url(p.name), p.title) — #p.summary]
+  }
+}
+
 /// A table of pages: title, status, summary, date.
 #let page-table(pages) = table(
   columns: (auto, auto, 1fr, auto),
-  ..pages.map(p => (link(p.name + ".html", p.title), badge(p.status), p.summary, html.elem("span", attrs: (class: "date"), p.date))).flatten(),
+  ..pages
+    .map(p => (
+      link(page-url(p.name), p.title),
+      badge(p.status),
+      p.summary,
+      html.elem("span", attrs: (class: "date"), p.date),
+    ))
+    .flatten(),
 )
 
 /// One area's index: its current pages, then its history.
 #let area-index(area) = context {
-  let pages = all-pages().filter(p => p.area == area.id).sorted(key: p => p.name)
+  let pages = all-pages().filter(p => p.kind == "document" and p.area == area.id).sorted(key: p => p.name)
   let now = pages.filter(p => p.status not in history)
   let old = pages.filter(p => p.status in history)
   area.about
@@ -259,13 +449,11 @@ addEventListener('DOMContentLoaded', () => {
 
 /// The home page: areas, then recent changes.
 #let home() = context {
-  let pages = all-pages()
-  [The qproj design wiki. Plans, handoffs and issues live in `.docs/` outside it.]
+  let pages = all-pages().filter(p => p.kind == "document")
+  [The document library: proposals, reference material and historical records. Topic explanations live in the #link("/wiki/index.html")[Quell wiki]. Unconverted plans, handoffs and issues remain in `.docs/`.]
   table(
     columns: (auto, 1fr, auto),
-    ..areas
-      .map(a => (link(a.id + ".html", a.title), a.about, str(pages.filter(p => p.area == a.id).len())))
-      .flatten(),
+    ..areas.map(a => (link(page-url(a.id), a.title), a.about, str(pages.filter(p => p.area == a.id).len()))).flatten(),
   )
   [== Recent changes]
   page-table(pages.sorted(key: p => p.date).rev().slice(0, calc.min(12, pages.len())))
@@ -273,7 +461,7 @@ addEventListener('DOMContentLoaded', () => {
 
 /// Every page grouped by status.
 #let status-index() = context {
-  let pages = all-pages()
+  let pages = all-pages().filter(p => p.kind == "document")
   for s in statuses {
     let these = pages.filter(p => p.status == s).sorted(key: p => p.name)
     if these.len() > 0 [

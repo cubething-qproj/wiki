@@ -1,10 +1,10 @@
-// Dev server for the wiki. Modelled on the blog's vite.config.mts, without
+// Dev server for the Quell wiki and separate document library. Modelled on the blog's vite.config.mts, without
 // its incremental builds: the whole bundle compiles in tens of milliseconds.
 //
 // - Rebuilds on any source change: scripts/manifest.py (page list) → typst
 //   bundle → pagefind (search index). Pages added, removed or renamed are
 //   picked up, because the manifest is regenerated every time.
-// - Serves the built pages from out/ at the site root (`/debate.html`), and
+// - Serves /wiki/ and /documents/ with independent search indexes, and
 //   the editor (editor/) as an ordinary Vite page at `/editor/?page=<name>`.
 // - After each build, sends a `wiki:built` event. Pages reload themselves on
 //   it; the editor shows the result instead of reloading.
@@ -13,7 +13,7 @@
 //   diagnostics, completions and hover.
 
 import { spawn } from "node:child_process";
-import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, readFileSync, renameSync, rmSync, statSync, writeFileSync } from "node:fs";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import { dirname, extname, join, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -51,14 +51,12 @@ async function build(): Promise<void> {
 	await run("typst", ["compile", "main.typ", next, "--format=bundle"], {
 		TYPST_FEATURES: "bundle,html",
 	});
-	mkdirSync(out, { recursive: true });
-	const fresh = new Set(readdirSync(next));
-	for (const file of readdirSync(out)) {
-		if (file.endsWith(".html") && !fresh.has(file)) rmSync(join(out, file));
+	for (const collection of ["wiki", "documents"]) {
+		await run("pagefind", ["--site", join(next, collection), "--glob", "*.html", "--silent"]);
 	}
-	cpSync(next, out, { recursive: true });
-	rmSync(next, { recursive: true, force: true });
-	await run("pagefind", ["--site", "out", "--silent"]);
+	// Keep the last good pages and both indexes until every build step succeeds.
+	rmSync(out, { recursive: true, force: true });
+	renameSync(next, out);
 }
 
 const contentTypes: Record<string, string> = {
@@ -76,10 +74,10 @@ const reloadClient = `import { createHotContext } from "/@vite/client";
 createHotContext("/wiki-page").on("wiki:built", (result) => { if (!result.error) location.reload(); });`;
 
 /** The page's source file, by page name, from the manifest. */
-function pageFile(name: string | null): string | undefined {
+function pageFile(name: string | null): { path: string; url: string } | undefined {
 	const manifest = JSON.parse(readFileSync(join(wikiRoot, "manifest.json"), "utf8"));
 	const page = manifest.pages.find((p: { name: string }) => p.name === name);
-	return page && join(wikiRoot, page.path);
+	return page && { path: join(wikiRoot, page.path), url: page.url };
 }
 
 function sendJson(res: ServerResponse, body: unknown, status = 200) {
@@ -98,16 +96,17 @@ function readBody(req: IncomingMessage): Promise<string> {
 }
 
 /**
- * `GET /api/src?page=<name>` returns `{ root, path, text, mtime }`.
+ * `GET /api/src?page=<name>` returns `{ root, path, url, text, mtime }`.
  * `POST /api/src?page=<name>` with `{ text, mtime }` overwrites the file,
  * unless it changed on disk since `mtime` (409, so the editor never silently
  * overwrites someone else's edit). Only pages in the manifest can be touched.
  */
 async function sourceApi(req: IncomingMessage, res: ServerResponse) {
-	const file = pageFile(new URL(req.url ?? "", "http://localhost").searchParams.get("page"));
-	if (!file) return sendJson(res, { error: "unknown page" }, 404);
+	const page = pageFile(new URL(req.url ?? "", "http://localhost").searchParams.get("page"));
+	if (!page) return sendJson(res, { error: "unknown page" }, 404);
+	const file = page.path;
 	const mtime = statSync(file).mtimeMs;
-	if (req.method === "GET") return sendJson(res, { root: wikiRoot, path: file, text: readFileSync(file, "utf8"), mtime });
+	if (req.method === "GET") return sendJson(res, { root: wikiRoot, path: file, url: page.url, text: readFileSync(file, "utf8"), mtime });
 	if (req.method !== "POST") return sendJson(res, { error: "method not allowed" }, 405);
 	const body = JSON.parse(await readBody(req));
 	if (body.mtime !== mtime) return sendJson(res, { error: "changed on disk", mtime }, 409);
@@ -199,23 +198,26 @@ function wikiPlugin(): Plugin {
 			server = viteServer;
 			// Pagefind's files are prebuilt bundles: serve them as they are,
 			// before Vite's own middleware tries to transform them as modules.
-			server.middlewares.use("/pagefind", (req, res, next) => {
-				const file = join(out, "pagefind", decodeURIComponent((req.url ?? "").split("?")[0]));
-				if (!file.startsWith(join(out, "pagefind") + sep)) return next();
-				try {
-					const body = readFileSync(file);
-					res.setHeader("Content-Type", contentTypes[extname(file)] ?? "application/octet-stream");
-					res.end(body);
-				} catch {
-					next();
-				}
-			});
-			// Built pages live in out/ but are served from the root, so links
-			// between them (flat, relative) keep working.
+			for (const collection of ["wiki", "documents"]) {
+				server.middlewares.use(`/${collection}/pagefind`, (req, res, next) => {
+					const root = join(out, collection, "pagefind");
+					const file = join(root, decodeURIComponent((req.url ?? "").split("?")[0]));
+					if (!file.startsWith(root + sep)) return next();
+					try {
+						res.setHeader("Content-Type", contentTypes[extname(file)] ?? "application/octet-stream");
+						res.end(readFileSync(file));
+					} catch {
+						next();
+					}
+				});
+			}
+			// Serve both reading collections, plus redirects for legacy record URLs.
 			server.middlewares.use((req, _res, next) => {
 				const [path, query] = (req.url ?? "/").split("?");
-				const file = path === "/" ? "index.html" : decodeURIComponent(path.slice(1));
-				if (!file.includes("/") && existsSync(join(out, file))) {
+				const decoded = decodeURIComponent(path);
+				const file = decoded === "/" ? "wiki/index.html"
+					: decoded.endsWith("/") ? decoded.slice(1) + "index.html" : decoded.slice(1);
+				if (/^(?:(?:wiki|documents)\/)?[^/]+\.html$/.test(file) && existsSync(join(out, file))) {
 					req.url = `/out/${file}${query ? `?${query}` : ""}`;
 				}
 				next();

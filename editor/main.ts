@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+
 // The wiki's page editor: CodeMirror with Vim keys and Typst highlighting on
 // the left, the built page on the right. Opened as /editor/?page=<name>.
 //
@@ -52,8 +54,8 @@ let mtime: number = source.mtime;
 let conflict = false;
 
 $("name").textContent = page;
-($("view") as HTMLAnchorElement).href = `/${page}.html`;
-($("preview") as HTMLIFrameElement).src = `/${page}.html`;
+($("view") as HTMLAnchorElement).href = source.url;
+($("preview") as HTMLIFrameElement).src = source.url;
 document.title = `edit: ${page}`;
 autosave.checked = localStorage.getItem("wiki:autosave") !== "false";
 autosave.onchange = () => localStorage.setItem("wiki:autosave", String(autosave.checked));

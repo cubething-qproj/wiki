@@ -10,4 +10,9 @@ build:
     rm -rf out
     python3 scripts/manifest.py
     TYPST_FEATURES=bundle,html typst compile main.typ out --format=bundle
-    pagefind --site out --silent
+    pagefind --site out/wiki --glob '*.html' --silent
+    pagefind --site out/documents --glob '*.html' --silent
+
+# Check source discovery and the built collections, links, outlines and ordering.
+test:
+    python3 -m unittest discover -s tests -v
