@@ -17,3 +17,10 @@ test:
 # Set WIKI_TEST_PORT to reuse a server that is already running.
 smoke:
     bun tests/browser.mjs
+
+format:
+    #!/usr/bin/env bash
+    set -Eeuo pipefail
+    bunx biome format --write ./src ./scripts ./web ./static
+    bunx biome lint --write ./src ./scripts ./web ./static
+    typstyle --inplace ./src/
