@@ -22,5 +22,5 @@ good, and who wins the debate. These are the leads to research later:
   against one NPC and fail against another. Ada will get the paper.
 
 #undecided[What counts as winning a value debate? Is losing because an NPC ranks
-values differently satisfying, or does the game need to say so ("you won't
-move me on liberty")?]
+  values differently satisfying, or does the game need to say so ("you won't
+  move me on liberty")?]

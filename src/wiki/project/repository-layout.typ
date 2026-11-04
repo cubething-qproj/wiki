@@ -2,6 +2,9 @@
 #show: article.with(
   title: [Repositories and workspace],
   summary: [How the qproj organization nests its repositories and builds them as one Cargo workspace.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-03",
+  topic: "Organization",
 )
 
 Quell is developed inside the *qproj* organization (`cubething-qproj` on
@@ -9,7 +12,7 @@ GitHub). Its working tree is an umbrella repository with other repositories
 checked out inside it. The game, its engine crates, shared infrastructure and
 the labs each keep their own Git history. One Cargo workspace at the root still
 builds every Rust crate together.#footnote[Checked against the org root's
-`Cargo.toml` and `justfile`, and the Git remotes of each checkout, in November 2026.]
+  `Cargo.toml` and `justfile`, and the Git remotes of each checkout, in November 2026.]
 
 #contents()
 
@@ -78,7 +81,7 @@ seven `lib/` crates. Each crate also pins the toolchain and runs `cargo-deny`.
 All the Rust repositories target the same Bevy release, currently 0.20. Bevy
 upgrades are done across the organization at once, in dependency order.
 #footnote[The 0.20 migration commits appear in each crate's history. Some
-README compatibility tables still say 0.19.]
+  README compatibility tables still say 0.19.]
 
 = Where documentation lives <layout-docs>
 
@@ -103,7 +106,9 @@ There are four kinds of documentation, each with its own home:
 
 = External links <layout-external>
 
-- #link("https://doc.rust-lang.org/cargo/reference/overriding-dependencies.html#the-patch-section")[Cargo: the `[patch]` section]
+- #link(
+    "https://doc.rust-lang.org/cargo/reference/overriding-dependencies.html#the-patch-section",
+  )[Cargo: the `[patch]` section]
   — how the workspace redirects Git dependencies to local paths.
 - #link("https://github.com/casey/just")[just] — the command runner used for
   every build recipe.

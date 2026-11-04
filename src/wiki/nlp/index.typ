@@ -2,6 +2,8 @@
 #show: article.with(
   title: [NLP and argumentation],
   summary: [Quell's planned debate mechanic, and the argument analysis and language research behind it.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-03",
 )
 
 Quell is meant to let players practise real philosophical debate. That needs
@@ -16,17 +18,19 @@ undecided. #l("argument-maps") describes the reviewed graphs of each text that
 debates would be built from, and #l("reading-notes") covers how a player's
 highlights and notes would be interpreted.
 
-The remaining articles explain the ideas this work draws on. The
-argumentation theory begins with the #l("explainer-pta") and
-#l("explainer-iat"). For judging arguments and debates, see #l("explainer-capna"),
-#l("explainer-dung") and #l("explainer-value-based"). The language-processing
-techniques start from #l("explainer-embeddings") for understanding text and
-#l("explainer-in-context-learning") for generating it, with
-#l("explainer-stage-wise-evaluation") for measuring the results.
+The other articles explain the argumentation theory and language-processing
+techniques this work draws on, grouped by topic below.
 
 = Topics <nlp-topics>
 
-#article-list("nlp")
+#article-list("nlp", topics: (
+  "Debate",
+  "Argumentation theory",
+  "Understanding text",
+  "Generating text",
+  "Running models",
+  "Measuring results",
+))
 
 = Records <nlp-records>
 

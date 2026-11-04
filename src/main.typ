@@ -4,7 +4,10 @@
 
 /// Preserve old record URLs without indexing duplicate copies of their bodies.
 #let redirect(url) = {
-  html.elem("script", "location.replace(" + repr(url) + " + location.search + location.hash);")
+  html.elem(
+    "script",
+    "location.replace(" + repr(url) + " + location.search + location.hash);",
+  )
   html.elem("noscript")[
     #html.elem("meta", attrs: (http-equiv: "refresh", content: "0;url=" + url))
   ]
@@ -22,7 +25,10 @@
 }
 
 /// Reference records that became wiki articles keep their old document URLs.
-#for p in manifest.pages.filter(p => p.kind == "article" and (p.name.starts-with("explainer-") or p.name == "glossary")) {
+#for p in manifest.pages.filter(p => (
+  p.kind == "article"
+    and (p.name.starts-with("explainer-") or p.name == "glossary")
+)) {
   document("documents/" + p.name + ".html", redirect(p.url))
   document(p.name + ".html", redirect(p.url))
 }
@@ -31,12 +37,26 @@
 #document("documents/explainers.html", redirect("/wiki/nlp.html"))
 #document("explainers.html", redirect("/wiki/nlp.html"))
 
-#document("wiki/index.html", title: [Quell wiki], shell([Quell wiki], wiki-home(), collection: "wiki"))
-#document("documents/index.html", title: [Document library], shell([Document library], home()))
-#document("documents/status.html", title: [Document status], shell([Document status], status-index()))
+#document("wiki/index.html", title: [Quell wiki], include "wiki/index.typ")
+#document("wiki/maintenance.html", title: [Maintenance], shell(
+  [Maintenance],
+  maintenance(),
+  collection: "wiki",
+))
+#document("documents/index.html", title: [Document library], shell(
+  [Document library],
+  home(),
+))
+#document("documents/status.html", title: [Document status], shell(
+  [Document status],
+  status-index(),
+))
 #document("index.html", redirect("/wiki/index.html"))
 #document("status.html", redirect("/documents/status.html"))
 #for a in areas {
-  document("documents/" + a.id + ".html", title: a.title, shell(a.title, area-index(a)))
+  document("documents/" + a.id + ".html", title: a.title, shell(
+    a.title,
+    area-index(a),
+  ))
   document(a.id + ".html", redirect("/documents/" + a.id + ".html"))
 }

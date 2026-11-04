@@ -2,6 +2,9 @@
 #show: article.with(
   title: [GLiNER and GLiNER2],
   summary: [Small extraction models that take their labels at run time, with no retraining.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-04",
+  topic: "Understanding text",
   documents: ("quell-reading-notes-design",),
 )
 

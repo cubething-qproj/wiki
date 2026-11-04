@@ -2,6 +2,9 @@
 #show: article.with(
   title: [q_os: processes, terminal and shell],
   summary: [A set of crates that brings a small operating-system model to Bevy: processes, typed I/O, a terminal and a shell.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-03",
+  topic: "Libraries",
 )
 
 *q_os* is the name for four of qproj's crates that borrow their ideas from an
@@ -11,8 +14,8 @@ exchange typed messages through file descriptors. A *terminal emulator*
 displays text, and a *shell* lets a person launch processes by typing commands.
 The aim is a familiar way to switch pieces of behavior on and off in a running
 Bevy app, and eventually a scripting language for live editing.#footnote[The
-motivation is set out in `.docs/designs/q_os design.md`. That file is a short
-design note, not a specification.]
+  motivation is set out in `.docs/designs/q_os design.md`. That file is a short
+  design note, not a specification.]
 
 The crates are optional dependencies of Quell, enabled by its `dev` feature.
 
@@ -31,13 +34,17 @@ flowchart TB
 #table(
   columns: (auto, 1fr),
   table.header([Crate], [Responsibility]),
-  [`q_proc`], [Processes, programs, file descriptors, I/O routing, pipes and tees.],
+  [`q_proc`],
+  [Processes, programs, file descriptors, I/O routing, pipes and tees.],
+
   [`q_term`],
   [A `bevy_ui` terminal widget with an ANSI/VT parser. It knows nothing about
     processes.],
+
   [`q_shell`],
   [Connects the two. It provides shells, command lookup, jobs and foreground
     control, and a pluggable command language.],
+
   [`q_query_lang`],
   [A read-only, string-based query language over the World. It does not
     depend on the other crates; a shell can expose it as a command.],
@@ -60,8 +67,8 @@ A process ends when it exits with a code or when it is despawned. In either
 case, a single `ProcessExited` event is triggered. Earlier designs dispatched a
 hidden system per process. The current model runs programs as ordinary systems
 in the app's normal schedules.#footnote[The accepted direction is recorded in
-the "ordinary-system job model" design under `.docs/handoffs/done/`. The
-lifecycle rules are documented in `lib/q_proc/docs/process-lifecycle.md`.]
+  the "ordinary-system job model" design under `.docs/handoffs/done/`. The
+  lifecycle rules are documented in `lib/q_proc/docs/process-lifecycle.md`.]
 
 A process's file descriptors point at *endpoints*. These can be a terminal,
 another process's input, a pipe or a tee. Writes are typed. A byte stream is
@@ -110,7 +117,7 @@ The detailed ordering is documented with the crates and in the `q-os` agent skil
   filesystem as a non-goal.
 
 #undecided[What the planned `q_coreutils` crate should contain. The q_os design
-note lists it with "contents TBD".]
+  note lists it with "contents TBD".]
 
 == qscript <qos-qscript>
 
@@ -131,5 +138,7 @@ direction is in `.docs/designs/q_shell_lang-design.md`.
 
 - #link("https://vt100.net/docs/vt100-ug/")[VT100 user guide] — background on
   the terminal model q_term approximates.
-- #link("https://docs.rs/bevy/latest/bevy/ecs/system/struct.Query.html")[Bevy `Query`]
+- #link(
+    "https://docs.rs/bevy/latest/bevy/ecs/system/struct.Query.html",
+  )[Bevy `Query`]
   — the type syntax that q_query_lang mirrors.

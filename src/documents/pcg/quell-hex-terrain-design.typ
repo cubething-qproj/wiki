@@ -6,14 +6,14 @@
 )
 
 #quote(block: true)[
-Superseded by
-#l("quell-hex-terrain-r11-design").
+  Superseded by
+  #l("quell-hex-terrain-r11-design").
 ]
 
 Status: #strong[Round 9, 2026-10-12. Being ported to Rust on
-`feat/hex-paths`. Nodes are now typed at placement, not after trails
-(see "Rust port changes"). Trialling loops that rejoin trails (§6);
-may be reverted.]
+  `feat/hex-paths`. Nodes are now typed at placement, not after trails
+  (see "Rust port changes"). Trialling loops that rejoin trails (§6);
+  may be reverted.]
 
 Replaces the generators in #l("quell-hex-paths-prototype-design")
 (backbone + budget, growing tree). The prototype work continues on
@@ -81,21 +81,27 @@ come from the Python prototype and show the round-8 rules.
 
 == Terms
 #table(
-    columns: 2,
-    align: (auto,auto,),
-    table.header([Term], [Meaning],),
-    [*Node*], [A place on the board: a POI or a bench. (Round 8:
+  columns: 2,
+  align: (auto, auto),
+  table.header([Term], [Meaning]),
+  [*Node*],
+  [A place on the board: a POI or a bench. (Round 8:
     untyped until the trails exist. Round 9: typed at placement.)],
-    [*POI*], [Point of interest. The deck guarantees one each of
+
+  [*POI*],
+  [Point of interest. The deck guarantees one each of
     *key*, *NPC* and *Fear*. Every other POI is
     *empty* (undefined for now; later perhaps holy places,
     abandoned zones, …).],
-    [*Bench*], [Rest and view stop along the way. Inventory
+
+  [*Bench*],
+  [Rest and view stop along the way. Inventory
     management and similar activities happen here.],
-    [*Spawn*], [Where the player starts. Not a node.],
-    [*Pad*], [The levelled hex a node or spawn sits on.],
-    [*Spur*], [A node with only one way in and out.],
-  )
+
+  [*Spawn*], [Where the player starts. Not a node.],
+  [*Pad*], [The levelled hex a node or spawn sits on.],
+  [*Spur*], [A node with only one way in and out.],
+)
 
 == Idea
 Real trails come from how easy the ground is to walk. So generate the
@@ -137,21 +143,31 @@ little as it can (pads, and the shortfall of a tease drop; §4).
 *Hard guarantees*, which hold by construction with no retries:
 
 #table(
-    columns: 2,
-    align: (auto,auto,),
-    table.header([Guarantee], [Why],),
-    [Every node placed], [Farthest-point sampling always picks a site.
+  columns: 2,
+  align: (auto, auto),
+  table.header([Guarantee], [Why]),
+  [Every node placed],
+  [Farthest-point sampling always picks a site.
     Spacing tightens rather than failing.],
-    [No softlock], [Step costs are finite, and a final pass joins
+
+  [No softlock],
+  [Step costs are finite, and a final pass joins
     anything left over (§5).],
-    [Dead ends only at POIs], [Every trail runs pad to pad, and spurs
+
+  [Dead ends only at POIs],
+  [Every trail runs pad to pad, and spurs
     are typed POI.],
-    [Two benches always have another node between them], [Typing rule
+
+  [Two benches always have another node between them],
+  [Typing rule
     (§7).],
-    [Key, NPC and Fear always dealt], [Typing keeps at least 3 POIs
+
+  [Key, NPC and Fear always dealt],
+  [Typing keeps at least 3 POIs
     (§7).],
-    [Max 3-way junctions], [Honeycomb geometry.],
-  )
+
+  [Max 3-way junctions], [Honeycomb geometry.],
+)
 
 *Soft rule.* Each tease stays at least `tease_detour` × the
 crow-fly distance on foot, and its viewer is reached before its target.
@@ -185,7 +201,9 @@ the height difference along an edge.
 #media("/media/pcg/02-cost.png", alt: "cost")
 
 Each edge costs `exp(3.5 × |Δh|)`, a symmetric form of
-#link("https://en.wikipedia.org/wiki/Tobler's_hiking_function")[Tobler's hiking function.]
+#link(
+  "https://en.wikipedia.org/wiki/Tobler's_hiking_function",
+)[Tobler's hiking function.]
 Flat ground costs 1. A rise of 1 edge length over 1 edge costs about 33,
 so it's steep but never impassable. Darker red means costlier.
 
@@ -395,26 +413,41 @@ artefact, so smoothing doesn't change which ways exist.
 
 == Knobs
 #table(
-    columns: 3,
-    align: (auto,auto,auto,),
-    table.header([Knob], [Default], [Effect],),
-    [`columns`, `rows`], [24, 20], [Playable board size.],
-    [`scale`], [8], [Size of hills, in hexes.],
-    [`relief`], [6], [Total height range, in edge lengths.],
-    [`roughness`], [0.5], [Small-scale bumpiness (amplitude falloff per
+  columns: 3,
+  align: (auto, auto, auto),
+  table.header([Knob], [Default], [Effect]),
+  [`columns`, `rows`], [24, 20], [Playable board size.],
+  [`scale`], [8], [Size of hills, in hexes.],
+  [`relief`], [6], [Total height range, in edge lengths.],
+  [`roughness`],
+  [0.5],
+  [Small-scale bumpiness (amplitude falloff per
     octave).],
-    [`ridges`], [0.3], [Rolling hills → sharp ridgelines.],
-    [`nodes`], [9], [Nodes to place (typed later). Round 9: replaced by
+
+  [`ridges`], [0.3], [Rolling hills → sharp ridgelines.],
+  [`nodes`],
+  [9],
+  [Nodes to place (typed later). Round 9: replaced by
     `pois` (6) and `benches` (3).],
-    [`spread`], [1], [0 = even spacing; higher = sites follow good
+
+  [`spread`],
+  [1],
+  [0 = even spacing; higher = sites follow good
     ground.],
-    [`view`], [0.7], [Which trail nodes become benches: 0 = quiet, 1 =
+
+  [`view`],
+  [0.7],
+  [Which trail nodes become benches: 0 = quiet, 1 =
     overlook. Round 9: where benches are placed.],
-    [`teases`], [2], [Number of tease pairs.],
-    [`tease_height`], [2--4], [Escarpment drop, drawn from this range
+
+  [`teases`], [2], [Number of tease pairs.],
+  [`tease_height`],
+  [2--4],
+  [Escarpment drop, drawn from this range
     per tease.],
-    [`tease_detour`], [3], [Minimum walk ÷ crow-fly for a tease.],
-  )
+
+  [`tease_detour`], [3], [Minimum walk ÷ crow-fly for a tease.],
+)
 
 The two panel sections would be terrain (`scale` to `ridges`) and
 network (the rest).
@@ -448,14 +481,19 @@ terrain for teases; only pads are graded. Measured in round 5, averaged
 over seeds 1--12:
 
 #table(
-    columns: 4,
-    align: (auto,auto,auto,auto,),
-    table.header([`tease_height`], [Corners moved \> 0.25], [Mean
-      change], [Teases holding],),
-    [0], [37 (grading only)], [0.03], [20/23],
-    [1--2], [74], [0.06], [20/23],
-    [2--4 (default)], [97], [0.09], [21/23],
-  )
+  columns: 4,
+  align: (auto, auto, auto, auto),
+  table.header(
+    [`tease_height`],
+    [Corners moved \> 0.25],
+    [Mean
+      change],
+    [Teases holding],
+  ),
+  [0], [37 (grading only)], [0.03], [20/23],
+  [1--2], [74], [0.06], [20/23],
+  [2--4 (default)], [97], [0.09], [21/23],
+)
 
 The trail rules do most of the work of keeping a tease. The escarpment
 mainly *explains* it, and it makes trails go around naturally.
@@ -476,22 +514,22 @@ is with rejoin.
 
 === Rejoin vs node-to-node
 #table(
-    columns: 3,
-    align: (auto,auto,auto,),
-    table.header([Measure], [Node-to-node], [Rejoin],),
-    [Boards with a loop route \> 18 edges], [562], [190],
-    [Boards with a loop route \> 30 edges], [246], [21],
-    [Longest loop route], [74], [44],
-    [Boards with ≥ 10 loop edges on the outer ring], [455], [328],
-    [Spurs per board], [0.46], [0.24],
-    [Boards with a spur that isn't a tease target], [21], [20],
-    [Independent loops per board (mean)], [4.75], [5.29],
-    [Junctions per board (mean)], [2.6], [5.6],
-    [Benches per board (mean)], [3.32], [3.09],
-    [Trail density (mean)], [0.357], [0.341],
-    [Teases held], [93.3%], [93.3%],
-    [Spawn on a loop], [99.9%], [99.7%],
-  )
+  columns: 3,
+  align: (auto, auto, auto),
+  table.header([Measure], [Node-to-node], [Rejoin]),
+  [Boards with a loop route \> 18 edges], [562], [190],
+  [Boards with a loop route \> 30 edges], [246], [21],
+  [Longest loop route], [74], [44],
+  [Boards with ≥ 10 loop edges on the outer ring], [455], [328],
+  [Spurs per board], [0.46], [0.24],
+  [Boards with a spur that isn't a tease target], [21], [20],
+  [Independent loops per board (mean)], [4.75], [5.29],
+  [Junctions per board (mean)], [2.6], [5.6],
+  [Benches per board (mean)], [3.32], [3.09],
+  [Trail density (mean)], [0.357], [0.341],
+  [Teases held], [93.3%], [93.3%],
+  [Spawn on a loop], [99.9%], [99.7%],
+)
 
 Rejoin all but removes the long trails around the edge (over 30 edges:
 246 → 21 boards), halves spurs, and adds loops, at the same density. The
@@ -508,25 +546,27 @@ short stretch), from rejoins that start next to another node's trail.
 The detail below is for node-to-node loops (`stats-1000.csv`).
 
 #table(
-    columns: 2,
-    align: (auto,auto,),
-    table.header([Measure], [Result],),
-    [Errors], [0],
-    [Connected], [100%],
-    [Spawn on a loop], [99.9%],
-    [Benches together (no node between)], [0 boards],
-    [POIs per board], [4--8 (median 6)],
-    [Benches per board], [1--5 (median 3, mean 3.3)],
-    [Spurs per board], [0--3 (mean 0.46)],
-    [Boards with a spur that isn't a tease target], [2.1%],
-    [Independent loops per board], [2--9 (median 5)],
-    [Trail density (edges per tile)], [0.21--0.58 (5--95%: 0.26--0.46)],
-    [Teases placed / held], [1996 / 1862 (93.3%). 100 met late, 101 too
+  columns: 2,
+  align: (auto, auto),
+  table.header([Measure], [Result]),
+  [Errors], [0],
+  [Connected], [100%],
+  [Spawn on a loop], [99.9%],
+  [Benches together (no node between)], [0 boards],
+  [POIs per board], [4--8 (median 6)],
+  [Benches per board], [1--5 (median 3, mean 3.3)],
+  [Spurs per board], [0--3 (mean 0.46)],
+  [Boards with a spur that isn't a tease target], [2.1%],
+  [Independent loops per board], [2--9 (median 5)],
+  [Trail density (edges per tile)], [0.21--0.58 (5--95%: 0.26--0.46)],
+  [Teases placed / held],
+  [1996 / 1862 (93.3%). 100 met late, 101 too
     short, 1 hidden],
-    [Boards needing the connection pass], [17.5%],
-    [Boards using the no-tree pass], [62.3%],
-    [Corners moved \> 0.25], [median 80 (min 2, max 108)],
-  )
+
+  [Boards needing the connection pass], [17.5%],
+  [Boards using the no-tree pass], [62.3%],
+  [Corners moved \> 0.25], [median 80 (min 2, max 108)],
+)
 
 *Long trails from the no-tree pass do show up.* Its longest route
 per board has a median of 28 edges and a maximum of 74. 562 boards have
@@ -539,15 +579,20 @@ ring only moves the route one ring in (still 199 boards).
 Capping the no-tree pass trades rim trails back for spurs:
 
 #table(
-    columns: 4,
-    align: (auto,auto,auto,auto,),
-    table.header([No-tree cap], [Boards with a non-tease spur], [Boards
-      with ≥ 10 no-tree rim edges], [Benches per board],),
-    [18], [629], [2], [2.97],
-    [24], [159], [134], [3.35],
-    [30], [51], [207], [3.35],
-    [none (current)], [21], [295], [3.32],
-  )
+  columns: 4,
+  align: (auto, auto, auto, auto),
+  table.header(
+    [No-tree cap],
+    [Boards with a non-tease spur],
+    [Boards
+      with ≥ 10 no-tree rim edges],
+    [Benches per board],
+  ),
+  [18], [629], [2], [2.97],
+  [24], [159], [134], [3.35],
+  [30], [51], [207], [3.35],
+  [none (current)], [21], [295], [3.32],
+)
 
 The spanner's own routes can run long too: its longest route reaches 68
 edges, and 38 boards have one over 40.

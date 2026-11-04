@@ -2,6 +2,9 @@
 #show: article.with(
   title: [Screens],
   summary: [q_screens' lifecycle for switching between parts of a game, and the entity cleanup that comes with it.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-03",
+  topic: "Libraries",
 )
 
 A *screen* is a self-contained part of a game, such as a splash screen, a level
@@ -10,7 +13,7 @@ The `q_screens` crate gives each screen a load–ready–unload lifecycle. When 
 game switches screens, it removes the previous screen's entities. Both of
 qproj's games are built on it: Quell and the visual novel `vn-jun-26`.
 #footnote[Checked against `lib/q_screens/src/` (version 0.2). The API is
-documented in the crate's Rust docs and the `q-screens` agent skill.]
+  documented in the crate's Rust docs and the `q-screens` agent skill.]
 
 The name is unrelated to Bevy's `Scene`, which is serialized entity data.
 Quell's screens often spawn Jackdaw scenes.

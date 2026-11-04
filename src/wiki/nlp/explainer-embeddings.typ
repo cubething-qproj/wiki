@@ -2,6 +2,9 @@
 #show: article.with(
   title: [Embeddings and cosine similarity],
   summary: [Representing text as vectors so that similar meanings can be found by simple arithmetic.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-04",
+  topic: "Understanding text",
   documents: ("quell-reading-notes-design", "debate-spike"),
 )
 

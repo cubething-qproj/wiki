@@ -2,7 +2,16 @@
 #show: article.with(
   title: [Argument maps],
   summary: [The reviewed IAT/PTA graphs of each text that the debate mechanic would be built on.],
-  documents: ("debate-gold", "debate-pipeline", "debate-arms", "pta-atip-algorithm", "pta-document-analysis"),
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-03",
+  topic: "Debate",
+  documents: (
+    "debate-gold",
+    "debate-pipeline",
+    "debate-arms",
+    "pta-atip-algorithm",
+    "pta-document-analysis",
+  ),
 )
 
 An *argument map* records what a text says, and how its claims support or
@@ -12,8 +21,8 @@ The *Periodic Table of Arguments* (PTA) gives each individual argument a type.
 They are stored as xAIF JSON with a few additions, and edited in the lab's
 xAIF editor. Reviewed maps are intended both as #l("debate-system")[debate]
 content and as the gold standard for automated analysis.#footnote[Format and
-derivation rules checked against `misc/labs/xAIF/README.md` and its tests;
-the status of the maps is from #doc("debate-gold")[Gold maps and measurement].]
+  derivation rules checked against `misc/labs/xAIF/README.md` and its tests;
+  the status of the maps is from #doc("debate-gold")[Gold maps and measurement].]
 
 #contents()
 
@@ -76,14 +85,14 @@ guide.
   one writer are never used to label that writer's own texts.
 
 #undecided[How many reviewed maps are needed before scores mean anything.
-The first draft of the plan guessed 10 of the 31 excerpts.]
+  The first draft of the plan guessed 10 of the 31 excerpts.]
 
 #undecided[Where reported speech belongs: do reported locutions sit in the
-reporter's chain of transitions? This is open in the judgement-call log, and it
-affects segmentation rules and export.]
+  reporter's chain of transitions? This is open in the judgement-call log, and it
+  affects segmentation rules and export.]
 
 #undecided[Whether INCEpTION or the xAIF editor is the annotation tool. So
-far, all real annotation has been done in the editor.]
+  far, all real annotation has been done in the editor.]
 
 = See also <maps-see-also>
 
@@ -95,5 +104,7 @@ far, all real annotation has been done in the editor.]
 
 - #link("https://github.com/arg-tech/xaif")[xAIF] — ARG-tech's JSON format
   for argument graphs.
-- #link("https://www.periodic-table-of-arguments.org/argument-type-identification-procedure")[Argument Type Identification Procedure]
+- #link(
+    "https://www.periodic-table-of-arguments.org/argument-type-identification-procedure",
+  )[Argument Type Identification Procedure]
   — the PTA's published classification procedure.

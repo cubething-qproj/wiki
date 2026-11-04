@@ -15,6 +15,7 @@ section fragments. This is a local-only site: do not publish papers or book extr
 src/
   main.typ                 # Bundle entry point and legacy redirects
   template.typ             # Shared page, link, callout and gallery helpers
+  wiki/index.typ           # Wiki home page and generated topic links
   wiki/<area>/             # Topic articles; index.typ is the area's portal
   documents/<area>/        # Selected designs, reports and historical records
   reference/<area>/        # Supporting reference material (currently empty)
@@ -81,7 +82,7 @@ implementation, design intent, experimental findings and unresolved questions.
 Link to outside resources instead of building a general-purpose encyclopaedia.
 
 `contents()` generates this article's outline only. Place it after the lead; it
-becomes a sidebar on wide screens and collapsible inline contents otherwise.
+renders as collapsible inline contents.
 Use distinctive explicit heading labels for stable links across the bundle.
 Each page resets heading, footnote, equation and supported figure counters.
 
@@ -102,6 +103,21 @@ other records to design. Do not move all plans, issues or handoffs into the site
 ## Callouts and visual aids
 
 `undecided[Text.]` wraps `callout(kind: "undecided", icon: "🤔")[Text.]`.
+### Article metadata
+
+`article` also takes `authors: ("Ada",)` and `date: "YYYY-MM-DD"`, which render
+as the byline under the title (e.g. _Ada and Claude Opus 5.5, 4 Nov. 2026_).
+Agents list themselves by model name. `topic: "..."` groups an article on its
+area's portal; a portal passes the display order with
+`#article-list("area", topics: ("First", "Second"))`. `flags:` adds page
+banners: `"stub"` (✒️), `"citation-needed"` (🔍) and `"outdated"` (🪦).
+
+Inline markers: `claim.#cn` adds a superscript [citation needed];
+`#outdated[...]` (🪦) marks a stale passage; `#gotcha[...]` (⚠️) warns about a
+trap. Record decisions as footnotes citing their records, not callouts.
+`/wiki/maintenance.html` is generated: flagged articles, inline citation-needed,
+outdated, WIP and undecided markers by article, and an authorship table.
+
 `wip("record-id", ...)` marks something designed but not built: "⚒️ WIP — This
 is not yet implemented. See …", citing the given records, with optional trailing
 content (`#wip("debate-game")[Extra detail.]`). Use it instead of writing
@@ -128,8 +144,10 @@ images link to full-resolution originals. Identify prototype figures as such:
 they are illustrations of experiments, not necessarily current game screenshots.
 The initial figures are in `static/media/pcg/`; preserve their provenance.
 
-Typography, Natsu Madoromi colors, rounded media, theme cycling and carousel
-patterns are adapted from `~/repos/ada-x64/blog`. Fonts are copied locally with
+`web/styles/main.css` is copied verbatim from
+`~/repos/ada-x64/blog/src/public/styles/main.css`. Keep wiki-specific additions
+in `web/styles/wiki.css`; font declarations live in `web/styles/fonts.css`.
+The Natsu Madoromi palette and theme cycle also come from the blog. Fonts are copied locally with
 `static/fonts/OFL.txt`. No blog comments, analytics or social integrations are included.
 
 ## Build behavior

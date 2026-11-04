@@ -2,6 +2,9 @@
 #show: article.with(
   title: [Abstract argumentation],
   summary: [Dung's model of a debate as a graph of attacks, and how to decide which arguments survive.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-04",
+  topic: "Argumentation theory",
   documents: ("debate-evaluation",),
 )
 
@@ -48,8 +51,8 @@ computation is a simple loop, so its cost is negligible at the scale of a
 conversation.
 
 #undecided[How a debate is won. Abstract argumentation is one of several
-candidates, along with #l("explainer-capna")[CAPNA] and
-#l("explainer-value-based")[value-based argumentation].]
+  candidates, along with #l("explainer-capna")[CAPNA] and
+  #l("explainer-value-based")[value-based argumentation].]
 
 = See also <dung-see-also>
 
@@ -65,7 +68,9 @@ candidates, along with #l("explainer-capna")[CAPNA] and
 
 = External links <dung-external>
 
-- #link("https://en.wikipedia.org/wiki/Argumentation_framework")[Argumentation framework]
+- #link(
+    "https://en.wikipedia.org/wiki/Argumentation_framework",
+  )[Argumentation framework]
   — an overview of Dung's model and its semantics.
 - #link("https://arg.tech/research/dung-o-matic/")[Dung-O-Matic] — ARG-tech's
   Java implementation.

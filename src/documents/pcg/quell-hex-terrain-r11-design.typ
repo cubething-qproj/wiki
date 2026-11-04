@@ -123,19 +123,30 @@ display layers too, kept small enough not to change routing.
 
 == 3. Nodes (typed at placement)
 #table(
-    columns: 3,
-    align: (auto,auto,auto,),
-    table.header([Node], [Placed by], [Notes],),
-    [*Spawn*], [the board's middle tile, moved off a
-    creek], [Becomes the player's tile on regeneration.],
-    [*Crossing*], [first; see §4], [Bridges and fords. Not a POI
+  columns: 3,
+  align: (auto, auto, auto),
+  table.header([Node], [Placed by], [Notes]),
+  [*Spawn*],
+  [the board's middle tile, moved off a
+    creek],
+  [Becomes the player's tile on regeneration.],
+
+  [*Crossing*],
+  [first; see §4],
+  [Bridges and fords. Not a POI
     or bench, no card. *Never moves.*],
-    [*POI* (6)], [suitability^`spread` (2) × up to 2× near water
-    (e^(−hexes/2))], [Deck: key, NPC, Fear on random POIs; the rest are
+
+  [*POI* (6)],
+  [suitability^`spread` (2) × up to 2× near water
+    (e^(−hexes/2))],
+  [Deck: key, NPC, Fear on random POIs; the rest are
     empty. *The deck never changes.*],
-    [*Bench* (3)], [bench score], [Not a spur by preference. The
+
+  [*Bench* (3)],
+  [bench score],
+  [Not a spur by preference. The
     "benches together" rule is dropped and kept only as a statistic.],
-  )
+)
 
 - *Bench score* = (1 − `view`) · quiet⁴ + `view` · overlook⁴,
   with quiet and overlook ranked *among playable tiles only*.
@@ -298,28 +309,31 @@ the world: there's no fog.
 
 == Knobs
 #table(
-    columns: 3,
-    align: (auto,auto,auto,),
-    table.header([Knob], [Default], [Meaning],),
-    [`columns`, `rows`], [20, 20], [Playable board (hexes).],
-    [Hex edge], [33 m], [Scale.],
-    [Region size], [100 hexes], [Simulated area.],
-    [`uplift_m`], [0.2], [Relief (0.6 gives about 2× the relief).],
-    [`channel_ha`], [2], [Ravine density.],
-    [Creek threshold], [40 ha], [What counts as a creek.],
-    [Window candidates], [60], [Windows scored.],
-    [Window weights], [see `WindowWeights`], [Creek, fords, teases,
+  columns: 3,
+  align: (auto, auto, auto),
+  table.header([Knob], [Default], [Meaning]),
+  [`columns`, `rows`], [20, 20], [Playable board (hexes).],
+  [Hex edge], [33 m], [Scale.],
+  [Region size], [100 hexes], [Simulated area.],
+  [`uplift_m`], [0.2], [Relief (0.6 gives about 2× the relief).],
+  [`channel_ha`], [2], [Ravine density.],
+  [Creek threshold], [40 ha], [What counts as a creek.],
+  [Window candidates], [60], [Windows scored.],
+  [Window weights],
+  [see `WindowWeights`],
+  [Creek, fords, teases,
     river, relief.],
-    [`pois`, `benches`], [6, 3], [Node counts.],
-    [`spread`], [2], [POI pull to buildable ground.],
-    [`view`], [0.7], [Bench preference: quiet (0) to overlook (1).],
-    [`bench_sharpness`], [4], [Only the extremes score as benches.],
-    [`water_boost`], [1], [POI pull to water.],
-    [`crossings`], [2], [Creek crossings (slider).],
-    [`teases`, `tease_detour`], [2, 3], [As before.],
-    [Pin radius], [4 hexes], [Partial regeneration.],
-    [Displacement], [2--4 hexes], [How far movable nodes move.],
-  )
+
+  [`pois`, `benches`], [6, 3], [Node counts.],
+  [`spread`], [2], [POI pull to buildable ground.],
+  [`view`], [0.7], [Bench preference: quiet (0) to overlook (1).],
+  [`bench_sharpness`], [4], [Only the extremes score as benches.],
+  [`water_boost`], [1], [POI pull to water.],
+  [`crossings`], [2], [Creek crossings (slider).],
+  [`teases`, `tease_detour`], [2, 3], [As before.],
+  [Pin radius], [4 hexes], [Partial regeneration.],
+  [Displacement], [2--4 hexes], [How far movable nodes move.],
+)
 
 == Effect on the Rust port
 #strong[Done on `feat/hex-paths`, and carries over:]

@@ -100,7 +100,9 @@ A disposition is one of:
   [It attacks a statement ("but", "however"); say which in `note`. The attack's reason is an ordinary connector.],
 
   [`background`], [Explanation or context; no argument.],
-  [`rhetorical`], [Framing only (a rhetorical question, emphasis); its content is kept, the framing dropped.],
+  [`rhetorical`],
+  [Framing only (a rhetorical question, emphasis); its content is kept, the framing dropped.],
+
   [`unresolved`], [Undecided; say why in `note`.],
 )
 
@@ -195,8 +197,16 @@ check in D5 sends you back to D2 for the affected part of the text.
   columns: (auto, auto, 1fr, auto),
   table.header([step], [kind], [does], [produces]),
   [D1], [judgement], [list the statements], [`statements`],
-  [D2], [judgement], [find the cues that might signal arguments, and decide what each is], [`candidates`],
-  [D3], [mechanical], [build a connector for each argument and link its statements], [`connectors`],
+  [D2],
+  [judgement],
+  [find the cues that might signal arguments, and decide what each is],
+  [`candidates`],
+
+  [D3],
+  [mechanical],
+  [build a connector for each argument and link its statements],
+  [`connectors`],
+
   [D4], [judgement], [record alternative reconstructions], [`readings`],
   [D5], [mechanical], [check each reading], [a graph per reading],
 )
@@ -235,14 +245,25 @@ none, so counting cues doesn't count arguments.
   [a premise and a conclusion],
   [Which claim is it for? Is it reasoning or just sequence?],
 
-  [being, given, relative clauses], [a compressed premise or lever], [Is it offered as a reason, or only describes?],
+  [being, given, relative clauses],
+  [a compressed premise or lever],
+  [Is it offered as a reason, or only describes?],
+
   [namely, that is, by definition],
   [a rephrase, or an identification the author is establishing],
   [Would merging the two terms lose something?],
 
-  [generalizations, conditionals], [a lever], [Does it link two claims, or is it background?],
-  [clearly, can be seen, according to], [a reason to accept a claim (δ)], [Is it a reason, or emphasis?],
-  [rhetorical questions], [an assertion or a challenge], [What is actually being asserted?],
+  [generalizations, conditionals],
+  [a lever],
+  [Does it link two claims, or is it background?],
+
+  [clearly, can be seen, according to],
+  [a reason to accept a claim (δ)],
+  [Is it a reason, or emphasis?],
+
+  [rhetorical questions],
+  [an assertion or a challenge],
+  [What is actually being asserted?],
 )
 
 For each candidate, ask: what is the reader asked to accept; what is offered
@@ -370,8 +391,14 @@ Other open decisions:
 #table(
   columns: (auto, 1fr, 1fr),
   table.header([decision], [alternative], [change]),
-  ["namely"], [It only clarifies "downwards".], [R-rephrase: merge S5 into S3; drop T2, and with it S4, T5 and S9.],
-  [visibility], ["This" refers to the downward motion only.], [T3's conclusion becomes S3.],
+  ["namely"],
+  [It only clarifies "downwards".],
+  [R-rephrase: merge S5 into S3; drop T2, and with it S4, T5 and S9.],
+
+  [visibility],
+  ["This" refers to the downward motion only.],
+  [T3's conclusion becomes S3.],
+
   [nature],
   [The assigned goal explains the motion instead of supporting S4.],
   [T5's conclusion changes, or T5 is dropped.],

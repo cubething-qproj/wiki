@@ -2,6 +2,9 @@
 #show: article.with(
   title: [In-context learning],
   summary: [Teaching a language model a task by putting solved examples in its prompt, without training.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-04",
+  topic: "Generating text",
   documents: ("debate-spike",),
 )
 
@@ -14,7 +17,7 @@ weights do not change.
 - *Few-shot* prompting adds a handful of worked examples.
 - *Retrieved* few-shot prompting chooses, for each new input, the examples
   most similar to it, usually by #l("explainer-embeddings")[embedding
-  similarity].
+    similarity].
 
 Examples are not free. Every example lengthens the prompt, and a model has to
 process the whole prompt before it writes anything. On a CPU, that is a

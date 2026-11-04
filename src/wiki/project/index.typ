@@ -2,6 +2,8 @@
 #show: article.with(
   title: [Project overview],
   summary: [Where Quell's code, libraries, experiments and documentation live, and how they relate.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-03",
 )
 
 Quell is a Bevy game developed alongside a family of small engine libraries and
@@ -16,7 +18,7 @@ Terms that recur across the articles are defined in the #l("glossary").
 
 = Topics <project-topics>
 
-#article-list("project")
+#article-list("project", topics: ("Organization", "The game", "Reference"))
 
 = Records <project-records>
 

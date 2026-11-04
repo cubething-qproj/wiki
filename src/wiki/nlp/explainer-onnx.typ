@@ -2,6 +2,9 @@
 #show: article.with(
   title: [ONNX and ort],
   summary: [A portable format for trained models, and the Rust library that lets the game run them without Python.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-04",
+  topic: "Running models",
   documents: ("debate-pipeline", "quell-reading-notes-design"),
 )
 

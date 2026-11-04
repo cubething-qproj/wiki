@@ -63,6 +63,7 @@ def discover(root: pathlib.Path) -> list[dict[str, str]]:
         url = f"/{collection}/{slug}.html"
         if url in seen_urls or url in (
             "/wiki/index.html",
+            "/wiki/maintenance.html",
             "/documents/index.html",
             "/documents/status.html",
         ):

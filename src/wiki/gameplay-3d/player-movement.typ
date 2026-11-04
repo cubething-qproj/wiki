@@ -2,6 +2,8 @@
 #show: article.with(
   title: [Player movement],
   summary: [Quell's kinematic character controller: how the player walks, meets slopes and stays on the ground.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-03",
 )
 
 The player character is a kinematic capsule moved by Quell's own small
@@ -10,8 +12,8 @@ the player. Each fixed step, the controller decides where to move and lets
 Avian slide that motion along whatever it touches. The controller is
 deliberately minimal: there is no step-up, no support for moving platforms, and
 dynamic bodies do not push the player.#footnote[Checked against
-`bin/quell/src/service/player/`, especially the module documentation of
-`movement.rs`, which states the movement policy.]
+  `bin/quell/src/service/player/`, especially the module documentation of
+  `movement.rs`, which states the movement policy.]
 
 #contents()
 
@@ -88,13 +90,13 @@ so there was no established feel to preserve. A Quake-style controller library
 was rejected for a third-person game, because its movement model, input
 normalization and camera assumptions would have needed to be worked around.
 #footnote[Approved controller design, 2026-09-27:
-`.docs/designs/done/quell-kinematic-controller-design.md`; Quell issue #13.]
+  `.docs/designs/done/quell-kinematic-controller-design.md`; Quell issue #13.]
 The policy above is the deliberately small result. Features such as stair
 stepping can be added if the game needs them.
 
 #undecided[Whether Quell needs stair stepping. The controller design leaves it
-for later and suggests porting the step and ground-snap routines from
-`bevy_ahoy`, with attribution, rather than taking on the dependency.]
+  for later and suggests porting the step and ground-snap routines from
+  `bevy_ahoy`, with attribution, rather than taking on the dependency.]
 
 = See also <movement-see-also>
 

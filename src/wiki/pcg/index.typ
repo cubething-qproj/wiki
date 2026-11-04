@@ -2,6 +2,8 @@
 #show: article.with(
   title: [Procedural generation],
   summary: [How Quell builds exploration spaces and changes the routes through them.],
+  authors: ("GPT Sol",),
+  date: "2026-11-03",
 )
 
 Quell's exploration spaces separate the landscape from the landmarks and paths
@@ -12,7 +14,9 @@ Start with #l("terrain-generation"), which covers the landscape pipeline and
 the difference between fixed ground and replaceable layouts. Then read
 #l("trail-layout") for landmarks, route constraints and regeneration.
 
-#wip("quell-world-generation-design")[Covers: generated terrain in the playable world.]
+#wip(
+  "quell-world-generation-design",
+)[Covers: generated terrain in the playable world.]
 
 = Topics <pcg-topics>
 

@@ -44,4 +44,4 @@ game never depends on them.
   disagree.
 
 #undecided[How many reviewed maps before scores mean anything? Draft 1 guessed
-10 of 31.]
+  10 of 31.]

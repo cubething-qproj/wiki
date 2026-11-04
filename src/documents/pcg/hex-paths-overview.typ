@@ -96,7 +96,7 @@ October 7. I could not recover that thread's last message.
   does not make a first simulation asynchronous.
 
 + *Choose a board for play features, then translate water onto
-    hexes.*
+  hexes.*
 
   `Window::choose` samples 60 default candidate positions and rotations
   that fit inside the region. Each candidate is scored for creek tiles,
@@ -182,7 +182,7 @@ October 7. I could not recover that thread's last message.
   arrangement.
 
 + *Build useful routes while preserving the experience of a
-    tease.*
+  tease.*
 
   Dijkstra searches the corner graph. Each edge has a symmetric terrain
   cost `exp(aversion × |rise|)`; off-board and closed-creek edges have
@@ -285,7 +285,7 @@ October 7. I could not recover that thread's last message.
   increment the count.
 
 + *The preview explains the result, and tests cover particular
-    properties.*
+  properties.*
 
   Screen loading creates the orbit camera, billboard assets, and
   settings panel. On readiness it requests generation. Chained

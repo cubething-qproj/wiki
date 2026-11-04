@@ -2,6 +2,9 @@
 #show: article.with(
   title: [Dependency parsing],
   summary: [Recovering a sentence's grammatical structure with a small, fast, deterministic model.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-04",
+  topic: "Understanding text",
   documents: ("debate-pipeline",),
 )
 

@@ -2,6 +2,9 @@
 #show: article.with(
   title: [Natural language inference],
   summary: [Classifying whether one text entails, contradicts or is neutral towards another, and using that for zero-shot classification.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-04",
+  topic: "Understanding text",
   documents: ("debate-pipeline",),
 )
 

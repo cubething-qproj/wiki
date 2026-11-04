@@ -2,6 +2,8 @@
 #show: article.with(
   title: [Cameras],
   summary: [The third-person spring-arm camera, the developer free camera, and which of them owns input.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-03",
 )
 
 Quell has two gameplay cameras. The *tracking camera* is a third-person orbit
@@ -9,8 +11,8 @@ camera on a spring arm. It follows the player and pulls in when scenery would
 come between them. The *free camera* is Bevy's developer fly camera, available
 only in development builds. One gameplay camera renders and receives input at
 a time. A separate UI camera always draws overlays on top.#footnote[Checked
-against `lib/q_cam/src/` and `bin/quell/src/service/input/camera/`. The approved
-camera design (2026-09-24) is `.docs/designs/done/quell-camera-design.md`.]
+  against `lib/q_cam/src/` and `bin/quell/src/service/input/camera/`. The approved
+  camera design (2026-09-24) is `.docs/designs/done/quell-camera-design.md`.]
 
 #contents()
 
@@ -72,8 +74,8 @@ The arm's length, probe radius and offset are reflected fields that can be
 edited live. Zoom speed lives in a shared settings resource.
 
 #undecided[The design gives the spring-arm values (10 m arm, 0.3 m probe) as
-initial tuning. Whether they suit the game has not been established in
-playtesting.]
+  initial tuning. Whether they suit the game has not been established in
+  playtesting.]
 
 = See also <camera-see-also>
 
@@ -83,5 +85,7 @@ playtesting.]
 
 = External links <camera-external>
 
-- #link("https://dev.epicgames.com/documentation/en-us/unreal-engine/using-spring-arm-components-in-unreal-engine")[Unreal Engine: spring arm components]
+- #link(
+    "https://dev.epicgames.com/documentation/en-us/unreal-engine/using-spring-arm-components-in-unreal-engine",
+  )[Unreal Engine: spring arm components]
   — the familiar model this camera follows.

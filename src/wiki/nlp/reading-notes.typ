@@ -2,6 +2,9 @@
 #show: article.with(
   title: [Reading notes],
   summary: [Working out which concepts a player's highlights and free-text notes are about, so that dialogue can respond.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-03",
+  topic: "Debate",
   documents: ("quell-reading-notes-design", "debate-game"),
 )
 
@@ -10,7 +13,7 @@ in their own words. Non-player characters are meant to respond when the player
 has engaged with particular ideas. To do that, the game needs *concept ids*,
 short stable names such as `slave_morality`, derived from those highlights and
 notes.#footnote[Checked against `misc/labs/nlp/README.md` and its Git
-history.]
+  history.]
 
 #wip("quell-reading-notes-design")[The work so far is in note-lab.]
 
@@ -23,9 +26,17 @@ The design compares interpreters in order of increasing cost:
 #table(
   columns: (auto, 1fr, auto),
   table.header([Tier], [Approach], [Output]),
-  [0], [Authored annotations: which tagged ranges does the highlight cover?], [score per concept, no model],
-  [1], [Embedding similarity between the note and each concept, using a small sentence-embedding model], [similarity per concept],
-  [2], [Schema-driven extraction models of the GLiNER family], [concepts, stance and slots],
+  [0],
+  [Authored annotations: which tagged ranges does the highlight cover?],
+  [score per concept, no model],
+
+  [1],
+  [Embedding similarity between the note and each concept, using a small sentence-embedding model],
+  [similarity per concept],
+
+  [2],
+  [Schema-driven extraction models of the GLiNER family],
+  [concepts, stance and slots],
 )
 
 Tier 0 uses only the text's authored tags. It has a clear limit: a broad
@@ -39,9 +50,9 @@ because notes are written during play. A model would therefore run on the
 player's machine. In the first draft of the debate plan, this was the only
 model used at runtime. The current draft adds free-text argument parsing as a
 second candidate.#footnote[First draft: `.docs/designs/quell-debate-roadmap.typ`,
-"Where models still run in the game". Current draft: #doc("debate-game")[Quell
-integration]. Tier 1 would run through #l("explainer-onnx")[ONNX Runtime],
-which needs no Python.] The lab therefore plans to measure latency as well as
+  "Where models still run in the game". Current draft: #doc("debate-game")[Quell
+    integration]. Tier 1 would run through #l("explainer-onnx")[ONNX Runtime],
+  which needs no Python.] The lab therefore plans to measure latency as well as
 accuracy, under CPU-throttling profiles that imitate slower machines.
 
 = Annotation data <notes-data>
@@ -74,8 +85,8 @@ lab's labelling guide is written for INCEpTION, after Label Studio was also
 considered. Example notes and their correct labels are still written by hand.
 
 #undecided[Whether highlights are free or snap to authored statement spans.
-The debate plan proposes snapping. The notes lab scores arbitrary highlights.
-Both are drafts.]
+  The debate plan proposes snapping. The notes lab scores arbitrary highlights.
+  Both are drafts.]
 
 = See also <notes-see-also>
 
@@ -85,5 +96,7 @@ Both are drafts.]
 
 = External links <notes-external>
 
-- #link("https://www.w3.org/TR/annotation-model/")[W3C Web Annotation Data Model]
+- #link(
+    "https://www.w3.org/TR/annotation-model/",
+  )[W3C Web Annotation Data Model]
   — the annotation format the data follows.

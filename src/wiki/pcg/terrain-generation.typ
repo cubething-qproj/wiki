@@ -2,7 +2,13 @@
 #show: article.with(
   title: [Terrain generation],
   summary: [How Quell creates fixed ground for a changing trail network.],
-  documents: ("quell-hex-terrain-r11-design", "hex-paths-overview", "quell-world-generation-design"),
+  authors: ("GPT Sol",),
+  date: "2026-11-03",
+  documents: (
+    "quell-hex-terrain-r11-design",
+    "hex-paths-overview",
+    "quell-world-generation-design",
+  ),
 )
 
 Quell's terrain generator creates the ground beneath its exploration spaces.
@@ -89,7 +95,7 @@ player.
 #wip("quell-world-generation-design")
 
 #undecided[Chunk size and level-of-detail distances. The world-generation
-proposal leaves both to later tuning.]
+  proposal leaves both to later tuning.]
 
 = See also <terrain-see-also>
 

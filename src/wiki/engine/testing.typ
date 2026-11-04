@@ -2,6 +2,9 @@
 #show: article.with(
   title: [Testing Bevy code],
   summary: [How qproj tests games and crates with q_test_harness: full-app runs and selected-schedule steps.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-03",
+  topic: "Practice",
 )
 
 Quell and most of the `lib/` crates are tested through `q_test_harness`, a
@@ -11,7 +14,7 @@ two kinds of test. A
 *selected-schedule* test feeds synthetic input and advances only the schedules
 it names. Choosing between them is a decision about what the test is meant to
 show.#footnote[The harness's API is documented in its README, its Rust docs
-and the `q-test-harness` agent skill.]
+  and the `q-test-harness` agent skill.]
 
 #contents()
 

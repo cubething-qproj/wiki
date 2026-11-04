@@ -2,6 +2,9 @@
 #show: article.with(
   title: [Inference Anchoring Theory and xAIF],
   summary: [A way of mapping the arguments in a whole text or dialogue, and the JSON format used to store such maps.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-04",
+  topic: "Argumentation theory",
   documents: ("pta-document-analysis",),
 )
 

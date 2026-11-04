@@ -2,6 +2,9 @@
 #show: article.with(
   title: [Cross-encoders],
   summary: [Models that score a pair of texts by reading them together: slower than embeddings, but usually more accurate.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-04",
+  topic: "Understanding text",
   documents: ("debate-pipeline",),
 )
 

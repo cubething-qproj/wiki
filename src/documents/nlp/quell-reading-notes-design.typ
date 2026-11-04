@@ -21,21 +21,23 @@ books and is *never committed or published*.
 Tiers 0--2 of the research doc only:
 
 #table(
-    columns: 3,
-    table.header([tier], [approach], [output]),
-    [0],
-    [authored annotations; highlight → concepts by
-      coverage],
-    [score per concept, no model],
-    [1],
-    [embedding similarity (MiniLM / BGE-small / e5-small
-      class)],
-    [cosine score per concept],
-    [2],
-    [schema-driven encoders (GLiNER2, GLiNER /
-      GLiClass)],
-    [concept, stance, slots with scores],
-  )
+  columns: 3,
+  table.header([tier], [approach], [output]),
+  [0],
+  [authored annotations; highlight → concepts by
+    coverage],
+  [score per concept, no model],
+
+  [1],
+  [embedding similarity (MiniLM / BGE-small / e5-small
+    class)],
+  [cosine score per concept],
+
+  [2],
+  [schema-driven encoders (GLiNER2, GLiNER /
+    GLiClass)],
+  [concept, stance, slots with scores],
+)
 
 Few-shot only for now (tier 1 `proto` arm: concept anchored by its
 dev-split example notes). *Fine-tuning is deferred* until the
@@ -46,19 +48,21 @@ A data set is a directory (`misc/note-lab/data/<set>/`; everything
 except `data/fixture/` is gitignored):
 
 #table(
-    columns: 2,
-    table.header([path], [contents]),
-    [`texts/*.txt`], [Plain text, exactly as the player reads it.],
-    [`texts/*.json`],
-    [Optional W3C annotation page for the same-named
-      text.],
-    [`concepts.toml`],
-    [Concept ids with label and description; the
-      closed stance and slot sets.],
-    [`notes.jsonl`],
-    [One note per line: text, highlighted span, gold
-      labels, `dev`/`holdout`.],
-  )
+  columns: 2,
+  table.header([path], [contents]),
+  [`texts/*.txt`], [Plain text, exactly as the player reads it.],
+  [`texts/*.json`],
+  [Optional W3C annotation page for the same-named
+    text.],
+
+  [`concepts.toml`],
+  [Concept ids with label and description; the
+    closed stance and slot sets.],
+
+  [`notes.jsonl`],
+  [One note per line: text, highlighted span, gold
+    labels, `dev`/`holdout`.],
+)
 
 *Offsets* are `[start, end)` in Unicode code points over the text
 file, read as UTF-8 with no newline translation. A Rust port must
@@ -164,15 +168,16 @@ Modelled on `misc/hex-lab`.
 - *Throttle profiles* (CPU only; the GPU is the renderer's):
 
   #table(
-      columns: 2,
-      table.header([profile], [how]),
-      [`host`], [all cores, no limits],
-      [`mid`], [`taskset` to 4 cores, 4 ORT threads],
-      [`low`],
-      [`systemd-run --user -p CPUQuota=100% -p MemoryMax=2G`,
-        1--2 threads],
-      [`starved`], [`CPUQuota=50%`, 1 thread],
-    )
+    columns: 2,
+    table.header([profile], [how]),
+    [`host`], [all cores, no limits],
+    [`mid`], [`taskset` to 4 cores, 4 ORT threads],
+    [`low`],
+    [`systemd-run --user -p CPUQuota=100% -p MemoryMax=2G`,
+      1--2 threads],
+
+    [`starved`], [`CPUQuota=50%`, 1 thread],
+  )
 
   Clock speed can't be lowered without root; quota stands in for slow
   cores. Check `systemd-run --user` cgroup CPU delegation first; fall

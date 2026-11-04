@@ -2,6 +2,9 @@
 #show: article.with(
   title: [Constrained decoding],
   summary: [Forcing a language model's output to follow a grammar, so that it always parses.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-04",
+  topic: "Generating text",
   documents: ("debate-spike",),
 )
 
@@ -37,5 +40,7 @@ catch.
 
 = External links <decoding-external>
 
-- #link("https://github.com/ggml-org/llama.cpp/blob/master/grammars/README.md")[llama.cpp grammars]
+- #link(
+    "https://github.com/ggml-org/llama.cpp/blob/master/grammars/README.md",
+  )[llama.cpp grammars]
   — GBNF and JSON Schema support.

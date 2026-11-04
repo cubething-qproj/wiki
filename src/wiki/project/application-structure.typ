@@ -2,15 +2,18 @@
 #show: article.with(
   title: [Quell's application structure],
   summary: [How the Quell binary is assembled from screens, services and shared modules.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-03",
+  topic: "The game",
   documents: ("quell-world-generation-design",),
 )
 
 The Quell crate (`bin/quell`) is organized around two ideas from its engine
 libraries. *Screens* decide what part of the game is running. *Services* provide
 the behavior that screens use.#footnote[Checked against `bin/quell/src/` after the Bevy 0.20
-migration. The crate's own `docs/architecture.md` describes the same
-conventions, but parts of it predate the current layout. It mentions a `mise`
-CLI and a main-menu screen, neither of which exists now.]
+  migration. The crate's own `docs/architecture.md` describes the same
+  conventions, but parts of it predate the current layout. It mentions a `mise`
+  CLI and a main-menu screen, neither of which exists now.]
 
 #contents()
 
@@ -46,10 +49,14 @@ switches screens, every entity not marked persistent is despawned. See
   [Waits for the player model to load, then spawns the Jackdaw greybox scene
     `scenes/greybox_scene.bsn`. A `PlayerSpawn` placed in that scene spawns
     the player and its camera.],
-  [`camera_test` (dev)], [Exercises the tracking and free cameras; see #l("camera").],
+
+  [`camera_test` (dev)],
+  [Exercises the tracking and free cameras; see #l("camera").],
+
   [`greybox_arena` (dev)],
   [Loads the same greybox scene with the player, plus a free camera that Tab
     switches to.],
+
   [`hex_paths` (dev)],
   [Previews terrain-first trail generation; see #l("terrain-generation").],
 )
@@ -58,7 +65,7 @@ The world screen loads a test level, not the game world. The `worldgen` service
 holds only a placeholder plane, which the world screen does not spawn.
 
 #wip("quell-world-generation-design")[Covers: generated terrain in the world
-screen. Generation currently runs only in the `hex_paths` development screen.]
+  screen. Generation currently runs only in the `hex_paths` development screen.]
 
 = Services <app-services>
 

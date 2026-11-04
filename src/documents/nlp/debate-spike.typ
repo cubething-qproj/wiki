@@ -12,7 +12,7 @@ map, on a CPU, close to real time? Slow is fine at first. It has to work at
 all.
 
 *Not the question:* how good it is compared to the #l("debate-pipeline")[oracle
-pipeline]. That comes after.
+  pipeline]. That comes after.
 
 == How it works
 
@@ -89,13 +89,13 @@ A TypeScript script in `misc/labs/xAIF` (its own repo, no remote). It calls
 == Downloads to approve
 
 #decide[
-- *llama.cpp:* the Arch package `extra/llama-cpp`, or a build inside the repo,
-  never in `/tmp`.
-- *One small instruct model in GGUF:* 1.5–3B parameters,
-  #l("explainer-quantization")[quantized] to about 1–2 GB. Compare the
-  current small Qwen, Llama, Phi and Gemma models at download time.
-- *One small embedding model* for retrieval, tens of MB. Optional: plain
-  word-overlap retrieval (BM25) needs no download and may do to start.
+  - *llama.cpp:* the Arch package `extra/llama-cpp`, or a build inside the repo,
+    never in `/tmp`.
+  - *One small instruct model in GGUF:* 1.5–3B parameters,
+    #l("explainer-quantization")[quantized] to about 1–2 GB. Compare the
+    current small Qwen, Llama, Phi and Gemma models at download time.
+  - *One small embedding model* for retrieval, tens of MB. Optional: plain
+    word-overlap retrieval (BM25) needs no download and may do to start.
 
-Disk is at 87%, so models go in one gitignored directory in the lab.
+  Disk is at 87%, so models go in one gitignored directory in the lab.
 ]

@@ -2,6 +2,9 @@
 #show: article.with(
   title: [LoRA fine-tuning],
   summary: [Adapting a model to a task by training small add-on matrices while its original weights stay frozen.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-04",
+  topic: "Generating text",
   documents: ("debate-spike",),
 )
 

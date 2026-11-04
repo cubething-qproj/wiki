@@ -2,6 +2,9 @@
 #show: article.with(
   title: [Debate],
   summary: [The planned mechanic in which players read real philosophy, build arguments and debate the characters they meet.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-03",
+  topic: "Debate",
   documents: (
     "debate",
     "debate-game",
@@ -19,11 +22,11 @@ questions without easy answers. Some debates must be won to progress; others
 only change the conversation. Each run starts over, but players keep what they
 have learned. Their progress is knowledge rather than items or levels, as in a
 knowledge-based roguelite.#footnote[The current plan is the draft-2 plan map
-of 2026-11-03, which supersedes the first roadmap in
-`.docs/designs/quell-debate-roadmap.typ`.]
+  of 2026-11-03, which supersedes the first roadmap in
+  `.docs/designs/quell-debate-roadmap.typ`.]
 
 #wip("debate", "debate-game")[What follows is design intent, supported by
-research in the labs. Several of its basic choices are still open.]
+  research in the labs. Several of its basic choices are still open.]
 
 #contents()
 
@@ -71,8 +74,8 @@ Hand-made maps are enough for a playable debate. A pipeline would mainly make
 authoring faster, unless it proves fast enough to parse players' free text at
 runtime. The next planned experiment, a "spike", tests whether a small local
 model on a CPU can write valid maps at all.#footnote[#doc("debate-spike")[Spike:
-natural language → xAIF], proposed and not yet reviewed. The alternatives it
-will be compared against are listed in #doc("debate-arms")[Arms and decisions].]
+    natural language → xAIF], proposed and not yet reviewed. The alternatives it
+  will be compared against are listed in #doc("debate-arms")[Arms and decisions].]
 
 = Constraints <debate-constraints>
 
@@ -126,7 +129,7 @@ small pure-Rust crate (working name `q_pta`) for the type table and derivation
 rules, checked against the same conformance examples as the editor. Dialogue
 has been sketched in Yarn, but `bevy_yarnspinner` has not been evaluated for
 Quell.#footnote[#doc("debate-game")[Quell integration], a sketch. The visual
-novel `vn-jun-26` already uses `bevy_yarnspinner`, but that is a separate game.]
+  novel `vn-jun-26` already uses `bevy_yarnspinner`, but that is a separate game.]
 
 = See also <debate-see-also>
 
@@ -138,5 +141,7 @@ novel `vn-jun-26` already uses `bevy_yarnspinner`, but that is a separate game.]
 
 - #link("https://periodic-table-of-arguments.org/")[Periodic Table of Arguments]
   — Wagemans' classification of argument types.
-- #link("https://en.wikipedia.org/wiki/Argumentation_framework")[Argumentation framework]
+- #link(
+    "https://en.wikipedia.org/wiki/Argumentation_framework",
+  )[Argumentation framework]
   — background on Dung's abstract model.

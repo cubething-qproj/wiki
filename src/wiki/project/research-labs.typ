@@ -2,7 +2,14 @@
 #show: article.with(
   title: [Research labs],
   summary: [The local Python and web labs where Quell's generators and language tools are prototyped and measured.],
-  documents: ("quell-hex-terrain-r11-design", "quell-reading-notes-design", "debate-gold"),
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-03",
+  topic: "Organization",
+  documents: (
+    "quell-hex-terrain-r11-design",
+    "quell-reading-notes-design",
+    "debate-gold",
+  ),
 )
 
 Some of Quell's systems are hard to judge from inside the game: for example,
@@ -24,11 +31,13 @@ has been chosen, it is ported to Rust.
   [How should terrain and trails be generated? It simulates regional
     erosion, selects board windows, lays out landmarks and trails, and renders
     comparison figures.],
+
   [note-lab \ `misc/labs/nlp`],
   [Python, uv; INCEpTION],
   [Which concepts is a player's highlight or note about? It defines the
     annotation data format and validates data sets. It is meant to compare
     ways of interpreting notes, from authored annotations to small local models.],
+
   [xAIF editor \ `misc/labs/xAIF`],
   [Svelte, TypeScript],
   [What argument structure does a text have? It is a browser editor for
@@ -39,8 +48,8 @@ has been chosen, it is ported to Rust.
 hex-lab is the most mature of the three. The current Rust generator in the
 `hex_paths` development screen follows the lab's experiment 15
 (`exp/15-density`).#footnote[The module documentation
-of `bin/quell/src/screen/dev/hex_paths/mod.rs` names the lab tag and arm it
-follows.] note-lab so far has its data format, a `check` command and
+  of `bin/quell/src/screen/dev/hex_paths/mod.rs` names the lab tag and arm it
+  follows.] note-lab so far has its data format, a `check` command and
 #l("reading-notes#notes-tiers")[tier 0] concept coverage. No model interpreters have been measured yet. The
 xAIF editor is in use: it has produced the reviewed argument maps described in
 #l("argument-maps").

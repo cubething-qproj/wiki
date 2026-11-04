@@ -6,12 +6,12 @@
 )
 
 #quote(block: true)[
-Superseded by
-#l("quell-hex-terrain-r11-design").
+  Superseded by
+  #l("quell-hex-terrain-r11-design").
 ]
 
 Status: #strong[Round 10, superseded by round 11
-(#l("quell-hex-terrain-r11-design")), 2026-10-13.] Kept for the
+  (#l("quell-hex-terrain-r11-design")), 2026-10-13.] Kept for the
 experiment record.
 
 Builds on #l("quell-hex-terrain-design") (rounds 1--9). It changes three
@@ -87,20 +87,25 @@ What this changes from round 9:
 When the player reaches a Fear, the layout regenerates:
 
 #table(
-    columns: 2,
-    align: (auto,auto,),
-    table.header([], [After a Fear],),
-    [Terrain (heightmap)], [Unchanged.],
-    [Trails], [Regenerated from scratch. The player has to find their
+  columns: 2,
+  align: (auto, auto),
+  table.header([], [After a Fear]),
+  [Terrain (heightmap)], [Unchanged.],
+  [Trails],
+  [Regenerated from scratch. The player has to find their
     way again.],
-    [Nodes], [Kept, each displaced randomly within 3--5 tiles so it
+
+  [Nodes],
+  [Kept, each displaced randomly within 3--5 tiles so it
     stays in the same general area. Visited nodes move too, and nodes
     may swap places. Model layers move with them.],
-    [Visited nodes], [Still revealed.],
-    [Deck], [Unchanged: cards stay with their nodes.],
-    [Player], [Stays where they are. Their corner becomes the new
+
+  [Visited nodes], [Still revealed.],
+  [Deck], [Unchanged: cards stay with their nodes.],
+  [Player],
+  [Stays where they are. Their corner becomes the new
     layout's spawn, so teases and walking order follow from it.],
-  )
+)
 
 Timing doesn't matter: the event isn't instantaneous, and the player
 keeps doing things while the layout regenerates. Generation can run in
@@ -245,28 +250,100 @@ Arms (all typed placement with 6 POIs and 3 benches, `spread` 2):
   every node moved 2--4 hexes.
 
 #table(
-    columns: 8,
-    align: (auto,auto,auto,auto,auto,auto,auto,auto,),
-    table.header([], [base], [bench6], [wander0.5], [wander1], [wander1
-      stretch1.5], [regen partial], [regen fear],),
-    [Benches together
-    (boards)], [79%], [64%], [68%], [74%], [76%], [88%], [85%],
-    [Bench spur
-    (boards)], [0.6%], [0.5%], [1.4%], [2.6%], [2.1%], [3.9%], [3.6%],
-    [Connection pass used
-    (boards)], [27%], [28%], [35%], [52%], [52%], [52%], [50%],
-    [Teases held / placed], [1.84 / 1.96], [1.84 / 1.96], [1.77 /
-    1.96], [1.60 / 1.96], [1.60 / 1.96], [1.36 / 1.86], [1.51 / 1.85],
-    [Trail edges], [151], [153], [159], [168], [169], [175], [160],
-    [*Detour*, node pairs
-    (median)], [1.51], [1.51], [1.55], [1.62], [1.61], [1.63], [1.64],
-    [*Detour*, trail corners
-    (median)], [1.44], [1.43], [1.47], [1.50], [1.53], [1.61], [1.51],
-    [*Branches* (routes within
-    1.5×)], [1.17], [1.17], [1.17], [1.15], [1.16], [1.17], [1.16],
-    [*Junctions per walk* to nearest
-    pad], [0.51], [0.50], [0.58], [0.70], [0.73], [0.93], [0.69],
-  )
+  columns: 8,
+  align: (auto, auto, auto, auto, auto, auto, auto, auto),
+  table.header(
+    [],
+    [base],
+    [bench6],
+    [wander0.5],
+    [wander1],
+    [wander1
+      stretch1.5],
+    [regen partial],
+    [regen fear],
+  ),
+  [Benches together
+    (boards)],
+  [79%],
+  [64%],
+  [68%],
+  [74%],
+  [76%],
+  [88%],
+  [85%],
+
+  [Bench spur
+    (boards)],
+  [0.6%],
+  [0.5%],
+  [1.4%],
+  [2.6%],
+  [2.1%],
+  [3.9%],
+  [3.6%],
+
+  [Connection pass used
+    (boards)],
+  [27%],
+  [28%],
+  [35%],
+  [52%],
+  [52%],
+  [52%],
+  [50%],
+
+  [Teases held / placed],
+  [1.84 / 1.96],
+  [1.84 / 1.96],
+  [1.77 /
+    1.96],
+  [1.60 / 1.96],
+  [1.60 / 1.96],
+  [1.36 / 1.86],
+  [1.51 / 1.85],
+
+  [Trail edges], [151], [153], [159], [168], [169], [175], [160],
+  [*Detour*, node pairs
+    (median)],
+  [1.51],
+  [1.51],
+  [1.55],
+  [1.62],
+  [1.61],
+  [1.63],
+  [1.64],
+
+  [*Detour*, trail corners
+    (median)],
+  [1.44],
+  [1.43],
+  [1.47],
+  [1.50],
+  [1.53],
+  [1.61],
+  [1.51],
+
+  [*Branches* (routes within
+    1.5×)],
+  [1.17],
+  [1.17],
+  [1.17],
+  [1.15],
+  [1.16],
+  [1.17],
+  [1.16],
+
+  [*Junctions per walk* to nearest
+    pad],
+  [0.51],
+  [0.50],
+  [0.58],
+  [0.70],
+  [0.73],
+  [0.93],
+  [0.69],
+)
 
 Every arm: 100% connected, spawn on a loop on at least 98.9% of boards,
 no dead ends, no errors. Pads move the playable ground by 0.02 edge
@@ -331,27 +408,91 @@ the tease holds, grey with the reason if not, labelled with walk ÷
 crow-fly. Fork trails are green.
 
 #table(
-    columns: 8,
-    align: (auto,auto,auto,auto,auto,auto,auto,auto,),
-    table.header([], [base], [4 local], [8 local], [4 far], [4 local + 4
-      far], [regen partial], [regen fear],),
-    [Forks laid], [0], [2.5], [3.0], [4.0], [8.0], [2.8], [2.8],
-    [Trail edges], [151], [177], [182], [208], [248], [188], [172],
-    [Independent
-    loops], [5.3], [7.8], [8.4], [9.4], [13.5], [10.4], [7.8],
-    [*Junctions per walk* to nearest
-    pad], [0.51], [0.61], [0.63], [0.88], [1.07], [0.87], [0.63],
-    [*Detour*, trail corners
-    (median)], [1.44], [1.45], [1.45], [1.97], [1.94], [1.54], [1.45],
-    [*Branches* (routes within
-    1.5×)], [1.17], [1.18], [1.18], [1.21], [1.22], [1.19], [1.18],
-    [Teases held / placed], [1.84 / 1.96], [1.85 / 1.96], [1.85 /
-    1.96], [1.84 / 1.96], [1.84 / 1.96], [1.52 / 1.82], [1.73 / 1.86],
-    [Connection pass used
-    (boards)], [27%], [27%], [27%], [27%], [27%], [33%], [28%],
-    [Benches together
-    (boards)], [79%], [80%], [80%], [96%], [98%], [91%], [90%],
-  )
+  columns: 8,
+  align: (auto, auto, auto, auto, auto, auto, auto, auto),
+  table.header(
+    [],
+    [base],
+    [4 local],
+    [8 local],
+    [4 far],
+    [4 local + 4
+      far],
+    [regen partial],
+    [regen fear],
+  ),
+  [Forks laid], [0], [2.5], [3.0], [4.0], [8.0], [2.8], [2.8],
+  [Trail edges], [151], [177], [182], [208], [248], [188], [172],
+  [Independent
+    loops],
+  [5.3],
+  [7.8],
+  [8.4],
+  [9.4],
+  [13.5],
+  [10.4],
+  [7.8],
+
+  [*Junctions per walk* to nearest
+    pad],
+  [0.51],
+  [0.61],
+  [0.63],
+  [0.88],
+  [1.07],
+  [0.87],
+  [0.63],
+
+  [*Detour*, trail corners
+    (median)],
+  [1.44],
+  [1.45],
+  [1.45],
+  [1.97],
+  [1.94],
+  [1.54],
+  [1.45],
+
+  [*Branches* (routes within
+    1.5×)],
+  [1.17],
+  [1.18],
+  [1.18],
+  [1.21],
+  [1.22],
+  [1.19],
+  [1.18],
+
+  [Teases held / placed],
+  [1.84 / 1.96],
+  [1.85 / 1.96],
+  [1.85 /
+    1.96],
+  [1.84 / 1.96],
+  [1.84 / 1.96],
+  [1.52 / 1.82],
+  [1.73 / 1.86],
+
+  [Connection pass used
+    (boards)],
+  [27%],
+  [27%],
+  [27%],
+  [27%],
+  [27%],
+  [33%],
+  [28%],
+
+  [Benches together
+    (boards)],
+  [79%],
+  [80%],
+  [80%],
+  [96%],
+  [98%],
+  [91%],
+  [90%],
+)
 
 The regeneration stages use 4 local forks.
 

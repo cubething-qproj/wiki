@@ -2,6 +2,9 @@
 #show: article.with(
   title: [Prompt caching],
   summary: [Reusing a language model's work on a shared prompt prefix across many calls.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-04",
+  topic: "Generating text",
   documents: ("debate-spike",),
 )
 

@@ -2,6 +2,9 @@
 #show: article.with(
   title: [Stage-wise evaluation],
   summary: [Scoring each step of a pipeline on its own, by giving it correct inputs from the steps before.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-04",
+  topic: "Measuring results",
   documents: ("debate-gold", "debate-pipeline"),
 )
 

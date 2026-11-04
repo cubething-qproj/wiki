@@ -2,6 +2,9 @@
 #show: article.with(
   title: [Value-based argumentation],
   summary: [An extension of abstract argumentation in which whether an attack succeeds depends on what the audience values.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-04",
+  topic: "Argumentation theory",
   documents: ("debate-evaluation",),
 )
 

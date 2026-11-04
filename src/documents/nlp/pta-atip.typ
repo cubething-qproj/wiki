@@ -22,12 +22,15 @@ Premises, conclusions, and
 #table(
   columns: (auto, auto),
   table.header([set], [description]),
-  $ N $, [The set of all names (alias argument types, symbols) as defined by the PTA.],
+  $ N $,
+  [The set of all names (alias argument types, symbols) as defined by the PTA.],
+
   $ Sigma $, [The class of all sentences.],
   $ PP ; rho = (s,p) in PP $, [The class of all premises.],
   $ CC ; c = (s,p) in "C" $, [The class of all conclusions.],
   $ "Pc" supset (PP, CC) $, [The class of all propositional content.],
-  $ P ; p in P = [c_i : c_i in "Pc"] $, [The class of all complete propositions.],
+  $ P ; p in P = [c_i : c_i in "Pc"] $,
+  [The class of all complete propositions.],
 
   $ "Pr" ; p in "Pr" $, [The class of all predicates.],
   $ "Su" ; s in "Su" $, [The class of all subjects.],

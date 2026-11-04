@@ -2,6 +2,9 @@
 #show: article.with(
   title: [Periodic Table of Arguments],
   summary: [Wagemans' classification of arguments into 50 types by form, substance and lever, and the procedure for finding a type.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-04",
+  topic: "Argumentation theory",
   documents: ("pta-atip-algorithm", "pta-atip"),
 )
 
@@ -40,13 +43,20 @@ stand for subjects ($a$, $b$) and predicates ($X$, $Y$).
 #table(
   columns: (auto, auto, 1fr),
   table.header([Form], [Pattern], [Example]),
-  [α (alpha)], [$a$ is $X$ because $a$ is $Y$],
+  [α (alpha)],
+  [$a$ is $X$ because $a$ is $Y$],
   [The minister did a great job, because she raised the university budget.],
-  [β (beta)], [$a$ is $X$ because $b$ is $X$],
+
+  [β (beta)],
+  [$a$ is $X$ because $b$ is $X$],
   [Cycling on the lawn is prohibited, because all activities on the lawn are prohibited.],
-  [γ (gamma)], [$a$ is $X$ because $b$ is $Y$],
+
+  [γ (gamma)],
+  [$a$ is $X$ because $b$ is $Y$],
   [Peace can be started by the truth, because war can be started by lies.],
-  [δ (delta)], [$q$ is acceptable because $q$ is $Z$],
+
+  [δ (delta)],
+  [$q$ is acceptable because $q$ is $Z$],
   [The economy has grown, because Eurostat says so.],
 )
 
@@ -118,9 +128,9 @@ substance by rule, and the annotator chooses only the lever. The same rules
 would let the game type a player's argument without a language model,
 provided the player builds it from statements that have already been analysed.
 #footnote[The derivation rules and their test cases are in
-`misc/labs/xAIF/README.md` and `examples/ra-inputs.json`. A formalization of
-ATIP as rules plus statistical judgements is in
-#doc("pta-atip-algorithm")[ATIP as an algorithm].]
+  `misc/labs/xAIF/README.md` and `examples/ra-inputs.json`. A formalization of
+  ATIP as rules plus statistical judgements is in
+  #doc("pta-atip-algorithm")[ATIP as an algorithm].]
 
 Whether 50 types is too many to teach in a game is one of the
 #l("debate-system#debate-open")[open questions] about debate.
@@ -143,9 +153,15 @@ Whether 50 types is too many to teach in a game is one of the
 
 = External links <pta-external>
 
-- #link("https://periodic-table-of-arguments.org/")[The Periodic Table of Arguments]
+- #link(
+    "https://periodic-table-of-arguments.org/",
+  )[The Periodic Table of Arguments]
   — the official site.
-- #link("https://www.periodic-table-of-arguments.org/pta-3-1-clickable")[PTA 3.1, clickable]
+- #link(
+    "https://www.periodic-table-of-arguments.org/pta-3-1-clickable",
+  )[PTA 3.1, clickable]
   — worked examples of all 50 types.
-- #link("https://www.periodic-table-of-arguments.org/argument-type-identification-procedure")[ATIP]
+- #link(
+    "https://www.periodic-table-of-arguments.org/argument-type-identification-procedure",
+  )[ATIP]
   — the identification procedure.

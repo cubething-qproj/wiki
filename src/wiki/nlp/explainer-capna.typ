@@ -2,6 +2,9 @@
 #show: article.with(
   title: [CAPNA],
   summary: [A procedure for judging the quality of an argument as it appears in natural text.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-04",
+  topic: "Argumentation theory",
   documents: ("capna-based-flow", "debate-evaluation"),
 )
 

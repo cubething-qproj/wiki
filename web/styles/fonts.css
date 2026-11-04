@@ -1,0 +1,27 @@
+@font-face {
+    font-family: "Libertinus Serif";
+    src: url("/fonts/LibertinusSerif-Regular.woff2") format("woff2");
+    font-display: swap;
+}
+@font-face {
+    font-family: "Libertinus Serif";
+    src: url("/fonts/LibertinusSerif-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Libertinus Serif";
+    src: url("/fonts/LibertinusSerif-Italic.woff2") format("woff2");
+    font-style: italic;
+    font-display: swap;
+}
+@font-face {
+    font-family: "Libertinus Mono";
+    src: url("/fonts/LibertinusMono-Regular.woff2") format("woff2");
+    font-display: swap;
+}
+@font-face {
+    font-family: "Libertinus Math";
+    src: url("/fonts/LibertinusMath-Regular.woff2") format("woff2");
+    font-display: swap;
+}

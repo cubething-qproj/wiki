@@ -6,10 +6,10 @@
 )
 
 #quote(block: true)[
-Superseded by
-#l("quell-hex-terrain-r11-design")
-(generators, via #l("quell-hex-terrain-design")). The screen and walking
-shipped in quell \#49 and \#51.
+  Superseded by
+  #l("quell-hex-terrain-r11-design")
+  (generators, via #l("quell-hex-terrain-design")). The screen and walking
+  shipped in quell \#49 and \#51.
 ]
 
 Status: *Approved by Ada on 2026-10-09. Implementation proceeds
@@ -52,22 +52,36 @@ Tiles are entities. Generation produces plain data (§3); a system spawns
 it.
 
 #table(
-    columns: 3,
-    align: (auto,auto,auto,),
-    table.header([Type], [Kind], [Responsibility],),
-    [`HexPos(Hex)`], [Component], [Grid position of a tile or the
+  columns: 3,
+  align: (auto, auto, auto),
+  table.header([Type], [Kind], [Responsibility]),
+  [`HexPos(Hex)`],
+  [Component],
+  [Grid position of a tile or the
     player.],
-    [`Spokes`], [Component], [`bitflags` u8, one bit per hex edge (6
+
+  [`Spokes`],
+  [Component],
+  [`bitflags` u8, one bit per hex edge (6
     directions).],
-    [`TileKind`], [Component], [`Spawn | Node(NodeTrait) | Path`.],
-    [`NodeTrait`], [enum], [`KeyLocation | Npc | Fear | Empty`.],
-    [`Revealed`], [Component (marker)], [Tile has been entered. Spawn
+
+  [`TileKind`], [Component], [`Spawn | Node(NodeTrait) | Path`.],
+  [`NodeTrait`], [enum], [`KeyLocation | Npc | Fear | Empty`.],
+  [`Revealed`],
+  [Component (marker)],
+  [Tile has been entered. Spawn
     starts revealed. A revealed node is flipped --- no separate state.],
-    [`Board`], [Resource], [`HashMap<Hex, Entity>` index for neighbor
+
+  [`Board`],
+  [Resource],
+  [`HashMap<Hex, Entity>` index for neighbor
     lookup, grid bounds, `HexLayout`. Empty cells are absent.],
-    [`Player`], [Component], [Player token; carries `HexPos` and `Walk`
+
+  [`Player`],
+  [Component],
+  [Player token; carries `HexPos` and `Walk`
     (§5).],
-  )
+)
 
 Tile entities are `ScreenScoped` and despawned on regenerate.
 
@@ -90,40 +104,60 @@ Two Resources, both `Reflect`:
 board (`resource_changed::<HexPathsSettings>`).
 
 #table(
-    columns: 3,
-    align: (auto,auto,auto,),
-    table.header([Field], [Default], [Meaning],),
-    [`columns`, `rows`], [10, 8], [Grid size.],
-    [`seed`], [`None`], [`None`: fresh random seed every generation.
+  columns: 3,
+  align: (auto, auto, auto),
+  table.header([Field], [Default], [Meaning]),
+  [`columns`, `rows`], [10, 8], [Grid size.],
+  [`seed`],
+  [`None`],
+  [`None`: fresh random seed every generation.
     `Some(n)`: pinned, same seed + settings ⇒ same board.],
-    [`spawn`], [`Center`], [`Center | Random | Fixed(Hex)`.],
-    [`deck`], [key 1, NPC 1, Fear 1, empty 3], [Trait counts. Node count
+
+  [`spawn`], [`Center`], [`Center | Random | Fixed(Hex)`.],
+  [`deck`],
+  [key 1, NPC 1, Fear 1, empty 3],
+  [Trait counts. Node count
     \= deck size.],
-    [`min_node_distance`], [2], [Hex distance between any two nodes.],
-    [`min_spawn_distance`], [3], [Hex distance from spawn to any node.],
-    [`spawn_spokes`], [2..=3], [Spoke count range for the spawn tile.],
-    [`noise`], [2.0], [Amplitude of per-cell random cost in A\*. 0 =
+
+  [`min_node_distance`], [2], [Hex distance between any two nodes.],
+  [`min_spawn_distance`], [3], [Hex distance from spawn to any node.],
+  [`spawn_spokes`], [2..=3], [Spoke count range for the spawn tile.],
+  [`noise`],
+  [2.0],
+  [Amplitude of per-cell random cost in A\*. 0 =
     shortest paths.],
-    [`shape_weights`], [sharp 1, wide 1, straight 1], [Relative
+
+  [`shape_weights`],
+  [sharp 1, wide 1, straight 1],
+  [Relative
     preference for 2-spoke shapes: 60°, 120°, 180°.],
-    [`junction_chance`], [0.25], [Chance a 2-spoke path tile is upgraded
+
+  [`junction_chance`],
+  [0.25],
+  [Chance a 2-spoke path tile is upgraded
     to 3 spokes (≈ the 3:1 deck).],
-    [`branch_length`], [1..=4], [Length range of side branches spawned
+
+  [`branch_length`],
+  [1..=4],
+  [Length range of side branches spawned
     by junctions.],
-    [`branch_join_chance`], [0.3], [Chance a branch connects into an
+
+  [`branch_join_chance`],
+  [0.3],
+  [Chance a branch connects into an
     adjacent path tile (loop) instead of ending in a dead end.],
-  )
+)
 
 `HexPathsView` --- play-time. Changing it never regenerates.
 
 #table(
-    columns: 3,
-    align: (auto,auto,auto,),
-    table.header([Field], [Default], [Meaning],),
-    [`show_paths`], [false], [Draw unrevealed tiles' spokes.],
-    [`show_node_traits`], [false], [Draw face-down nodes' traits.],
-    [`step_duration`], [0.5 s], [Time to walk one tile (§5).],
-  )
+  columns: 3,
+  align: (auto, auto, auto),
+  table.header([Field], [Default], [Meaning]),
+  [`show_paths`], [false], [Draw unrevealed tiles' spokes.],
+  [`show_node_traits`], [false], [Draw face-down nodes' traits.],
+  [`step_duration`], [0.5 s], [Time to walk one tile (§5).],
+)
 
 Neither toggle affects routing: the player only plans with what they
 know.

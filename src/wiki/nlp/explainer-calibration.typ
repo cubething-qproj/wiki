@@ -2,6 +2,9 @@
 #show: article.with(
   title: [Top-k accuracy and calibration],
   summary: [Whether the right answer is near the top of a model's list, and whether its confidence can be trusted.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-04",
+  topic: "Measuring results",
   documents: ("debate-gold",),
 )
 

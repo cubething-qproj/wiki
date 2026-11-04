@@ -2,6 +2,8 @@
 #show: article.with(
   title: [Engine: q_os and libraries],
   summary: [The reusable Bevy crates in `lib/` that Quell and the other games build on.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-03",
 )
 
 Quell does not use a separate game engine. It is a Bevy application, and its
@@ -19,8 +21,14 @@ terminal and shell crates behind Quell's development console, and
   columns: (auto, auto, 1fr),
   table.header([Crate], [Group], [Purpose]),
   [`q_screens`], [utility], [Screen lifecycle and screen-scoped entities.],
-  [`q_cam`], [utility], [The spring arm behind the #l("camera")[tracking camera]; input gating for Bevy's free camera.],
-  [`q_test_harness`], [utility], [Headless test runner, steps and synthetic input.],
+  [`q_cam`],
+  [utility],
+  [The spring arm behind the #l("camera")[tracking camera]; input gating for Bevy's free camera.],
+
+  [`q_test_harness`],
+  [utility],
+  [Headless test runner, steps and synthetic input.],
+
   [`q_proc`], [q_os], [Processes, programs and typed I/O.],
   [`q_term`], [q_os], [Terminal emulator widget.],
   [`q_shell`], [q_os], [Shell joining processes to a terminal.],
@@ -35,7 +43,7 @@ other.
 
 = Topics <engine-topics>
 
-#article-list("engine")
+#article-list("engine", topics: ("Libraries", "Practice"))
 
 = See also <engine-see-also>
 

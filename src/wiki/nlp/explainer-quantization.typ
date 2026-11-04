@@ -2,6 +2,9 @@
 #show: article.with(
   title: [Quantization and llama.cpp],
   summary: [Storing a model's weights in fewer bits so that it fits in memory and runs on a CPU.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-04",
+  topic: "Running models",
   documents: ("debate-spike",),
 )
 

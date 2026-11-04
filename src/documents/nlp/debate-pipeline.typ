@@ -6,7 +6,7 @@
 )
 
 #note[Family B on the #l("debate-arms")[arms] page. Source:
-`.docs/designs/pta-atip-algorithm.typ`.]
+  `.docs/designs/pta-atip-algorithm.typ`.]
 
 The procedure is mostly rules. Every judgement a rule can't make is an
 *oracle*: a function that answers one small question with a probability for
@@ -39,25 +39,30 @@ The order follows how a human annotator works. Each step's arms:
   [#anchor("s1")1 · segment],
   [which spans are argumentative units (L-nodes)],
   [#l("explainer-dependency-parsing")[parser] + discourse markers;
-   #l("explainer-gliner2")[GLiNER2] spans; small LLM;
-   #l("explainer-argument-mining")[oAMF] segmenters],
+    #l("explainer-gliner2")[GLiNER2] spans; small LLM;
+    #l("explainer-argument-mining")[oAMF] segmenters],
+
   [#anchor("s2")2 · relate],
   [which unit answers which; argue, disagree or restate; reported speech;
-   unstated premises],
+    unstated premises],
   [marker rules; #l("explainer-nli")[NLI] over pairs; LLM proposal
-   checked by NLI],
+    checked by NLI],
+
   [#anchor("s3")3 · reconstruct],
   [each I-node's wording, which decides the form. The hardest step.],
   [O2 same term? (lemma + coreference, #l("explainer-embeddings")[embeddings], #l("explainer-cross-encoders")[cross-encoder]); O9
-   rewrite proposer (generative); O10 rewrite check (NLI both ways)],
+    rewrite proposer (generative); O10 rewrite check (NLI both ways)],
+
   [#anchor("s4")4 · analyse],
   [subject/predicate (O1), F/V/P (O3), s/p/u (O4), second-order + A/U (O5),
-   perspective (O6)],
+    perspective (O6)],
   [rules (modals, quantifiers, reporting verbs) first; then GLiNER2 or small
-   classifiers],
+    classifiers],
+
   [#anchor("s5")5 · type],
   [form and substance by rule (`deriveCode`); γ's i/d (O7); the lever (O8)],
   [cue words; NLI over each candidate lever written as a sentence],
+
   [#anchor("s6")6 · concepts],
   [what each argument is about],
   [reading-notes lab tiers: authored ranges, embeddings, GLiNER2],

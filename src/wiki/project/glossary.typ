@@ -2,6 +2,9 @@
 #show: article.with(
   title: [Glossary],
   summary: [Short definitions of terms used across Quell's articles, with links to fuller explanations.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-04",
+  topic: "Reference",
 )
 
 #contents()

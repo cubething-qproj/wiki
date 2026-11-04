@@ -2,7 +2,13 @@
 #show: article.with(
   title: [Trail layout and regeneration],
   summary: [Landmarks and changing routes over Quell's fixed terrain.],
-  documents: ("quell-hex-terrain-r11-design", "quell-hex-layout-design", "hex-paths-overview"),
+  authors: ("GPT Sol",),
+  date: "2026-11-03",
+  documents: (
+    "quell-hex-terrain-r11-design",
+    "quell-hex-layout-design",
+    "hex-paths-overview",
+  ),
 )
 
 A *layout* is an arrangement of landmarks and trails over

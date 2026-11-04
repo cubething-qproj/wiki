@@ -383,10 +383,26 @@ $P("valid")$.
 
 #table(
   columns: (auto, 1fr, auto, auto, auto),
-  table.header([candidate], [premise as reworded], [transformation], [$P("valid")$], [form]),
-  [as written], [others will undertake the irksome work for me], [—], [1.00], [γ],
-  [$c'_1$], [I will have others undertake the irksome work for me], [activization], [0.83], [α],
-  [$c'_2$], [my thinking will be done by others], [passivization, nominalisation], [0.61], [γ],
+  table.header(
+    [candidate], [premise as reworded], [transformation], [$P("valid")$], [form]
+  ),
+  [as written],
+  [others will undertake the irksome work for me],
+  [—],
+  [1.00],
+  [γ],
+
+  [$c'_1$],
+  [I will have others undertake the irksome work for me],
+  [activization],
+  [0.83],
+  [α],
+
+  [$c'_2$],
+  [my thinking will be done by others],
+  [passivization, nominalisation],
+  [0.61],
+  [γ],
 )
 
 $c'_1$ is valid and shares "I", so γ isn't reported; the code comes from the
@@ -421,7 +437,10 @@ in-game use may need a smaller model or no generative step.
 #table(
   columns: (auto, 1fr, auto),
   table.header([arm], [what it is], [per candidate]),
-  [O9 rules], [voice switches from the parse, nominalisation from a morphology table], [~1 ms],
+  [O9 rules],
+  [voice switches from the parse, nominalisation from a morphology table],
+  [~1 ms],
+
   [O9 seq2seq],
   [Flan-T5-small or -base (80–250M parameters), fine-tuned to rewrite a premise to share a term with its conclusion; ONNX, quantised],
   [~50–150 ms],
@@ -455,10 +474,25 @@ $a = s_c$, $b = s_rho$, $X = p_c$, $Y = p_rho$.
 #table(
   columns: (auto, auto, auto, auto),
   table.header([form], [ATIP schema], [shared], [test here]),
-  [α alpha], [a is X because a is Y], [subject], [$s_c equiv s_rho$, $p_c equiv.not p_rho$],
-  [β beta], [a is X because b is X], [predicate], [$p_c equiv p_rho$, $s_c equiv.not s_rho$],
-  [γ gamma], [a is X because b is Y], [nothing], [$s_c equiv.not s_rho$, $p_c equiv.not p_rho$],
-  [δ delta], [q is A/U because q is Z], [the whole proposition], [$c equiv q_rho$ (below)],
+  [α alpha],
+  [a is X because a is Y],
+  [subject],
+  [$s_c equiv s_rho$, $p_c equiv.not p_rho$],
+
+  [β beta],
+  [a is X because b is X],
+  [predicate],
+  [$p_c equiv p_rho$, $s_c equiv.not s_rho$],
+
+  [γ gamma],
+  [a is X because b is Y],
+  [nothing],
+  [$s_c equiv.not s_rho$, $p_c equiv.not p_rho$],
+
+  [δ delta],
+  [q is A/U because q is Z],
+  [the whole proposition],
+  [$c equiv q_rho$ (below)],
 )
 
 Delta covers the source-based arguments: appeals to an expert, to popularity,
@@ -541,12 +575,18 @@ Examples, one per outcome:
 #table(
   columns: (auto, auto, auto),
   table.header([argument], [shared], [form]),
-  [the minister did a great job because _she_ raised the university budget], [subject (she ≡ the minister)], [α],
+  [the minister did a great job because _she_ raised the university budget],
+  [subject (she ≡ the minister)],
+  [α],
+
   [cycling on the lawn is prohibited because all activities on the lawn are prohibited],
   [predicate (is prohibited)],
   [β],
 
-  [peace can be started by the truth because war can be started by lies], [nothing], [γ],
+  [peace can be started by the truth because war can be started by lies],
+  [nothing],
+  [γ],
+
   [the economy has grown, because Eurostat said so],
   [the proposition: $q_rho$ = "so" = "the economy has grown" $equiv c$; $zeta = A$],
   [δ],
@@ -622,9 +662,21 @@ Examples:
 #table(
   columns: (auto, auto, auto, auto),
   table.header([form], [input], [oracle says], [substance]),
-  [α], [`p_c` "did a great job" \ `p_ρ` "raised the university budget"], [V ("great" is evaluative) \ F], [*VF*],
-  [β], [`s_c` "cycling on the lawn" \ `s_ρ` "all activities on the lawn"], [s \ u ("all")], [*su*],
-  [γ], [$R_s$: war → peace \ $R_p$: lies → truth], [both are OPPOSITE, so $R_s = R_p$], [*i*],
+  [α],
+  [`p_c` "did a great job" \ `p_ρ` "raised the university budget"],
+  [V ("great" is evaluative) \ F],
+  [*VF*],
+
+  [β],
+  [`s_c` "cycling on the lawn" \ `s_ρ` "all activities on the lawn"],
+  [s \ u ("all")],
+  [*su*],
+
+  [γ],
+  [$R_s$: war → peace \ $R_p$: lies → truth],
+  [both are OPPOSITE, so $R_s = R_p$],
+  [*i*],
+
   [δ], [$Z$ "was said by Eurostat"], [third person], [*III*],
 )
 
@@ -718,9 +770,18 @@ Running example, α VF. The candidates and their filled-in hypotheses
 #table(
   columns: (auto, auto, auto),
   table.header([$k$], [$h_k$], [$P$]),
-  [CRITERION], [raising the university budget is a criterion for doing a great job], [0.62],
-  [SUBSUMED], [raising the university budget can be subsumed under doing a great job], [0.21],
-  [DEFINITION], [raising the university budget is the definition of doing a great job], [0.09],
+  [CRITERION],
+  [raising the university budget is a criterion for doing a great job],
+  [0.62],
+
+  [SUBSUMED],
+  [raising the university budget can be subsumed under doing a great job],
+  [0.21],
+
+  [DEFINITION],
+  [raising the university budget is the definition of doing a great job],
+  [0.09],
+
   [none], [], [0.08],
 )
 
@@ -842,23 +903,42 @@ maps passages of text to concepts.
   [modals and imperatives → P; evaluative lexicon → V; else F],
   [GLiNER2 classification / small classifier],
 
-  [O4], [subject quantity], [s/p/u], [determiners and quantifiers from the parse; proper noun → s], [rarely needed],
+  [O4],
+  [subject quantity],
+  [s/p/u],
+  [determiners and quantifiers from the parse; proper noun → s],
+  [rarely needed],
+
   [O5],
   [does the premise predicate something of a whole proposition $q_rho$, accepting or rejecting it?],
   [A/U/none],
   [reporting verbs with a clausal or anaphoric object, "according to", conditionals on $q$],
   [GLiNER2 classification],
 
-  [O6], [whose perspective is $Z$?], [I/II/III], [grammatical person of the source], [rarely needed],
+  [O6],
+  [whose perspective is $Z$?],
+  [I/II/III],
+  [grammatical person of the source],
+  [rarely needed],
+
   [O7], [is $R_s = R_p$?], [i/d], [—], [NLI],
-  [O8], [which lever?], [$K(F,t) union {"none"}$], [cue words], [NLI over filled-in levers],
+  [O8],
+  [which lever?],
+  [$K(F,t) union {"none"}$],
+  [cue words],
+  [NLI over filled-in levers],
+
   [O9],
   [which rewordings could make a term shared?],
   [candidate pairs $(c', rho')$ (text)],
   [passive ↔ active from the parse],
   [generative model],
 
-  [O10], [does a rewording say the same as the original?], [probability], [—], [NLI, both directions],
+  [O10],
+  [does a rewording say the same as the original?],
+  [probability],
+  [—],
+  [NLI, both directions],
 )
 
 Reuse: the reading-notes lab already runs embedding models (usable for O2) and
@@ -885,8 +965,12 @@ what the pipeline produced:
   [the wording changes, each `kind (statement)` from a closed tagset: anaphora, explication, illocution substitution, passivization, activization, nominalisation, same term; once each, unordered],
 
   [`form`], [`alpha` · `beta` · `gamma` · `delta`],
-  [`substance`], [the substance codes, prefixed by their form (`α VF`, `β su`, `γ i`, `δ III`, …)],
-  [`lever`], [the lever keyword (`CAUSE`, `GENUS`, …), `none` for γ d, or `novel` with the wording in `note`],
+  [`substance`],
+  [the substance codes, prefixed by their form (`α VF`, `β su`, `γ i`, `δ III`, …)],
+
+  [`lever`],
+  [the lever keyword (`CAUSE`, `GENUS`, …), `none` for γ d, or `novel` with the wording in `note`],
+
   [`concepts`],
   [what the argument is about: one or more tags, each a broad `concept` or a writer's own `concept/sense` (`being`, `being/scotus`, `being/heidegger-ontological`)],
 )
@@ -1064,39 +1148,123 @@ the keyword in capitals. For β, the substance is any one of those listed.
   [α], [PF], [Y is a PRAGMATIC MOTIVATION for X], [pragmatic argument], [Pra],
   [α], [PF], [Y is a PRIOR INVESTMENT in X], [argument from waste], [W],
   [α], [PF], [Y is the FEASIBILITY of X], [argument from possibility], [Pos],
-  [α], [PV], [Y is a PRINCIPLED MOTIVATION for X], [argument from principle], [Pri],
-  [α], [PV], [Y is an EVALUATIVE MOTIVATION for X], [argument from evaluation], [Ev],
+  [α],
+  [PV],
+  [Y is a PRINCIPLED MOTIVATION for X],
+  [argument from principle],
+  [Pri],
+
+  [α],
+  [PV],
+  [Y is an EVALUATIVE MOTIVATION for X],
+  [argument from evaluation],
+  [Ev],
+
   [α], [PP], [Y is a DEONTIC MOTIVATION for X], [deontic argument], [Deo],
   [α], [PP], [Y is a TELEOLOGIC MOTIVATION for X], [teleologic argument], [Tel],
   [β], [ss, pp, uu], [a is ANALOGOUS to b], [argument from analogy], [A],
   [β], [ss, pp, uu], [a is SIMILAR to b], [argument from similarity], [Sim],
   [β], [ss, pp, uu], [a is COMPARABLE to b], [argument from comparison], [Cpa],
   [β], [ss, pp, uu], [a is EQUAL to b], [argument from equality], [Eq],
-  [β], [ss, pp, uu], [a is described METAPHORICALLY as b], [metaphoric argument], [Me],
+  [β],
+  [ss, pp, uu],
+  [a is described METAPHORICALLY as b],
+  [metaphoric argument],
+  [Me],
+
   [β], [ss, pp, uu], [a is COMPOSED of b], [argument from composition], [Cpo],
   [β], [ss, pp, uu], [a is a PART of b], [argument from division], [Div],
   [β], [ss, pp, uu], [a RANKS BELOW b], [_argumentum a maiore_], [Ma],
   [β], [ss, pp, uu], [a RANKS ABOVE b], [_argumentum a minore_], [Mi],
-  [β], [ss, pp, uu], [a OWES RECIPROCITY to b], [argument from reciprocity], [R],
+  [β],
+  [ss, pp, uu],
+  [a OWES RECIPROCITY to b],
+  [argument from reciprocity],
+  [R],
+
   [β], [ps, us, up], [b is an EXAMPLE of a], [argument from example], [Exa],
   [β], [ps, us, up], [b is a SPECIES of a], [argument from species], [Sp],
-  [β], [sp, su, pu], [a belongs to the TOTALITY of b], [argument from totality], [To],
+  [β],
+  [sp, su, pu],
+  [a belongs to the TOTALITY of b],
+  [argument from totality],
+  [To],
+
   [β], [sp, su, pu], [a belongs to the GENUS of b], [argument from genus], [G],
-  [γ], [i], [b is SYNONYMOUS to a and Y is SYNONYMOUS to X], [argument from synonyms], [Sy],
-  [γ], [i], [b is the OPPOSITE of a and Y is the OPPOSITE of X], [argument from opposites], [Op],
-  [γ], [i], [b is DERIVATIVE of a and Y is DERIVATIVE of X], [argument from derivatives], [Der],
-  [γ], [i], [b is INTEGRATIVE of a and Y is INTEGRATIVE of X], [argument from integratives], [Int],
-  [γ], [i], [b is the CONVERSE of a and Y is the CONVERSE of X], [argument from converses], [Cve],
+  [γ],
+  [i],
+  [b is SYNONYMOUS to a and Y is SYNONYMOUS to X],
+  [argument from synonyms],
+  [Sy],
+
+  [γ],
+  [i],
+  [b is the OPPOSITE of a and Y is the OPPOSITE of X],
+  [argument from opposites],
+  [Op],
+
+  [γ],
+  [i],
+  [b is DERIVATIVE of a and Y is DERIVATIVE of X],
+  [argument from derivatives],
+  [Der],
+
+  [γ],
+  [i],
+  [b is INTEGRATIVE of a and Y is INTEGRATIVE of X],
+  [argument from integratives],
+  [Int],
+
+  [γ],
+  [i],
+  [b is the CONVERSE of a and Y is the CONVERSE of X],
+  [argument from converses],
+  [Cve],
+
   [γ], [d], [—], [non sequitur], [Non],
   [δ], [I], [Z is ETHOTICALLY AUTHORITATIVE for A], [ethotic argument], [Eth],
-  [δ], [II], [Z is CHARACTERALLY AUTHORITATIVE for U], [_argumentum ad hominem_], [H],
+  [δ],
+  [II],
+  [Z is CHARACTERALLY AUTHORITATIVE for U],
+  [_argumentum ad hominem_],
+  [H],
+
   [δ], [II], [Z is a NEGATIVE MOTIVATION for A], [_argumentum ad baculum_], [B],
   [δ], [II], [Z is an OFFERED REWARD for A], [_argumentum ad carotam_], [Car],
   [δ], [II], [Z COMMITS the addressee to A], [argument from concession], [Cce],
-  [δ], [II], [Z is an UNDESIRABLE IMPLICATION supporting U], [_argumentum ad consequentiam_], [Cse],
-  [δ], [III], [Z is EPISTEMICALLY AUTHORITATIVE for A], [argument from expert opinion], [Exp],
-  [δ], [III], [Z is MORALLY AUTHORITATIVE for A], [argument from moral authority], [Mor],
-  [δ], [III], [Z is TESTIMONIALLY AUTHORITATIVE for A], [argument from testimony], [Tes],
-  [δ], [III], [Z is POPULARLY AUTHORITATIVE for A], [_argumentum ad populum_], [Pop],
-  [δ], [III], [Z is a PRESUMPTION in favor of A], [_argumentum ad ignorantiam_], [Ig],
+  [δ],
+  [II],
+  [Z is an UNDESIRABLE IMPLICATION supporting U],
+  [_argumentum ad consequentiam_],
+  [Cse],
+
+  [δ],
+  [III],
+  [Z is EPISTEMICALLY AUTHORITATIVE for A],
+  [argument from expert opinion],
+  [Exp],
+
+  [δ],
+  [III],
+  [Z is MORALLY AUTHORITATIVE for A],
+  [argument from moral authority],
+  [Mor],
+
+  [δ],
+  [III],
+  [Z is TESTIMONIALLY AUTHORITATIVE for A],
+  [argument from testimony],
+  [Tes],
+
+  [δ],
+  [III],
+  [Z is POPULARLY AUTHORITATIVE for A],
+  [_argumentum ad populum_],
+  [Pop],
+
+  [δ],
+  [III],
+  [Z is a PRESUMPTION in favor of A],
+  [_argumentum ad ignorantiam_],
+  [Ig],
 )

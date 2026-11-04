@@ -1,0 +1,37 @@
+/* Wiki additions to the verbatim blog main.css. */
+@media (prefers-color-scheme: dark) {
+  html:not([data-madoromi]) {
+    --background: linear-gradient(in oklab, #000, var(--madoromi-kami) 100%);
+    --text: #fff;
+    --code-bg: #fff1;
+  }
+}
+body { overflow-wrap: anywhere; }
+header nav { display: flex; flex-wrap: wrap; gap: .5em 1em; align-items: center; }
+button { font: inherit; color: inherit; cursor: pointer; }
+#search {
+  margin: 1em 0;
+  --pagefind-ui-scale: .75;
+  --pagefind-ui-background: var(--madoromi-kami);
+  --pagefind-ui-text: var(--text);
+  --pagefind-ui-primary: var(--accent);
+  --pagefind-ui-border: var(--madoromi-kasure0);
+}
+code { font-family: "Libertinus Mono", monospace; }
+pre, math[display="block"] { overflow-x: auto; }
+pre.mermaid { display: block; }
+img { height: auto; }
+figure { margin: 1em 0; }
+table { border-collapse: collapse; width: 100%; }
+th, td { text-align: left; vertical-align: top; padding: .25em .5em; border-bottom: 1px solid var(--madoromi-kasure0); }
+aside.callout { margin: 1em 0; }
+.note, .meta, .byline, .backlinks, sup.cn { color: var(--madoromi-usuzumi1); }
+.related-documents, .backlinks { margin-top: 2em; }
+/* Portal topics stay beside their wrapping article links, as in a navbox. */
+.topics { display: grid; grid-template-columns: fit-content(30%) minmax(0, 1fr); gap: .5em 1em; }
+.topics dt { font-weight: bold; text-align: right; overflow-wrap: normal; }
+.topics dd { margin: 0; }
+/* Let the blog carousel shrink within the reading column. */
+.carousel { min-width: 0; }
+.carousel li { min-width: 0; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }

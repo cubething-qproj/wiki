@@ -81,7 +81,9 @@ Questions:
 ```
 
 The dialogue choice would be fine-tuned. -\> See here:
-#link("https://github.com/NandhaKishorM/laya/blob/main/notebooks/laya_finetune_typed_decisions_2xT4_kaggle.ipynb")
+#link(
+  "https://github.com/NandhaKishorM/laya/blob/main/notebooks/laya_finetune_typed_decisions_2xT4_kaggle.ipynb",
+)
 → fine-tuning example based on this:
 #link("https://huggingface.co/datasets/LocalLLaMA/typed-decisions") -\>
 DOES require both sets, obviously. Some fine-tuners say that the low
@@ -107,7 +109,9 @@ Subjects have these forms
 #table(
   columns: 2,
   table.header([form], [description]),
-  [F], [A fact - what can be objectively seen or measured and disproven by counterexample],
+  [F],
+  [A fact - what can be objectively seen or measured and disproven by counterexample],
+
   [V], [A value or judgment of any kind, including logical judgment],
   [P], [A policy - what one ought to do],
 )
@@ -222,11 +226,13 @@ type of the subject:
   [Is it true that (a)?],
   [Is it true that we only use 10% of our
     brains?],
+
   [V],
   [Is (a) a valid judgment?],
   [Is the statement, "circumcising
     newborn children violates their right to self-determination" a
     valid judgement?],
+
   [P],
   [Is the policy which comports (a) worth following?],
   [Is "no
@@ -278,26 +284,31 @@ fails.
   [no argument / unclear],
   ["What makes you say
     {conclusion}?"],
+
   [Process], [off-issue], ["How does that bear on {issue}?"],
   [Premise],
   [false / contradicts commitment],
   ["Earlier you said
     {commitment}. Doesn't that conflict with {premise}?"],
+
   [Premise], [unsupported fact (F)], ["How do we know {premise}?"],
   [Premise],
   [contested judgement (V)],
   ["By what standard is {a}
     {Y}?"],
+
   [Lever], [irrelevant], ["Why would {Y} matter for {X}?"],
   [Lever],
   [insufficient / overclaim],
   ["Even if {premise}, does that
     mean {conclusion}?"],
+
   [Lever],
   [family-specific],
   [cause: "Could something else explain
     {X}?" · analogy: "Isn't {a} different from {b} in a way that
     matters?" · authority: "Is {source} an expert on this?"],
+
   [Conclusion], [rebut], [a counter-argument from the state],
   [Language],
   [ambiguous / loaded term],

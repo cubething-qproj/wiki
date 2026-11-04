@@ -2,6 +2,8 @@
 #show: article.with(
   title: [Gameplay: physics and 3D world],
   summary: [The player character, cameras and test levels in Quell's 3D world.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-03",
 )
 
 Quell's playable 3D world is still at the greybox stage. A player character

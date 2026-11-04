@@ -2,6 +2,9 @@
 #show: article.with(
   title: [Argument mining],
   summary: [The research field that extracts argument structure from text automatically, and ARG-tech's oAMF toolkit.],
+  authors: ("Claude Opus 5.5",),
+  date: "2026-11-04",
+  topic: "Argumentation theory",
   documents: ("debate-arms", "pta-document-analysis"),
 )
 
@@ -21,11 +24,11 @@ its output could be opened and reviewed directly in the lab's editor.
 = In Quell <mining-quell>
 
 Argument mining is one possible way to produce #l("argument-maps")[argument
-maps] faster than annotating them by hand. Because oAMF already writes xAIF, it
+  maps] faster than annotating them by hand. Because oAMF already writes xAIF, it
 is one of the candidate approaches to be compared against the gold maps.
 
 #undecided[Which oAMF modules exist, how well they handle philosophical
-texts, and whether they can run locally. These have not been researched.]
+  texts, and whether they can run locally. These have not been researched.]
 
 = See also <mining-see-also>
 
