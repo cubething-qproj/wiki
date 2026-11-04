@@ -3,11 +3,37 @@
 Two reading collections share Typst, git, Vite and the source editor:
 
 - `/wiki/`: maintained explanations about Quell and its development.
-- `/documents/`: proposals, reports and historical records, with their own search.
-- `/editor/?page=<id>`: the existing Typst/Vim editor, previewing the correct collection.
+- `/documents/`: supporting designs, reports and historical records, with separate search.
+- `/editor/?page=<id>`: the Typst/Vim editor, previewing the correct collection.
 
-`/` opens the wiki. Legacy document URLs redirect to their new document paths.
-This remains a local-only site: do not publish papers or book extracts.
+`/` opens the wiki. Legacy document URLs redirect, preserving query strings and
+section fragments. This is a local-only site: do not publish papers or book extracts.
+
+## Layout
+
+```text
+src/
+  main.typ                 # Bundle entry point and legacy redirects
+  template.typ             # Shared page, link, callout and gallery helpers
+  wiki/<area>/             # Topic articles; index.typ is the area's portal
+  documents/<area>/        # Selected designs, reports and historical records
+  reference/<area>/        # Supporting reference material, currently explainers
+web/
+  editor/                  # HTML and TypeScript for the source editor
+  styles/                  # Reading/editor CSS and Madoromi palette
+  scripts/                 # Search, notes, galleries, diagrams and theme controls
+static/
+  media/                   # Shared images, served at /media/
+  fonts/                   # Local fonts and their OFL license
+scripts/
+  manifest.py              # Source catalogue, stable IDs, URLs and edit timestamps
+  build.mts                # Shared CLI/dev build and asset copying
+tests/                    # Catalogue/render checks and optional browser smoke check
+```
+
+The repository root holds configuration, dependency files and this README.
+`manifest.json`, `out/`, `.out-next/`, and dependency/cache files are generated.
+Procedural directories elsewhere in `.docs/` are not automatically imported.
 
 ## Run and verify
 
@@ -19,21 +45,26 @@ just --justfile .docs/wiki/justfile build
 just --justfile .docs/wiki/justfile test
 ```
 
-Build before running the tests. The tests cover source discovery and rendered
-links, collection boundaries, redirects, contents and document ordering. Use the
-already running dev server for browser checks; two servers must not build into
-the same `out/` and `.out-next/` directories concurrently.
+Build before running the Python checks. They cover discovery, collection
+boundaries, links/assets, outlines, galleries and related-document ordering.
+Do not start two builders for the same `out/` and `.out-next/` directories.
+
+`just smoke` is an optional Chromium check. It is unfinished: the last attempt
+failed during browser target startup/selection, and further test work was
+explicitly deferred. Do not treat it as a passing validation or an editorial
+prerequisite. `WIKI_TEST_PORT` can select an already running server rather than
+starting a second one.
 
 ## Authoring
 
-Articles live in `articles/<area>/<id>.typ`. Start with:
+Articles live in `src/wiki/<area>/<id>.typ`. Start with:
 
 ```typst
-#import "../../_template.typ": *
+#import "../../template.typ": *
 #show: article.with(
   title: [A topic],
   summary: [A one-line description.],
-  documents: ("supporting-record-id",),
+  documents: ("quell-hex-terrain-r11-design",),
 )
 
 A short explanation of the topic's relevance to Quell.
@@ -45,47 +76,74 @@ A short explanation of the topic's relevance to Quell.
 #undecided[A question that is genuinely unresolved.]
 ```
 
-`contents()` generates an outline of this article only. Place it after the lead;
-it becomes a left rail on wide screens and a collapsible inline block otherwise.
-Use distinctive explicit heading labels for stable section links across the bundle.
+Explain what is known, rather than reproduce a proposal's chronology. Distinguish
+implementation, design intent, experimental findings and unresolved questions.
+Link to outside resources instead of building a general-purpose encyclopaedia.
+
+`contents()` generates this article's outline only. Place it after the lead; it
+becomes a sidebar on wide screens and collapsible inline contents otherwise.
+Use distinctive explicit heading labels for stable links across the bundle.
+Each page resets heading, footnote, equation and supported figure counters.
 
 Use `l("article-id")` for topic links and `doc("record-id")` for explicit document
-citations; both support `#section` fragments and an optional content label.
-`doc` rejects article IDs. Related documents are explicitly selected in the page
-header, then listed newest-edited first with type and lifecycle status. This list
-does not import their bodies into article search.
+citations. Both accept `#section` fragments and optional content labels. `doc`
+rejects article IDs. The `documents` list selects relevant records, automatically
+ordered newest-edited first, showing document type and lifecycle status.
 
-Portals live in `portals/<area>.typ`, use `article`, and have the editor ID
-`portal-<area>`. Author an introduction and reading route; `article-list("area")`
-generates their topic inventory. Portals are not included in topic search.
+An area's `src/wiki/<area>/index.typ` is its authored portal. It also uses
+`article`, has editor ID `portal-<area>`, and is served at `/wiki/<area>.html`.
+Author the introduction and reading route; `article-list("area")` supplies its
+inventory. Portals are excluded from topic search.
 
-Existing `<area>/*.typ` pages remain documents using `wiki-page`. They can set
-`document-type: "design"`, `"report"`, `"reference"`, etc., independently of their
-`status`. Existing explainer records default to reference; other records default
-to design. This does not automatically import plans, issues or handoffs.
+Records in `src/documents/` and `src/reference/` use `wiki-page`. Set
+`document-type` independently of `status`; reference files default to reference,
+other records to design. Do not move all plans, issues or handoffs into the site.
 
-`callout(kind: "undecided", icon: "🤔")[Text.]` provides the common emoji/header/body
-structure. `undecided`, `explain`, `decide`, and the compatibility `open` helper use
-that same presentation. Keep article explanations distinct from task lists and
-proposal proceedings.
+## Callouts and visual aids
+
+`undecided[Text.]` wraps `callout(kind: "undecided", icon: "🤔")[Text.]`.
+The shared presentation is an emoji, a visible type heading, and text content.
+Existing `explain`, `decide`, and compatibility `open` helpers use the same format.
+
+Use meaningful alt text and captions for images:
+
+```typst
+#gallery(
+  caption: [Historical prototype comparisons. Click an image for full resolution.],
+  media("/media/pcg/experiments/11-regen/regen-seed-2.png",
+    alt: "Initial, pinned and Fear regeneration on the same seed-2 terrain.",
+    caption: [Seed 2.]),
+  media("/media/pcg/experiments/11-regen/regen-seed-3.png",
+    alt: "The same three regeneration operations on seed-3 terrain.",
+    caption: [Seed 3.]),
+)
+```
+
+`media` also works alone. Gallery controls enhance native horizontal scrolling;
+images link to full-resolution originals. Identify prototype figures as such:
+they are illustrations of experiments, not necessarily current game screenshots.
+The initial figures are in `static/media/pcg/`; preserve their provenance.
+
+Typography, Natsu Madoromi colors, rounded media, theme cycling and carousel
+patterns are adapted from `~/repos/ada-x64/blog`. Fonts are copied locally with
+`static/fonts/OFL.txt`. No blog comments, analytics or social integrations are included.
 
 ## Build behavior
 
-`scripts/manifest.py` supplies stable editor IDs, collection-qualified URLs and
-actual edit timestamps. Uncommitted files use their modification time; clean
-files use their last commit time. A build does not make a record newer.
+`manifest.py` discovers only the three content trees. IDs and public URLs stay
+stable across source moves. Uncommitted files use their modification time; clean
+files use their last commit time. Rebuilding is not a knowledge-verification date.
 
-`main.typ` emits both collections and legacy redirects. Separate Pagefind runs
-index only each collection's authored pages. Vite builds both collections and
-indexes in `.out-next/` before replacing the last good output, and cleans up
-removed pages. An editor save still refuses to overwrite externally changed files.
+`build.mts` compiles with the wiki repository as Typst's root, copies `static/`
+and the reading frontend, and builds separate Pagefind indexes in `.out-next/`.
+Only a successful build replaces the previous output. The editor is served by
+Vite; saves refuse to overwrite externally changed files.
 
-Typst's HTML exporter puts endnotes outside the page shell. A small client hook
-moves them into the reading column before related documents, preserving their
-native reference/backlink IDs. Without JavaScript they remain readable below the
-article. Mermaid diagrams still load from the existing external CDN; a blocked
-CDN leaves scrollable source but does not prevent reading or search.
+A small browser hook puts native Typst endnotes inside the reading column before
+related documents, preserving reference IDs. Without JavaScript they remain
+readable below the article. Mermaid still uses the existing CDN; blocking it
+leaves scrollable source without blocking reading or search.
 
 The PCG portal, Terrain generation, and Trail layout and regeneration are the
-initial editorial pilot. The converted PCG source records and original Markdown
-files are retained pending a separate triage decision.
+initial editorial pilot. Original PCG Markdown files and images outside this
+repository remain intact pending a separate triage decision.

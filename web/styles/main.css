@@ -1,0 +1,145 @@
+/* Typography, Madoromi colors and carousel layout adapted from ada-x64/blog. */
+@font-face {
+  font-family: "Libertinus Serif";
+  src: url("/fonts/LibertinusSerif-Regular.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Libertinus Serif";
+  src: url("/fonts/LibertinusSerif-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Libertinus Serif";
+  src: url("/fonts/LibertinusSerif-Italic.woff2") format("woff2");
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Libertinus Mono";
+  src: url("/fonts/LibertinusMono-Regular.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Libertinus Math";
+  src: url("/fonts/LibertinusMath-Regular.woff2") format("woff2");
+  font-display: swap;
+}
+:root {
+  --fg: #000;
+  --gradient-start: #fff;
+  --bg: var(--madoromi-kami);
+  --link: var(--madoromi-sora);
+  --muted: var(--madoromi-usuzumi1);
+  --line: color-mix(in oklab, var(--madoromi-sumi) 28%, transparent);
+  --panel: color-mix(in oklab, var(--madoromi-nijimi0) 35%, transparent);
+  color-scheme: light;
+  color: var(--fg);
+  background: linear-gradient(in oklab, var(--gradient-start), var(--bg));
+  background-attachment: fixed;
+}
+:root.dark { --fg: #fff; --gradient-start: #000; color-scheme: dark; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-madoromi]) { --fg: #fff; --gradient-start: #000; color-scheme: dark; }
+}
+body { margin: 0; font: 19px/1.6 "Libertinus Serif", serif; }
+header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: .7rem 1.2rem;
+  border-bottom: 1px solid var(--line);
+  font: 14px/1.4 system-ui, sans-serif;
+}
+header .collection { font-weight: 700; white-space: nowrap; }
+button { color: inherit; font: inherit; cursor: pointer; }
+#theme-toggle { border: 0; padding: 0; background: none; text-decoration: underline; }
+#search {
+  margin-left: auto;
+  width: min(26rem, 45vw);
+  --pagefind-ui-scale: .75;
+  --pagefind-ui-background: var(--bg);
+  --pagefind-ui-text: var(--fg);
+  --pagefind-ui-border: var(--line);
+  --pagefind-ui-primary: var(--link);
+}
+#search .pagefind-ui__drawer {
+  position: absolute;
+  right: 1rem;
+  width: min(36rem, 90vw);
+  z-index: 10;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  padding: 0 1rem;
+  max-height: 70vh;
+  overflow: auto;
+}
+#search .pagefind-ui__drawer:empty { display: none; }
+main { max-width: 46rem; margin: 0 auto; padding: 1rem 1.2rem 4rem; overflow-wrap: anywhere; }
+a { color: var(--link); }
+a:visited { color: var(--madoromi-fuji); }
+h1 { font-size: 2rem; line-height: 1.2; margin-bottom: .5rem; }
+h2 { font-size: 1.4rem; line-height: 1.3; margin-top: 2rem; }
+code { font: .82em "Libertinus Mono", monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+pre code { white-space: pre; overflow-wrap: normal; }
+pre { overflow-x: auto; }
+pre:not(.mermaid) { padding: 1rem; background: var(--panel); border-radius: .75rem; }
+pre.mermaid { text-align: center; }
+math { font-family: "Libertinus Math", math; }
+math[display="block"] { margin: 1.5rem 0; overflow-x: auto; }
+img { max-width: 100%; height: auto; border-radius: .5rem; }
+figure { margin: 1.5rem 0; }
+figure > a { display: block; }
+figcaption { text-align: center; font-style: italic; line-height: 1.4; margin-top: .5rem; }
+table { border-collapse: collapse; width: 100%; font-size: .95em; }
+td, th { border: 1px solid var(--line); padding: .3rem .5rem; vertical-align: top; text-align: left; }
+.date { white-space: nowrap; }
+aside.callout { margin: 1.5rem 0; padding: 1rem; border-radius: 1rem; background: var(--panel); }
+.callout-title { font-weight: 700; margin-bottom: .3rem; }
+.contents {
+  margin: 1.5rem 0;
+  padding: .7rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: .5rem;
+  font: 14px/1.6 system-ui, sans-serif;
+}
+.contents summary { cursor: pointer; font-weight: 600; }
+.contents ol { padding-left: 1.2rem; }
+.contents a { text-decoration: none; }
+.related-documents { border-top: 1px solid var(--line); margin-top: 2rem; padding-top: .5rem; }
+body > section[role="doc-endnotes"] { max-width: 46rem; margin: 0 auto; padding: 1rem 1.2rem; }
+section[role="doc-endnotes"] { font-size: .9em; overflow-wrap: anywhere; }
+section[role="doc-endnotes"] ol { padding-left: 1.3rem; }
+section[role="doc-endnotes"] li { margin-bottom: .6rem; }
+.note, .meta, .backlinks { color: var(--muted); font-size: .9em; }
+.backlinks { border-top: 1px solid var(--line); margin-top: 2rem; padding-top: .6rem; }
+.badge { font-size: .8em; padding: .05rem .45rem; border: 1px solid var(--line); border-radius: .6rem; white-space: nowrap; }
+.carousel-wrap { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: .5rem; align-items: center; }
+.carousel-wrap button { border: none; font-size: 2rem; background: none; padding: .25rem; }
+.carousel {
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  gap: 1rem;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-marker-group: after;
+}
+.carousel li { flex: 0 0 100%; min-width: 0; list-style: none; scroll-snap-align: center; }
+.carousel li figure { margin: 0; }
+.carousel li img { display: block; width: 100%; }
+.carousel::scroll-marker-group { grid-column: 2; grid-row: 2; display: flex; justify-content: center; gap: .5rem; margin: .5rem 0; }
+.carousel li::scroll-marker { content: ""; width: .6rem; height: .6rem; border: 1px solid var(--link); border-radius: 50%; }
+.carousel li::scroll-marker:target-current { background: var(--link); }
+:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
+@media (min-width: 80rem) {
+  main.wiki .contents { position: fixed; top: 7rem; left: max(1rem, calc(50% - 39rem)); width: 12rem; max-height: calc(100vh - 10rem); overflow: auto; margin: 0; }
+}
+@media (max-width: 40rem) {
+  header { flex-wrap: wrap; gap: .5rem 1rem; }
+  #search { width: 100%; margin-left: 0; }
+}

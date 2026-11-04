@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>edit</title>
+		<script src="/web/scripts/theme.js"></script>
+		<link rel="stylesheet" href="/web/styles/editor.css" />
+	</head>
+	<body>
+		<header>
+			<strong id="name"></strong>
+			<a id="view">view page</a>
+			<label><input id="autosave" type="checkbox" checked /> autosave</label>
+			<span id="status"></span>
+		</header>
+		<div id="panes">
+			<div id="left">
+				<div id="editor"></div>
+				<pre id="error" hidden></pre>
+			</div>
+			<iframe id="preview"></iframe>
+		</div>
+		<script type="module" src="/web/editor/main.ts"></script>
+	</body>
+</html>

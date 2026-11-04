@@ -7,12 +7,13 @@ serve port="3040":
 
 # Build the wiki from scratch into out/, with its search index.
 build:
-    rm -rf out
-    python3 scripts/manifest.py
-    TYPST_FEATURES=bundle,html typst compile main.typ out --format=bundle
-    pagefind --site out/wiki --glob '*.html' --silent
-    pagefind --site out/documents --glob '*.html' --silent
+    bun run scripts/build.mts
 
 # Check source discovery and the built collections, links, outlines and ordering.
 test:
     python3 -m unittest discover -s tests -v
+
+# Exercise galleries, themes, search and editing in a bounded headless browser.
+# Set WIKI_TEST_PORT to reuse a server that is already running.
+smoke:
+    bun tests/browser.mjs

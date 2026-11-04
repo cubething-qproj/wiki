@@ -1,7 +1,7 @@
 """Discover the two reading collections and write their shared source catalogue.
 
-Legacy area/*.typ files are documents. articles/<area>/*.typ are wiki articles;
-portals/<area>.typ are authored wiki portals. IDs remain unique for the shared
+src/documents and src/reference hold records; src/wiki/<area> holds articles
+and each area's index.typ portal. IDs remain unique for the shared
 editor, while URLs and search indexes belong to separate collections. Dates
 come from the last commit, or file mtime for uncommitted work, never build time.
 """
@@ -44,15 +44,13 @@ def discover(root: pathlib.Path) -> list[dict[str, str]]:
     """Catalogue source paths without importing procedural directories or output."""
     sources = [
         (p, "document", p.parent.name, p.stem)
-        for p in root.glob("*/*.typ")
-        if p.parent.name
-        not in ("scripts", "tests", "out", ".out-next", "portals", "node_modules")
+        for collection in ("documents", "reference")
+        for p in root.glob(f"src/{collection}/*/*.typ")
     ]
     sources += [
-        (p, "article", p.parent.name, p.stem) for p in root.glob("articles/*/*.typ")
-    ]
-    sources += [
-        (p, "portal", p.stem, "portal-" + p.stem) for p in root.glob("portals/*.typ")
+        (p, "portal" if p.stem == "index" else "article", p.parent.name,
+         "portal-" + p.parent.name if p.stem == "index" else p.stem)
+        for p in root.glob("src/wiki/*/*.typ")
     ]
     pages, seen, seen_urls = [], {}, set()
     for path, kind, area, name in sorted(sources):

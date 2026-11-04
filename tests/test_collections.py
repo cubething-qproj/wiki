@@ -24,6 +24,7 @@ class Page(HTMLParser):
     def __init__(self, html):
         super().__init__()
         self.links, self.ids, self.text = [], set(), []
+        self.assets, self.images = [], []
         self.feed(html)
 
     def handle_starttag(self, tag, attrs):
@@ -32,6 +33,12 @@ class Page(HTMLParser):
             self.ids.add(attrs["id"])
         if tag == "a" and "href" in attrs:
             self.links.append(attrs["href"])
+        if tag in ("img", "script") and attrs.get("src"):
+            self.assets.append(attrs["src"])
+        if tag == "link" and attrs.get("rel") == "stylesheet":
+            self.assets.append(attrs["href"])
+        if tag == "img":
+            self.images.append(attrs)
 
     def handle_data(self, data):
         self.text.append(data)
@@ -53,9 +60,12 @@ class CatalogueTests(unittest.TestCase):
 
     def test_separate_collections_and_ignore_build_artifacts(self):
         pages = self.discover(
-            "pcg/proposal.typ",
-            "articles/pcg/terrain.typ",
-            "portals/pcg.typ",
+            "src/documents/pcg/proposal.typ",
+            "src/wiki/pcg/terrain.typ",
+            "src/wiki/pcg/index.typ",
+            "src/reference/explainers/glossary.typ",
+            "pcg/ignored-legacy-file.typ",
+            "src/template.typ",
             "out/generated.typ",
             ".out-next/generated.typ",
             "tests/fixture.typ",
@@ -68,20 +78,21 @@ class CatalogueTests(unittest.TestCase):
                 "proposal": ("document", "/documents/proposal.html"),
                 "terrain": ("article", "/wiki/terrain.html"),
                 "portal-pcg": ("portal", "/wiki/pcg.html"),
+                "glossary": ("document", "/documents/glossary.html"),
             },
         )
 
     def test_duplicate_editor_ids_and_urls_are_rejected(self):
         for paths in [
-            ("pcg/shared.typ", "articles/pcg/shared.typ"),
-            ("articles/pcg/pcg.typ", "portals/pcg.typ"),
-            ("articles/pcg/index.typ",),
+            ("src/documents/pcg/shared.typ", "src/wiki/pcg/shared.typ"),
+            ("src/wiki/pcg/pcg.typ", "src/wiki/pcg/index.typ"),
+            ("src/wiki/index/index.typ",),
         ]:
             with self.subTest(paths=paths), self.assertRaises(ValueError):
                 self.discover(*paths)
 
     def test_edit_time_uses_commit_or_working_file_not_build_time(self):
-        path = ROOT / "main.typ"
+        path = ROOT / "src/main.typ"
         with patch.object(
             manifest, "git", side_effect=["", "2026-10-01T15:00:00+03:00"]
         ):
@@ -103,7 +114,7 @@ class RenderedTests(unittest.TestCase):
     def test_local_links_and_fragments_resolve_across_collections(self):
         for source in self.out.rglob("*.html"):
             page = Page(source.read_text())
-            for href in page.links:
+            for href in [*page.links, *page.assets]:
                 url = urlsplit(href)
                 if url.scheme or url.netloc or url.path.startswith("/editor/"):
                     continue
@@ -149,7 +160,7 @@ class RenderedTests(unittest.TestCase):
             ]
             expected = re.search(
                 r"documents: \((.*?)\)",
-                (ROOT / f"articles/pcg/{name}.typ").read_text(),
+                (ROOT / f"src/wiki/pcg/{name}.typ").read_text(),
                 re.DOTALL,
             )
             assert expected is not None
@@ -163,6 +174,18 @@ class RenderedTests(unittest.TestCase):
             self.assertTrue(all(catalogue[n]["kind"] == "document" for n in names))
         text = " ".join(Page(self.html("/wiki/terrain-generation.html")).text)
         self.assertIn("🤔 Undecided", text)
+
+    def test_galleries_link_to_originals_and_have_alt_text(self):
+        for name in ["terrain-generation", "trail-layout"]:
+            html = self.html(f"/wiki/{name}.html")
+            self.assertIn('class="carousel"', html)
+            page = Page(html)
+            self.assertGreaterEqual(len(page.images), 2)
+            for image in page.images:
+                self.assertTrue(image.get("alt"))
+                self.assertIn(image["src"], page.links)
+                self.assertTrue((self.out / image["src"].lstrip("/")).is_file())
+            self.assertIn("historical", " ".join(page.text).lower())
 
     def test_collection_indexes_and_legacy_redirects(self):
         for collection in ["wiki", "documents"]:
