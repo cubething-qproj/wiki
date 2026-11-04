@@ -8,8 +8,8 @@
 Quell's terrain generator creates the ground beneath its exploration spaces.
 The essential separation is between the *landscape*, which stays fixed, and
 #l("trail-layout")[the landmarks and trails], which can be regenerated over it.
-This article describes the generator in the hex-path development screen, not a
-claim that the proposed streamed world is already implemented.#footnote[
+This article describes the generator as it runs in the hex-path development
+screen.#footnote[
   Implementation checked against `bin/quell/src/screen/dev/hex_paths/terrain/mod.rs`
   and `data/board.rs` in the same screen. The world-streaming proposal is a separate
   #doc("quell-world-generation-design")[design document].]
@@ -83,15 +83,14 @@ See #l("trail-layout") for what regeneration preserves and replaces.
 
 = Beyond the development preview <terrain-future>
 
-The world-generation design proposes reusing the coarse landscape while
-creating finer ground and other detail near the player. That is a direction
-for the playable world, not part of the definition of terrain itself.
+In the playable world, the coarse landscape would be generated once per
+level, and finer ground and other detail would be generated in chunks near the
+player.
 
-#undecided[
-  The #doc("quell-world-generation-design")[world-generation proposal] leaves
-  chunk size and level-of-detail distances to later tuning. Those values are not
-  settled by this overview.
-]
+#wip("quell-world-generation-design")
+
+#undecided[Chunk size and level-of-detail distances. The world-generation
+proposal leaves both to later tuning.]
 
 = See also <terrain-see-also>
 

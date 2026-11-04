@@ -21,6 +21,6 @@ good, and who wins the debate. These are the leads to research later:
   (Bench-Capon 2003): each NPC ranks values, so the same argument can win
   against one NPC and fail against another. Ada will get the paper.
 
-#open[What counts as winning a value debate? Is losing because an NPC ranks
+#undecided[What counts as winning a value debate? Is losing because an NPC ranks
 values differently satisfying, or does the game need to say so ("you won't
 move me on liberty")?]

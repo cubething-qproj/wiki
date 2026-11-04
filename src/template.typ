@@ -10,6 +10,7 @@
 
 /// The areas, in display order. Each is a directory of pages.
 #let areas = (
+  (id: "project", title: [Project overview], about: [How Quell's repositories, crates and labs fit together.]),
   (id: "nlp", title: [NLP and argumentation], about: [Argument mining, PTA and IAT, debate.]),
   (id: "pcg", title: [Procedural generation], about: [Terrain, hex boards, world generation.]),
   (
@@ -23,7 +24,6 @@
   (id: "engine", title: [Engine: q_os and libraries], about: [The `lib/` crates.]),
   (id: "tooling", title: [Tooling], about: [Development environment and workflow.]),
   (id: "reference", title: [Reference], about: [Papers and reference notes.]),
-  (id: "explainers", title: [Explainers], about: [One short page per technical term.]),
 )
 
 /// Page statuses. The first two are "current"; the rest are history.
@@ -197,6 +197,18 @@
   l(target, ..label)
 }
 
+/// Mark something designed but not yet implemented, citing the records that describe it:
+/// `#wip("debate-game")`, or `#wip("debate-game")[Extra detail.]`.
+#let wip(..args) = {
+  let names = args.pos().filter(a => type(a) == str)
+  let extra = args.pos().filter(a => type(a) == content)
+  callout(kind: "WIP", icon: "⚒️")[
+    This is not yet implemented.
+    #if names.len() > 0 [See #names.map(n => doc(n)).join(", ", last: " and ").]
+    #extra.join()
+  ]
+}
+
 /// Pages that link to `name`, excluding itself and generated indexes.
 /// Wiki backlinks include articles only, not procedural records.
 #let backlinks(name) = {
@@ -350,7 +362,9 @@
 
 /// The article collection's landing page, with authored portals and topic links.
 #let wiki-home() = context {
-  [A knowledge base about Quell and its development. Start with a portal or a topic below.]
+  [Quell is a game in development, built with Bevy. The plan is for its players
+    to explore generated landscapes, read real philosophy found along the way, and
+    debate the characters they meet. Start with a portal or a topic below.]
   let portals = all-pages().filter(p => p.kind == "portal")
   for p in portals { html.elem("p")[*#link(page-url(p.name), p.title)* — #p.summary] }
   html.elem("h2")[Articles]

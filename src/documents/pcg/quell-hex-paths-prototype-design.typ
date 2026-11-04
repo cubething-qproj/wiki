@@ -18,7 +18,7 @@ one step at a time.]
 Before pushing: rebase and sign the unsigned step 1 commit `b094306`.
 
 Source: handwritten notes 27-Sept-26 c.i, 7.Oct.26.a.i, 7.Oct.26.b
-(exploration / traversal / overworld --- \"hiking in the woods\").
+(exploration / traversal / overworld --- "hiking in the woods").
 
 == Goal
 A dev screen in Quell that visualizes the hex path generation and lets a
@@ -29,13 +29,13 @@ feathers debug panel.
 In scope:
 
 - Flat-top hex grid, configurable size (default 10 columns × 8 rows,
-  i.e. the IRL \"8×10\").
+  i.e. the IRL "8×10").
 - A spawn tile (its own tile, not a node; centered by default) and N
-  #strong[nodes] placed ahead of time with configurable minimum spacing.
-- A node trait #strong[deck] dealt onto the nodes at generation:
+  *nodes* placed ahead of time with configurable minimum spacing.
+- A node trait *deck* dealt onto the nodes at generation:
   guarantees one key location, one NPC, one Fear; remaining nodes are
   empty encounters. Counts configurable.
-- Path tiles with 2 or 3 #strong[spokes] (edge connections). Generation
+- Path tiles with 2 or 3 *spokes* (edge connections). Generation
   guarantees that spawn and every node are in one connected network, so
   the player can never softlock.
 - Node locations are always visible, face-down, so the player has
@@ -55,7 +55,6 @@ it.
     columns: 3,
     align: (auto,auto,auto,),
     table.header([Type], [Kind], [Responsibility],),
-    table.hline(),
     [`HexPos(Hex)`], [Component], [Grid position of a tile or the
     player.],
     [`Spokes`], [Component], [`bitflags` u8, one bit per hex edge (6
@@ -72,8 +71,8 @@ it.
 
 Tile entities are `ScreenScoped` and despawned on regenerate.
 
-#strong[Crossing rule:] moving from `a` to neighbor `b` in direction `d`
-is legal iff `a` has spoke `d` #strong[and] `b` has spoke `-d`. A spoke
+*Crossing rule:* moving from `a` to neighbor `b` in direction `d`
+is legal iff `a` has spoke `d` *and* `b` has spoke `-d`. A spoke
 with no partner is a dead end (the ✕ in the sketch) or points off-map
 (the arrows). Backtracking is always possible, so softlock ⇔ spawn and
 nodes are not in one connected component. The generator guarantees they
@@ -94,7 +93,6 @@ board (`resource_changed::<HexPathsSettings>`).
     columns: 3,
     align: (auto,auto,auto,),
     table.header([Field], [Default], [Meaning],),
-    table.hline(),
     [`columns`, `rows`], [10, 8], [Grid size.],
     [`seed`], [`None`], [`None`: fresh random seed every generation.
     `Some(n)`: pinned, same seed + settings ⇒ same board.],
@@ -122,9 +120,8 @@ board (`resource_changed::<HexPathsSettings>`).
     columns: 3,
     align: (auto,auto,auto,),
     table.header([Field], [Default], [Meaning],),
-    table.hline(),
-    [`show_paths`], [false], [Draw unrevealed tiles\' spokes.],
-    [`show_node_traits`], [false], [Draw face-down nodes\' traits.],
+    [`show_paths`], [false], [Draw unrevealed tiles' spokes.],
+    [`show_node_traits`], [false], [Draw face-down nodes' traits.],
     [`step_duration`], [0.5 s], [Time to walk one tile (§5).],
   )
 
@@ -143,7 +140,7 @@ works on plain data --- `BoardLayout` is a
 `HashMap<Hex, (TileKind, Spokes)>` plus spawn --- so the algorithm can
 be unit tested without an `App`. A `spawn_board` system turns the layout
 into the components in §1. The ECS representation is the source of truth
-at play time; `BoardLayout` is only the generator\'s output.
+at play time; `BoardLayout` is only the generator's output.
 
 === 3.1 Place spawn and nodes
 Place spawn per `spawn`. Rejection-sample node cells uniformly from the
@@ -158,11 +155,11 @@ here.
 === 3.2 Backbone: noisy A\*
 Sample a cost field once per generation: each cell gets
 `1 + noise × rand()`. Fixed per-cell costs (rather than per-step) give
-paths that share \"easy ground\", which reads more like trails than
+paths that share "easy ground", which reads more like trails than
 per-step jitter.
 
 Network = {spawn}. For each node in shuffled order, A\* from the node to
-the nearest #strong[joinable] network cell:
+the nearest *joinable* network cell:
 
 - May step only through empty cells.
 - May end at a `Path` tile with fewer than 3 spokes, at spawn if under
@@ -197,7 +194,7 @@ toward an empty neighbor and grow a branch from it: a random walk of
   `branch_join_chance` (makes a loop), or
 - in a dangling spoke (dead end / off-map).
 
-3-spoke shapes (Y, T, claw) fall out of the junction\'s neighbor choice;
+3-spoke shapes (Y, T, claw) fall out of the junction's neighbor choice;
 they have no weights of their own.
 
 Decoration only adds connections, so it cannot break the §3.2 guarantee.
@@ -206,7 +203,7 @@ Cells not touched by any of this stay empty.
 
 == 4. Screen
 New `HexPathsScreen` in `bin/quell/src/screen/dev/hex_paths/`, following
-`camera_test`\'s layout (`mod.rs`, `data.rs`, `screen.rs`). Its own
+`camera_test`'s layout (`mod.rs`, `data.rs`, `screen.rs`). Its own
 `Camera2d`, `ScreenScoped`.
 
 Board rendering uses gizmos --- the board is small and this is a
@@ -218,14 +215,14 @@ visualization:
 - nodes: always drawn; neutral when face-down, colored by trait when
   flipped (or `show_node_traits`);
 - spawn and player: distinct markers;
-- the player\'s current route: highlighted.
+- the player's current route: highlighted.
 
 Debug panel: a `bevy_ui` side panel built from feathers controls
-(requires enabling Bevy\'s `bevy_feathers` feature for quell):
+(requires enabling Bevy's `bevy_feathers` feature for quell):
 
 - number inputs / sliders for `HexPathsSettings` fields;
 - checkboxes for `HexPathsView` toggles, slider for `step_duration`\;
-- \"Regenerate\" button (re-runs generation with the current settings;
+- "Regenerate" button (re-runs generation with the current settings;
   with `seed: None` that is a new board);
 - `BoardStats` as text.
 
@@ -236,7 +233,7 @@ Click a tile to walk there. A system maps the cursor to a hex via
 `HexLayout::world_pos_to_hex` and sends a `WalkTo(Hex)` message. Clicks
 on the debug panel are not forwarded.
 
-#strong[Routing] uses `hexx::algorithms::a_star` without noise. Cost of
+*Routing* uses `hexx::algorithms::a_star` without noise. Cost of
 `a → b` is `Some(1)` iff the crossing rule holds and the player knows
 `b` is reachable:
 
@@ -247,7 +244,7 @@ on the debug panel are not forwarded.
 So a route passes only through revealed tiles and may end one tile into
 the frontier. No route ⇒ the click is ignored.
 
-#strong[Walking:] `Walk { route: VecDeque<Hex>, t: f32 }` on the player.
+*Walking:* `Walk { route: VecDeque<Hex>, t: f32 }` on the player.
 The token eases (ease-in-out) between tile centers, one tile per
 `step_duration`. On arrival at each tile: update `HexPos`, insert
 `Revealed`. A new click during a walk replaces the remaining route,

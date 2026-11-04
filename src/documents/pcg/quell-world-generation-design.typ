@@ -5,27 +5,27 @@
   summary: [Two-stage world generation: level skeletons, streamed detail, editor and play.],
 )
 
-Status: #strong[draft, 2026-10-16. For review.]
+Status: *draft, 2026-10-16. For review.*
 
 Follows the hex terrain work (#l("quell-hex-terrain-design")) and
 the async generation issue (`.docs/issues/quell-worldgen-0-async.md`).
-The `hex_paths` screen becomes the level #strong[editor]\; `WorldScreen`
-becomes the place where levels are #strong[played]. The greybox scene
+The `hex_paths` screen becomes the level *editor*\; `WorldScreen`
+becomes the place where levels are *played*. The greybox scene
 stays with its own screen for controller work.
 
 == Terms
-- #strong[Preset]: the generation inputs authored in the editor, which
+- *Preset*: the generation inputs authored in the editor, which
   are the existing `HexPathsSettings` and `HexTerrainTuning` RON assets.
   A preset is everything except the seed.
-- #strong[Level]: one terrain exploration loop. A preset plus a fresh
+- *Level*: one terrain exploration loop. A preset plus a fresh
   seed. A playthrough runs several levels in sequence.
-- #strong[Skeleton]: a level\'s coarse, whole-level generation output:
+- *Skeleton*: a level's coarse, whole-level generation output:
   the eroded `Region`, the chosen window (`Terrain`), and the `Layout`
-  (trail graph, nodes, pads, levelled heights). It is today\'s `Board`
+  (trail graph, nodes, pads, levelled heights). It is today's `Board`
   without presentation.
-- #strong[Chunk]: a fixed square of the playable world. Its detail is
+- *Chunk*: a fixed square of the playable world. Its detail is
   generated on demand from the skeleton.
-- #strong[Detail]: everything derived per chunk: the fine ground mesh,
+- *Detail*: everything derived per chunk: the fine ground mesh,
   path carving and texturing, vegetation, node props, and colliders. It
   exists at several LODs.
 
@@ -34,17 +34,17 @@ Erosion is global (`Region::simulate` evolves the whole region at once),
 so the skeleton cannot be chunked. Everything finer than the skeleton
 can be chunked. The pipeline has two stages:
 
-+ #strong[Skeleton, once per level, async.] This is existing code,
++ *Skeleton, once per level, async.* This is existing code,
   unchanged in behaviour. Loading a level waits for it.
-+ #strong[Detail, per chunk, async, on demand.] This is a deterministic
++ *Detail, per chunk, async, on demand.* This is a deterministic
   function of `(skeleton, seed, chunk coordinate, LOD)`. Chunks near the
   player stream in and out; LODs swap with distance.
 
 Since detail is a pure function of the skeleton and seed, the world
-never needs to be stored. A save holds the inputs and the player\'s
+never needs to be stored. A save holds the inputs and the player's
 state, and loading regenerates everything else.
 
-#strong[Layout regeneration is a game mechanic.] \"Regenerate here\" and
+*Layout regeneration is a game mechanic.* "Regenerate here" and
 Fear (`Layout::regenerate`) rewrite the layout around the player during
 a level. The terrain is fixed per level, but the layout is not. So:
 
@@ -55,17 +55,17 @@ a level. The terrain is fixed per level, but the layout is not. So:
   props, and vegetation exclusion around paths and pads) is invalidated
   for every chunk whose trails or pads changed. Those chunks regenerate.
   The pinned radius around the player is unchanged, so the visible
-  change happens outside it. Ground and vegetation that don\'t depend on
+  change happens outside it. Ground and vegetation that don't depend on
   the layout survive.
 - Saves record the regeneration history (see Saves).
 
 == Editor → play
-- The editor\'s Save button already writes the preset. The preset is the
-  editor\'s only output; there is no separate export.
-- Starting a level picks a preset and draws a seed. The editor\'s seed
+- The editor's Save button already writes the preset. The preset is the
+  editor's only output; there is no separate export.
+- Starting a level picks a preset and draws a seed. The editor's seed
   field is for inspection and reproducing bugs; play ignores it.
 - The editor can launch the world screen with its current preset and
-  seed (\"play this level\") for testing. It is a dev-only convenience.
+  seed ("play this level") for testing. It is a dev-only convenience.
 
 == Moving reusable code to services
 `screen/dev/hex_paths` is compiled only with the `dev` feature, but play
@@ -78,7 +78,7 @@ non-dev services:
   async issue.
 - `Billboards` and the billboard spawning helpers go to a billboard
   service next to `common::billboard`. The editor uses them for markers;
-  the vegetation preview and the play screen\'s impostors reuse them.
+  the vegetation preview and the play screen's impostors reuse them.
 
 The editor keeps its panel, preview mesh, markers, and camera. This move
 is a pure refactor and should be its own PR, with no behaviour change.
@@ -88,24 +88,24 @@ Vegetation algorithms need the same iterate-and-look loop as pathing,
 before any 3D detail or final assets exist. The editor gets a top-down
 vegetation view:
 
-- #strong[Three layers]: ground cover, understorey, and canopy. Each
+- *Three layers*: ground cover, understorey, and canopy. Each
   layer has its own density drivers, spacing, and clearance, and they
   interact: canopy shades out understorey, and understorey thins ground
   cover.
-- #strong[Settings as assets.] A `VegetationSettings` RON asset
+- *Settings as assets.* A `VegetationSettings` RON asset
   (per-layer density curves, spacing, path and pad clearance, the
   squircle boundary) joins `HexSettingsCollection`. It is edited through
   the advanced editor and saved and loaded with the other settings, and
   hot reload applies.
-- #strong[Raster overlay.] Placement runs over the whole playable window
+- *Raster overlay.* Placement runs over the whole playable window
   and produces points per layer. The points are rasterised into a
   texture laid over the terrain mesh, coloured by layer, alongside the
   existing `TerrainView` measures. The raster is the cheap, dense view
   for tuning distributions.
-- #strong[Billboards.] A toggle spawns billboards at the placed points
+- *Billboards.* A toggle spawns billboards at the placed points
   instead, for a sense of scale and occlusion before the real models
   exist.
-- #strong[Placement is the same code play uses.] It is a pure function
+- *Placement is the same code play uses.* It is a pure function
   of the skeleton, the seed, and `VegetationSettings` in
   `service/worldgen`, with per-chunk evaluation so play can call it for
   one chunk at a time. The editor just evaluates every chunk.
@@ -117,24 +117,24 @@ vegetation view:
 All randomness comes from `hash(seed, chunk, layer)` so that chunks are
 independent of load order.
 
-- #strong[Ground.] Sample the region heightfield
-  (`Region::sample_cubic`) at the chunk\'s LOD resolution, using the
-  layout\'s levelled heights near pads, plus small-scale detail noise.
+- *Ground.* Sample the region heightfield
+  (`Region::sample_cubic`) at the chunk's LOD resolution, using the
+  layout's levelled heights near pads, plus small-scale detail noise.
   At LOD 0 the resolution should be about 1 m (versus 33 m hex edges
   today).
-- #strong[Paths.] Trail edges become polylines on the ground. A distance
+- *Paths.* Trail edges become polylines on the ground. A distance
   field to them does two jobs:
   - It carves and flattens the ground within a path half-width, blending
     out, like `Layout::level` does around pads.
   - It drives a splat weight for the path texture.
-- #strong[Vegetation.] The placement from the editor\'s vegetation
+- *Vegetation.* The placement from the editor's vegetation
   preview, evaluated for this chunk: blue noise (Poisson disk) with
   density driven by existing measures (suitability, steepness, creek
   proximity) and by the boundary. It excludes paths and pads.
-- #strong[Node props.] Each `NodeKind` maps to a Jackdaw `.bsn` scene
+- *Node props.* Each `NodeKind` maps to a Jackdaw `.bsn` scene
   (bench, POI, crossing/bridge, spawn), spawned at the pad centre on
   levelled ground. Props belong to the chunk that contains their pad.
-- #strong[Colliders.] Each chunk gets an avian3d heightfield collider at
+- *Colliders.* Each chunk gets an avian3d heightfield collider at
   a fixed resolution regardless of visual LOD. Otherwise, graphics
   settings would change where the player can stand, and an LOD swap
   underfoot would pop the player. Ground colliders exist only in LOD 0
@@ -146,9 +146,9 @@ independent of load order.
 Each level is bounded. The playable window sits inside the terrain
 margin (`HexTerrainTuning::margin`), which today is scenery:
 
-- The margin becomes #strong[dense forest]: vegetation at maximum
+- The margin becomes *dense forest*: vegetation at maximum
   density with no paths. A rectangular edge would make corners feel
-  artificial, so the boundary is a #strong[squircle] (a superellipse
+  artificial, so the boundary is a *squircle* (a superellipse
   fitted to the playable rectangle) with low-frequency noise on its
   radius. The same curve drives both:
 
@@ -159,29 +159,29 @@ margin (`HexTerrainTuning::margin`), which today is scenery:
 
   The superellipse exponent and the noise are vegetation settings.
 
-- #strong[Creeks]: dry banks for now, with no water. See Passability.
+- *Creeks*: dry banks for now, with no water. See Passability.
 
 == Passability
 The player roams freely, off-path included. Movement is restricted by
-#strong[large features] that cannot be crossed, not by the trails:
+*large features* that cannot be crossed, not by the trails:
 
-- #strong[Steep drops]: slopes beyond the controller\'s walkable limit.
+- *Steep drops*: slopes beyond the controller's walkable limit.
   The controller already refuses them, so the terrain does this work.
   Escarpments (#l("quell-hex-terrain-design") §4) are the
   deliberate case.
-- #strong[Creek banks]: steep everywhere except at shallow sections.
+- *Creek banks*: steep everywhere except at shallow sections.
   Crossings sit at those sections; `trunk_sites` already prefers
   low-bank sites. So creeks are largely impassable, except where it
   would be natural to cross them.
-- #strong[Boulders]: placed lines or clusters that close gaps where
+- *Boulders*: placed lines or clusters that close gaps where
   terrain alone would let the player shortcut a tease or bypass a
   crossing.
-- #strong[Vegetation] is passable. Only the outer forest boundary
+- *Vegetation* is passable. Only the outer forest boundary
   blocks.
 
 This keeps teases meaningful, but changes what the generator must check.
 Today `tease_detour` and the pace statistics measure walks along trails.
-Under free roaming, a tease holds only if the #strong[passability graph]
+Under free roaming, a tease holds only if the *passability graph*
 (terrain edges minus barriers) forces the detour. So the generator
 gains:
 
@@ -195,7 +195,7 @@ gains:
 The editor shows the mask as a `TerrainView`, so barriers can be tuned
 like paths and vegetation. Barrier thresholds and boulder placement are
 settings assets. Play builds colliders and boulder props from the same
-mask, so the editor\'s preview of passable ground matches what the
+mask, so the editor's preview of passable ground matches what the
 player can actually reach.
 
 == Streaming and LOD
@@ -205,7 +205,7 @@ player can actually reach.
   coarser ground and billboard impostors for vegetation further out,
   ground only at the horizon. The existing marker billboards are prior
   art for the impostors.
-- Use Bevy\'s `VisibilityRange` for distance cutoffs and crossfades
+- Use Bevy's `VisibilityRange` for distance cutoffs and crossfades
   between LOD meshes.
 - Generation runs as async tasks with a small budget per frame. A chunk
   the player is about to enter has priority.
@@ -220,9 +220,9 @@ A save is a RON asset written with `RonAssetSaver`, like the presets:
 - `preset`: an inline copy of the settings and tuning, not a handle.
   Editing the preset files must not change existing saves.
 - `seed` and the level index within the playthrough.
-- Regeneration history: each regeneration\'s player tile and whether it
+- Regeneration history: each regeneration's player tile and whether it
   was Fear, in order. Replaying it from the seed reproduces the current
-  layout, since `regeneration_seed` derives each regeneration\'s seed
+  layout, since `regeneration_seed` derives each regeneration's seed
   from the level seed and the layout count.
 - Player state: transform and inventory.
 - Node state: items per node, keyed by tile index. Node positions are
@@ -233,7 +233,7 @@ saved. If regenerating the skeleton on load proves too slow, cache it as
 a binary asset keyed by a hash of `(generator_version, preset, seed)`.
 The cache is an optimisation; the save stays authoritative.
 
-#strong[Determinism] is load-bearing:
+*Determinism* is load-bearing:
 
 - every RNG is seeded from the level seed;
 - no iteration over hash maps whose order affects output;
@@ -242,14 +242,14 @@ The cache is an optimisation; the save stays authoritative.
   silent.
 
 == Screens
-- #strong[WorldScreen] (`Loading`): start the skeleton task, show
-  progress, and finish loading when the skeleton and the spawn chunk\'s
+- *WorldScreen* (`Loading`): start the skeleton task, show
+  progress, and finish loading when the skeleton and the spawn chunk's
   LOD 0 detail are ready. Then spawn the player at the spawn pad.
   `Update` streams chunks.
-- #strong[Greybox]: the `greybox_arena` dev screen already loads
+- *Greybox*: the `greybox_arena` dev screen already loads
   `greybox_scene.bsn`\; WorldScreen stops loading it.
 - #strong[hex\_paths]: unchanged apart from depending on
-  `service/worldgen`, plus the dev-only \"play this level\" button.
+  `service/worldgen`, plus the dev-only "play this level" button.
 
 == Out of scope
 - Inventory and item design, beyond reserving room in the save.
@@ -279,7 +279,7 @@ Each one is a PR and follows the async generation issue.
   version.
 
 == Open questions
-+ #strong[Chunk size and LOD distances]: tune on your GPU after issue 5.
-+ #strong[What drives each vegetation layer]: decided while playing with
++ *Chunk size and LOD distances*: tune on your GPU after issue 5.
++ *What drives each vegetation layer*: decided while playing with
   the preview.
-+ #strong[Water in creeks]: deferred; dry banks for now.
++ *Water in creeks*: deferred; dry banks for now.

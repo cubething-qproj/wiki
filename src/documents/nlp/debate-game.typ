@@ -78,6 +78,6 @@ For now the game only checks *structure*: does the argument have a type, and
 does the lever fit it? Whether it's _good_, and who wins, is
 #l("debate-evaluation")[later research].
 
-#open[How does the game stop brute force when the player can try every pair of
+#undecided[How does the game stop brute force when the player can try every pair of
 statements? Ideas: a cost per submission, feedback that names the kind of
 failure but not the fix, confirming in batches. Settle by playtesting.]

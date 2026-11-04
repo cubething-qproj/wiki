@@ -43,5 +43,5 @@ game never depends on them.
 - *A human ceiling.* A second annotator on a sample shows how much people
   disagree.
 
-#open[How many reviewed maps before scores mean anything? Draft 1 guessed
+#undecided[How many reviewed maps before scores mean anything? Draft 1 guessed
 10 of 31.]

@@ -21,6 +21,16 @@
   }
 }
 
+/// Reference records that became wiki articles keep their old document URLs.
+#for p in manifest.pages.filter(p => p.kind == "article" and (p.name.starts-with("explainer-") or p.name == "glossary")) {
+  document("documents/" + p.name + ".html", redirect(p.url))
+  document(p.name + ".html", redirect(p.url))
+}
+
+// The explainers area became NLP articles.
+#document("documents/explainers.html", redirect("/wiki/nlp.html"))
+#document("explainers.html", redirect("/wiki/nlp.html"))
+
 #document("wiki/index.html", title: [Quell wiki], shell([Quell wiki], wiki-home(), collection: "wiki"))
 #document("documents/index.html", title: [Document library], shell([Document library], home()))
 #document("documents/status.html", title: [Document status], shell([Document status], status-index()))

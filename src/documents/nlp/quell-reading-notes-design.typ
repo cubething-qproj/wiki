@@ -6,25 +6,23 @@
 )
 The player reads in-world texts, highlights passages, and writes
 free-text notes. NPC dialogue is canned and gated on what the player has
-engaged with, so the game needs #strong[concept ids] out of highlights
+engaged with, so the game needs *concept ids* out of highlights
 and notes. This design covers the data format (shared by the lab and,
 eventually, the game) and the lab that measures interpreters. Background
-research: \"Local \'System One\' models for reading notes and NPC talk\"
+research: "Local 'System One' models for reading notes and NPC talk"
 (2026-10-20).
 
 The texts are philosophical, not lore dumps: one passage carries several
 overlapping topics, and structure (arguments, objections, references)
 matters as much as topics. Training material is excerpted from real
-books and is #strong[never committed or published].
+books and is *never committed or published*.
 
 == Scope
 Tiers 0--2 of the research doc only:
 
 #table(
     columns: 3,
-    align: (auto, auto, auto),
     table.header([tier], [approach], [output]),
-    table.hline(),
     [0],
     [authored annotations; highlight → concepts by
       coverage],
@@ -40,8 +38,8 @@ Tiers 0--2 of the research doc only:
   )
 
 Few-shot only for now (tier 1 `proto` arm: concept anchored by its
-dev-split example notes). #strong[Fine-tuning is deferred] until the
-designer has finalized materials; there isn\'t a big enough corpus yet.
+dev-split example notes). *Fine-tuning is deferred* until the
+designer has finalized materials; there isn't a big enough corpus yet.
 
 == Data format
 A data set is a directory (`misc/note-lab/data/<set>/`\; everything
@@ -49,9 +47,7 @@ except `data/fixture/` is gitignored):
 
 #table(
     columns: 2,
-    align: (auto, auto),
     table.header([path], [contents]),
-    table.hline(),
     [`texts/*.txt`], [Plain text, exactly as the player reads it.],
     [`texts/*.json`],
     [Optional W3C annotation page for the same-named
@@ -64,11 +60,11 @@ except `data/fixture/` is gitignored):
       labels, `dev`/`holdout`.],
   )
 
-#strong[Offsets] are `[start, end)` in Unicode code points over the text
+*Offsets* are `[start, end)` in Unicode code points over the text
 file, read as UTF-8 with no newline translation. A Rust port must
 convert to/from byte offsets.
 
-#strong[Annotations] use a subset of the
+*Annotations* use a subset of the
 #link("https://www.w3.org/TR/annotation-model/")[W3C Web Annotation Data Model]
 (Recommendation, 2017): chosen because overlap is free, it gives the
 Rust side a stable spec, and it can be replaced later if needed.
@@ -91,7 +87,7 @@ Rust side a stable spec, and it can be replaced later if needed.
   edit fail loudly. (A whole-file `sha256` was considered and dropped:
   W3C has no standard place for it, and quotes catch drift where it
   happens.)
-- `layer` is our extension: what #emph[kind] of structure an annotation
+- `layer` is our extension: what _kind_ of structure an annotation
   is. Free-form for now; no list exists yet.
 - W3C allows a single object anywhere an array is shown; both are
   accepted.
@@ -99,29 +95,29 @@ Rust side a stable spec, and it can be replaced later if needed.
   be added without breaking loading.
 
 === Layers and relations
-In annotation tools a #emph[layer] is a kind of annotation with its own
+In annotation tools a _layer_ is a kind of annotation with its own
 fields, relations and overlap rules; values within a layer are labels.
 The designer wants both: many overlapping concepts at different scales
 (one layer, plus a concept hierarchy in `concepts.toml` if needed)
-#strong[and] different kinds of structure (argument structure,
-cross-references, rhetorical moves), where #strong[relations matter]
-(premise #emph[supports] conclusion, passage #emph[answers] Kant). In
+*and* different kinds of structure (argument structure,
+cross-references, rhetorical moves), where *relations matter*
+(premise _supports_ conclusion, passage _answers_ Kant). In
 W3C, a relation is an annotation whose targets are other annotations
-(motivation `linking`). Not read yet; tiers 0--2 don\'t use them.
+(motivation `linking`). Not read yet; tiers 0--2 don't use them.
 
-Possible later unification: the player\'s own highlights
+Possible later unification: the player's own highlights
 (`highlighting`) and notes (`commenting`) fit the same model, so the
 game could store authored tags and the notebook in one format.
 
 === Authoring
-JSON is #strong[not hand-authored]: it is the output of a labelling
+JSON is *not hand-authored*: it is the output of a labelling
 pipeline (tool export → converter → our format). The tool is swappable;
 the designer is evaluating:
 
-- #strong[Label Studio]: overlapping spans and relations; simple export
+- *Label Studio*: overlapping spans and relations; simple export
   (`start`/`end`/`text`/`labels`). Reads UTF-8 only, hence
   `scripts/to_utf8.py`.
-- #strong[INCEpTION]: built for layered, relation-heavy research
+- *INCEpTION*: built for layered, relation-heavy research
   annotation and concept linking; robust but complex.
 - Recogito was ruled out.
 
@@ -130,48 +126,46 @@ Open: notes and their gold labels must also come out of the pipeline;
 
 == Tier 0
 `Text.concepts_at(start, end, layer=None)` returns, per concept, the
-share of the highlight covered by the union of that concept\'s ranges
+share of the highlight covered by the union of that concept's ranges
 (optionally one layer). On the fixture it already shows the limits: a
 broad `argument` annotation scores both its concepts 1.0 for any
-highlight inside it (including the \"nice willows\" note that should map
+highlight inside it (including the "nice willows" note that should map
 to nothing), and an untagged passage returns nothing. The note text has
-to do the rest; that\'s tiers 1--2.
+to do the rest; that's tiers 1--2.
 
 == Lab method (`misc/note-lab`)
 Modelled on `misc/hex-lab`.
 
-- #strong[Arms] are model + configuration, in a registry; never deleted,
+- *Arms* are model + configuration, in a registry; never deleted,
   so any experiment tag reruns.
 
-- #strong[Records]: one CSV row per (arm, note, concept score), plus
+- *Records*: one CSV row per (arm, note, concept score), plus
   per-note timing. Every row kept, including failures.
 
-- #strong[Exemplars before stats]: `show` prints a few notes with gold
-  labels and each arm\'s top-3; full statistics only on request.
+- *Exemplars before stats*: `show` prints a few notes with gold
+  labels and each arm's top-3; full statistics only on request.
 
-- #strong[Statistics] (to be designed against real data, see below):
-  bootstrap CIs over notes; comparisons are #strong[paired] (every arm
+- *Statistics* (to be designed against real data, see below):
+  bootstrap CIs over notes; comparisons are *paired* (every arm
   sees the same notes), via paired bootstrap on score differences and
-  exact McNemar on top-1 as a check. Notes on one passage aren\'t
+  exact McNemar on top-1 as a check. Notes on one passage aren't
   independent; consider resampling by passage. Many pairwise comparisons
   → compare each arm against one baseline.
 
-- #strong[Candidate metrics]: top-1/top-3, multi-label P/R/F1 at a
+- *Candidate metrics*: top-1/top-3, multi-label P/R/F1 at a
   threshold, stance accuracy, slot matches, abstention curve (accuracy
-  vs. coverage as the confidence threshold rises: the \"NPC doesn\'t get
-  it\" fallback), calibration.
+  vs. coverage as the confidence threshold rises: the "NPC doesn't get
+  it" fallback), calibration.
 
-- #strong[Latency]: each (arm, profile) in its own subprocess; cold
+- *Latency*: each (arm, profile) in its own subprocess; cold
   load, peak RSS, model size on disk, per-note p50/p95/p99 after warm-up
   over N repeats. Text length is swept until real passages exist.
 
-- #strong[Throttle profiles] (CPU only; the GPU is the renderer\'s):
+- *Throttle profiles* (CPU only; the GPU is the renderer's):
 
   #table(
       columns: 2,
-      align: (auto, auto),
       table.header([profile], [how]),
-      table.hline(),
       [`host`], [all cores, no limits],
       [`mid`], [`taskset` to 4 cores, 4 ORT threads],
       [`low`],
@@ -180,15 +174,15 @@ Modelled on `misc/hex-lab`.
       [`starved`], [`CPUQuota=50%`, 1 thread],
     )
 
-  Clock speed can\'t be lowered without root; quota stands in for slow
+  Clock speed can't be lowered without root; quota stands in for slow
   cores. Check `systemd-run --user` cgroup CPU delegation first; fall
   back to `taskset` + thread limits.
 
-- #strong[Runtime]: tier 1 via ONNX Runtime (`fastembed` or `optimum`),
-  the same runtime as Rust\'s `ort`, so latency carries over. GLiNER2
+- *Runtime*: tier 1 via ONNX Runtime (`fastembed` or `optimum`),
+  the same runtime as Rust's `ort`, so latency carries over. GLiNER2
   may need torch; record the runtime as a column if so.
 
-- #strong[Experiments]: tagged commit `exp/NN-name`, summary in
+- *Experiments*: tagged commit `exp/NN-name`, summary in
   `misc/note-lab/experiments/NN-name.md`, figures in
   `.docs/designs/quell-reading-notes/experiments/NN-name/`.
 

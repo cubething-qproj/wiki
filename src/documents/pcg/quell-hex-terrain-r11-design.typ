@@ -26,22 +26,22 @@ with the fixes in §7 (exps 13--14, arm `trunk-sight`). §8 is woodland,
 the next open problem.
 
 == Goals (unchanged)
-- #strong[Terrain first:] trails bend to the terrain, never the reverse.
-- #strong[Lost but readable:] no map. The player\'s device only points
+- *Terrain first:* trails bend to the terrain, never the reverse.
+- *Lost but readable:* no map. The player's device only points
   to the nearest node, and only when they check it. Nodes are landmarks;
   the way between them is uncertain.
-- #strong[A Fear regenerates the trails,] not the terrain.
-- #strong[Walk every trail in about an hour.]
+- *A Fear regenerates the trails,* not the terrain.
+- *Walk every trail in about an hour.*
 
 == Scale and units
-- #strong[One hex edge is 33 m.] The playable board is 20 × 20 hexes,
+- *One hex edge is 33 m.* The playable board is 20 × 20 hexes,
   about 1.0 × 1.15 km, with a 6-hex scenery margin.
-- #strong[Heights are in metres in the knobs,] and in edge lengths
+- *Heights are in metres in the knobs,* and in edge lengths
   inside the generator.
-- #strong[Pace:] Tobler\'s hiking function, 6·e^(−3.5·|slope + 0.05|)
+- *Pace:* Tobler's hiking function, 6·e^(−3.5·|slope + 0.05|)
   km/h, which is 11.9 min/km on the flat. Times are averaged over both
   walking directions, on smoothed trail length (honeycomb × √3/2).
-- #strong[Typical boards:] 4--5.5 km of trail, about 45--65 min to walk
+- *Typical boards:* 4--5.5 km of trail, about 45--65 min to walk
   it all, 2--3 min to the nearest node, 10--25 min from spawn to the
   farthest node.
 
@@ -52,18 +52,18 @@ Reference: Atchison County, Kansas. Glacial-drift uplands are finely
 carved by dendritic ravines and creeks set 2--5 m into the ground; there
 are no lakes.
 
-#strong[Simulate a region, then crop the board.]
+*Simulate a region, then crop the board.*
 
-+ #strong[Region:] 100 × 100 hexes (about 5 km square), one cell per hex
++ *Region:* 100 × 100 hexes (about 5 km square), one cell per hex
   edge.
 
-  - It drains off #strong[every side] (\"rivers all round\"), so
-    there\'s no global direction to read.
+  - It drains off *every side* ("rivers all round"), so
+    there's no global direction to read.
   - It starts nearly level: 0.2% regional fall, 4 m rolling rises about
     1.5 km across, and 1 m white-noise roughness. The roughness breaks
     grid-straight channels.
 
-+ #strong[250 erosion passes,] each:
++ *250 erosion passes,* each:
 
   + lift the land `uplift_m` against fixed outlets;
   + priority-flood so every cell drains downhill (pits get a tiny slope,
@@ -77,45 +77,45 @@ are no lakes.
   tilted plane gives parallel gullies instead, and a single outlet only
   carves about 1.5 km inland (exps 07--08).
 
-+ #strong[Choose the window by play features] (exp 09). Score 60 random
-  windows (any position far enough from the region\'s edges, random
++ *Choose the window by play features* (exp 09). Score 60 random
+  windows (any position far enough from the region's edges, random
   rotation) on:
 
   - creek tiles in the playable area;
-  - #strong[ford sites:] creek tiles with banks within 3 m, spread 4
+  - *ford sites:* creek tiles with banks within 3 m, spread 4
     hexes apart;
-  - #strong[natural tease spots:] a viewer and target 3--6 hexes apart,
+  - *natural tease spots:* a viewer and target 3--6 hexes apart,
     the target at least 12 m lower, with a clear sight line;
   - a penalty for rivers (over 600 ha);
   - a weak bonus for 15--60 m of relief.
 
-  Keep the best. Flat bottomlands aren\'t punished.
+  Keep the best. Flat bottomlands aren't punished.
 
-+ #strong[Heights] are sampled cubically into the window raster at 2
++ *Heights* are sampled cubically into the window raster at 2
   cells per edge.
 
 Cost: about 20 s per region in Python. Regions are cached per (settings,
 seed).
 
-#strong[Creeks] run on the #strong[dual lattice] (tile centre to tile
-centre). The region\'s channels at 40 ha or more are traced tile by
-tile: each channel cell maps to its nearest tile, and a creek tile\'s
+*Creeks* run on the *dual lattice* (tile centre to tile
+centre). The region's channels at 40 ha or more are traced tile by
+tile: each channel cell maps to its nearest tile, and a creek tile's
 downstream is the next tile down the channel. Gaps where a channel skips
 a tile near a hex corner are filled in, so every creek link joins
 neighbouring tiles (exp 11).
 
-#strong[Colours] in figures are absolute height, 0--120 m above the
-region\'s outlets, and deliberately false-colour.
+*Colours* in figures are absolute height, 0--120 m above the
+region's outlets, and deliberately false-colour.
 
-== 2. Layers (\"liquid geometry\")
+== 2. Layers ("liquid geometry")
 The displayed terrain is heightmap + model layer + trail layer:
 
-- #strong[Heightmap:] never edited after generation.
-- #strong[Model layer:] pads level their ground (median of the corners,
+- *Heightmap:* never edited after generation.
+- *Model layer:* pads level their ground (median of the corners,
   graded around). Removing a location restores the heightmap.
-- #strong[Trail layer:] a material change, at most a very slight grade.
+- *Trail layer:* a material change, at most a very slight grade.
   It never changes topology, and routing ignores it.
-- #strong[No escarpments are raised.] Teases come from natural drops
+- *No escarpments are raised.* Teases come from natural drops
   only; 94% of placed teases hold (exp 04).
 
 Later, fine detail (smaller noise octaves, deep creek channels) goes in
@@ -126,64 +126,63 @@ display layers too, kept small enough not to change routing.
     columns: 3,
     align: (auto,auto,auto,),
     table.header([Node], [Placed by], [Notes],),
-    table.hline(),
-    [#strong[Spawn]], [the board\'s middle tile, moved off a
-    creek], [Becomes the player\'s tile on regeneration.],
-    [#strong[Crossing]], [first; see §4], [Bridges and fords. Not a POI
-    or bench, no card. #strong[Never moves.]],
-    [#strong[POI] (6)], [suitability^`spread` (2) × up to 2× near water
+    [*Spawn*], [the board's middle tile, moved off a
+    creek], [Becomes the player's tile on regeneration.],
+    [*Crossing*], [first; see §4], [Bridges and fords. Not a POI
+    or bench, no card. *Never moves.*],
+    [*POI* (6)], [suitability^`spread` (2) × up to 2× near water
     (e^(−hexes/2))], [Deck: key, NPC, Fear on random POIs; the rest are
-    empty. #strong[The deck never changes.]],
-    [#strong[Bench] (3)], [bench score], [Not a spur by preference. The
-    \"benches together\" rule is dropped and kept only as a statistic.],
+    empty. *The deck never changes.*],
+    [*Bench* (3)], [bench score], [Not a spur by preference. The
+    "benches together" rule is dropped and kept only as a statistic.],
   )
 
-- #strong[Bench score] = (1 − `view`) · quiet⁴ + `view` · overlook⁴,
-  with quiet and overlook ranked #strong[among playable tiles only].
-- #strong[Placement] is weighted farthest-point: 3 hexes minimum
+- *Bench score* = (1 − `view`) · quiet⁴ + `view` · overlook⁴,
+  with quiet and overlook ranked *among playable tiles only*.
+- *Placement* is weighted farthest-point: 3 hexes minimum
   spacing, the board edge counted as a pad at half distance, nothing on
   creek tiles.
 
 Exps 03, 10.
 
 == 4. Crossings
-Trails cross a creek #strong[only at crossing nodes]. The hex side
-between two consecutive creek tiles is closed to trails; a crossing\'s
+Trails cross a creek *only at crossing nodes*. The hex side
+between two consecutive creek tiles is closed to trails; a crossing's
 pad perimeter is the ford or bridge. `crossings` defaults to 2 and is a
 slider.
 
 Placement (exp 12):
 
-+ #strong[On creek tiles only.]
-+ #strong[First,] any crossings needed to join parts of the board the
++ *On creek tiles only.*
++ *First,* any crossings needed to join parts of the board the
   creeks cut off, lowest banks first.
-+ #strong[Then] the rest go on the #strong[main creek] (at least half
++ *Then* the rest go on the *main creek* (at least half
   the biggest flow on the board), each as far as possible from the
   others. Two crossings land near opposite ends, so the creek is a long
   way round rather than a wall.
-+ #strong[Both banks:] after the trail passes, any bank of a crossing
++ *Both banks:* after the trail passes, any bank of a crossing
   pad without a trail gets one to the nearest trail or pad on that bank.
 
-Creeks and crossings are terrain-stable, so they\'re the fixed landmarks
+Creeks and crossings are terrain-stable, so they're the fixed landmarks
 through a Fear.
 
 == 5. Trails
 Unchanged from rounds 5--8, minus escarpments and noise:
 
-- #strong[Tease pairs:] a POI target, the viewer reached first from
+- *Tease pairs:* a POI target, the viewer reached first from
   spawn on foot (two-pass), visible and already dropping, ranked as
-  before. Every route is guarded so it doesn\'t break more teases than
+  before. Every route is guarded so it doesn't break more teases than
   are already broken.
-- #strong[Greedy spanner:] stretch 2, reuse discount 0.6, alongside
-  penalty 2.5. Then a connection pass, so there\'s never a softlock.
-- #strong[Loops:] cheap loops (≤ 3× the existing link, ≤ 18 edges), then
+- *Greedy spanner:* stretch 2, reuse discount 0.6, alongside
+  penalty 2.5. Then a connection pass, so there's never a softlock.
+- *Loops:* cheap loops (≤ 3× the existing link, ≤ 18 edges), then
   the no-tree pass. Loops rejoin the first trail they meet, keeping
   clear of their own spur.
-- #strong[Then both banks] for crossings (§4).
-- #strong[Not used:] route noise (it only added wiggle and cost teases,
+- *Then both banks* for crossings (§4).
+- *Not used:* route noise (it only added wiggle and cost teases,
   exp 04) and forks (exp 05). Forks remain the main candidate for
   getting lost later.
-- #strong[Creeks shape the network more than any knob did.] Trails
+- *Creeks shape the network more than any knob did.* Trails
   follow banks and funnel to crossings, and spawn → farthest roughly
   doubles.
 
@@ -191,53 +190,53 @@ Unchanged from rounds 5--8, minus escarpments and noise:
 `layout(ground, pins, seed)` is one pure function; the first layout is
 the case with nothing pinned.
 
-#strong[Pins:]
+*Pins:*
 
-- the player\'s tile (the new spawn);
+- the player's tile (the new spawn);
 - the node the player stands on;
 - fixed nodes;
 - movable nodes (old tile; moved 2--4 hexes, may swap, never onto a
   creek);
 - fixed trail edges.
 
-#strong[Crossings are always fixed.]
+*Crossings are always fixed.*
 
-#strong[Partial regeneration:] everything within 4 hexes of the player
-is pinned. Pinned trails cut by the radius leave #strong[ports], open
+*Partial regeneration:* everything within 4 hexes of the player
+is pinned. Pinned trails cut by the radius leave *ports*, open
 ends that must join the new network. No dead ends were left in any
 exemplar.
 
-#strong[A Fear:] only the player and the crossings are pinned. Every
+*A Fear:* only the player and the crossings are pinned. Every
 other node moves and the trails regenerate.
 
-#strong[Seeds:] the terrain seed gives the region, the window and the
+*Seeds:* the terrain seed gives the region, the window and the
 first layout. Each regeneration uses (seed, count). Exps 04, 11, 12.
 
 == 7. Fixes after round 11 (exps 13--14)
 From a robustness audit of exps 10--12:
 
-- #strong[Fords and crossings are on the main creek only.]
+- *Fords and crossings are on the main creek only.*
 
   - Window ranking traces creeks with the same function as the board, so
     ford sites are on the drawn creek.
   - Before, 69% of fords sat one hex off it.
 
-- #strong[A crossing must lead to two other nodes:] at least two banks
-  lead to nodes, and to two different ones. Otherwise it\'s invalid and
+- *A crossing must lead to two other nodes:* at least two banks
+  lead to nodes, and to two different ones. Otherwise it's invalid and
   dropped.
 
-- #strong[Nodes never go where trails can\'t reach them.]
+- *Nodes never go where trails can't reach them.*
 
-- #strong[Bank trails can\'t go round the crossing pad.]
+- *Bank trails can't go round the crossing pad.*
 
-- #strong[No regeneration while standing on a crossing.]
+- *No regeneration while standing on a crossing.*
 
-- #strong[Breaking a tease disqualifies it.] If a route has to break a
+- *Breaking a tease disqualifies it.* If a route has to break a
   tease, the layout is redone without it, and another pair takes its
   place. No route breaks a tease now; open-ground boards hold 2.0
   teases, up from 1.33.
 
-- #strong[Sight in metres:]
+- *Sight in metres:*
 
   - eye 1.5 m;
   - landmark 4 m;
@@ -247,54 +246,54 @@ From a robustness audit of exps 10--12:
   These were edge lengths before: eye 16.5 m, landmark 49.5 m.
 
 == 8. Woodland: oak--hickory forest
-The board is #strong[oak--hickory forest], the deciduous forest of the
-eastern Great Plains\' edge, so sight lines run through and over trees.
+The board is *oak--hickory forest*, the deciduous forest of the
+eastern Great Plains' edge, so sight lines run through and over trees.
 Wikipedia gives the species but no structure:
 
 - overstory: red, black, white and chestnut oak, and pignut, bitternut
   and shagbark hickory;
 - understory: dogwood and hawthorn.
 
-#strong[Working assumptions] (no stats; adjust by feel):
+*Working assumptions* (no stats; adjust by feel):
 
-- #strong[Canopy:] about 15--20 m on uplands, lower on dry ridges and
+- *Canopy:* about 15--20 m on uplands, lower on dry ridges and
   the western edge of the range. Exp 14 uses 15 m.
-- #strong[Understory:] historically fairly open, kept so by fire; now
+- *Understory:* historically fairly open, kept so by fire; now
   denser where fire has been suppressed (redcedar, shrubs). You see some
   way between trunks, perhaps 30--100 m depending on the understory.
-- #strong[Season:] leaf-off (about November to April) opens views a lot.
+- *Season:* leaf-off (about November to April) opens views a lot.
   This is a candidate knob if seasons ever matter.
-- #strong[Openings:] creek corridors, ridgetop prairie remnants, and old
+- *Openings:* creek corridors, ridgetop prairie remnants, and old
   clearings (homesteads, fields).
 
-#strong[Exp 14 result:] with a solid 15 m canopy over 16--26 m of
+*Exp 14 result:* with a solid 15 m canopy over 16--26 m of
 relief, no tease is visible: all 58 node pairs within sight range on
 seeds 2, 3 and 7 are hidden. Window ranking finds no natural tease
 spots.
 
-#strong[Sight model] (exp 15). The forest\'s look in the game is
+*Sight model* (exp 15). The forest's look in the game is
 unknown, so the generator models only how far you can see:
 
 - every sight line has a budget equal to the longest view (6 hexes,
   about 340 m);
-- each metre costs 1, plus `density` if it\'s wooded;
+- each metre costs 1, plus `density` if it's wooded;
 - clearings (within one edge of either end) and creeks (within 8 m of
   the creek line) cost no extra;
-- visible means the ground doesn\'t block the line and the cost is
+- visible means the ground doesn't block the line and the cost is
   within the budget.
 
 `density` is the knob to play with. Fully wooded, a line reaches about
 170 m at density 1, 85 m at 3, and 43 m at 7. Teases mostly survive at 1
 and almost never at 3 or more. None of this changes how the game draws
-the world: there\'s no fog.
+the world: there's no fog.
 
-#strong[Teases in woodland] (direction, not yet tried):
+*Teases in woodland* (direction, not yet tried):
 
-- #strong[Cut vistas:] a cleared sight line from the viewer, made in the
+- *Cut vistas:* a cleared sight line from the viewer, made in the
   model layer like pad levelling, never in the heightmap.
-- #strong[Creek corridors] as open views: teases along or across the
+- *Creek corridors* as open views: teases along or across the
   creek, where the trees open up.
-- #strong[Landmarks above the canopy,] for key locations only: old
+- *Landmarks above the canopy,* for key locations only: old
   houses and holy places.
 
 == Knobs
@@ -302,7 +301,6 @@ the world: there\'s no fog.
     columns: 3,
     align: (auto,auto,auto,),
     table.header([Knob], [Default], [Meaning],),
-    table.hline(),
     [`columns`, `rows`], [20, 20], [Playable board (hexes).],
     [Hex edge], [33 m], [Scale.],
     [Region size], [100 hexes], [Simulated area.],
@@ -333,30 +331,30 @@ the world: there\'s no fog.
 - step 4: placement, billboards, reveal, click-to-focus, typed
   placement.
 
-#strong[Changes in Rust:]
+*Changes in Rust:*
 
-- #strong[Terrain:] replace noise hills with regional erosion plus
-  window ranking. It\'s heavier, about 20 s per region in Python, so in
+- *Terrain:* replace noise hills with regional erosion plus
+  window ranking. It's heavier, about 20 s per region in Python, so in
   Rust expect around a second. Candidates for the background task the
   design already allows.
-- #strong[Creeks, crossings and crossing nodes:] new data on the dual
+- *Creeks, crossings and crossing nodes:* new data on the dual
   lattice, plus a creek view.
-- #strong[Pace:] metre units and walk times.
-- #strong[Layout as a pure function of pins,] with regeneration and
+- *Pace:* metre units and walk times.
+- *Layout as a pure function of pins,* with regeneration and
   ports, and crossings pinned.
-- #strong[Not needed:] escarpment raising and route noise.
+- *Not needed:* escarpment raising and route noise.
 
 Re-plan `.docs/plans/done/quell-hex-terrain-plan.md` from here.
 
 == Open questions
-+ #strong[Getting lost:] forks or connectors (the Clinton Lake
-  \"ladder\"), now on creek terrain.
-+ #strong[Creek-bed walking] as a stable shortcut corridor.
-+ #strong[Finer ravines:] a second erosion pass inside the window, or
++ *Getting lost:* forks or connectors (the Clinton Lake
+  "ladder"), now on creek terrain.
++ *Creek-bed walking* as a stable shortcut corridor.
++ *Finer ravines:* a second erosion pass inside the window, or
   display-only detail.
-+ #strong[What stays during a regeneration] (deferred): the pin radius
-  versus \"only a Fear reshuffles fully\".
-+ #strong[Very long teases across a creek] (×17 on exp 12, seed 3):
++ *What stays during a regeneration* (deferred): the pin radius
+  versus "only a Fear reshuffles fully".
++ *Very long teases across a creek* (×17 on exp 12, seed 3):
   fine, or should they be capped?
-+ #strong[Woodland teases] (§8): try vistas and creek corridors, with
++ *Woodland teases* (§8): try vistas and creek corridors, with
   tall landmarks for key locations.

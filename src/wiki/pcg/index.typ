@@ -5,8 +5,7 @@
 )
 
 Quell's exploration spaces separate the landscape from the landmarks and paths
-arranged over it. This portal introduces that model without requiring the
-history of each generator experiment.
+arranged over it.
 
 = Start here
 
@@ -14,9 +13,11 @@ history of each generator experiment.
   between fixed ground and replaceable layouts.
 + Continue to #l("trail-layout") for landmarks, route constraints and regeneration.
 
-These articles describe the hex-path development implementation and distinguish
-it from proposals for the playable world. They are explanations, not a project
-plan or an API reference.
+The generator runs today in a development screen, where boards can be
+generated and inspected. Turning it into playable levels is still a proposal.
+
+#wip("quell-world-generation-design")[Generated terrain is not yet part of the
+playable world.]
 
 = Topics
 

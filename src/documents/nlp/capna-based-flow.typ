@@ -112,21 +112,21 @@ Subjects have these forms
   [P], [A policy - what one ought to do],
 )
 
-A fact can be prepended with \"It is an observable fact that...\"
+A fact can be prepended with "It is an observable fact that..."
 
 - #quote(block: true)[
     It is an observable fact that unauthorized downloading does not
     deprive the original owner of the use of an object.
   ]
 
-A value can be prepended with \"I have judged that \...\"
+A value can be prepended with "I have judged that \..."
 
 - #quote(block: true)[
     I have judged that circumcising newborn children violates their right
     to self-determination.
   ]
 
-A policy can be prepended with \"One ought \[not\] to...\" Policy
+A policy can be prepended with "One ought \[not\] to..." Policy
 prepending is tricky, because the policies often take the form of
 factual statements or commands, and the pronoun changes depending on the
 scope of the policy.
@@ -175,8 +175,8 @@ Running examples:
 
   #quote(block: true)[
     ALT READING: ɑ VV -\- but nothing there fits, and the rewording is
-    awkward at best. Perhaps as a rule of thumb: if it\'s a gerund
-    (\'defeating\') then it\'s part of the subject Evil / will never beat
+    awkward at best. Perhaps as a rule of thumb: if it's a gerund
+    ('defeating') then it's part of the subject Evil / will never beat
     good BECAUSE evil / is easier to defeat than good but if we were
     presented with this as our original form \... then what? perhaps it
     would be best to avoid a step-by-step procedure and instead proceed from
@@ -212,39 +212,37 @@ can basically do anything.
 
 == Premise analysis
 Analyze the propositional content of the premise, that is, the subject
-and predicate. This takes the form, \"⊨ Xa ?\". Branches based on the
+and predicate. This takes the form, "⊨ Xa ?". Branches based on the
 type of the subject:
 
 #table(
   columns: 3,
-  align: (auto, auto, auto),
   table.header([type], [question], [example]),
-  table.hline(),
   [F],
   [Is it true that (a)?],
   [Is it true that we only use 10% of our
     brains?],
   [V],
   [Is (a) a valid judgment?],
-  [Is the statement, \"circumcising
-    newborn children violates their right to self-determination\" a
+  [Is the statement, "circumcising
+    newborn children violates their right to self-determination" a
     valid judgement?],
   [P],
   [Is the policy which comports (a) worth following?],
-  [Is \"no
-    walking on the grass\" a policy worth following?],
+  [Is "no
+    walking on the grass" a policy worth following?],
 )
 
 Note that an alternate reading of the grass example could lead to a FF
 analysis rather than a PP analysis. The crux is this: are we asking what
 is true of the world, or what ought to be done? Namely, we could reword
-the argument: \"The policy prohibits cycling on the grass BECAUSE the
-policy prohibits walking on the grass.\" This becomes alpha FF, but at
+the argument: "The policy prohibits cycling on the grass BECAUSE the
+policy prohibits walking on the grass." This becomes alpha FF, but at
 the expense of changing the subject. Changing the subject is a
-prohibited transformation so this doesn\'t work, even though the
+prohibited transformation so this doesn't work, even though the
 underlying meaning may be equivalent, semantically. Other semantically
 equivalent transformations exist, but again they result in changing the
-subjects from \"cycling\" and \"walking\" to \"the policy,\" which is a
+subjects from "cycling" and "walking" to "the policy," which is a
 prohibited transformation.
 
 #quote(block: true)[
@@ -258,13 +256,11 @@ often a hidden premise.
 
 #table(
   columns: 2,
-  align: (auto, auto),
   table.header([type], [question]),
-  table.hline(),
   [ɑ], [⊨ YRX ?],
   [β], [⊨ aRb ?],
   [Ɣ], [⊨ ∃R.aRb = YRX ?],
-  [δ], [⊨ ZAp ? (A = \"is authoritative for\")],
+  [δ], [⊨ ZAp ? (A = "is authoritative for")],
 )
 
 #divider()
@@ -273,46 +269,44 @@ often a hidden premise.
 Responses need to be based on what stage the analysis fails at, if it
 fails.
 
-#strong[Define the response categories first,] as #emph[\(stage, target,
+*Define the response categories first,* as #emph[\(stage, target,
   reason)]. A first cut:
 
 #table(
   columns: 3,
-  align: (auto, auto, auto),
   table.header([Stage], [Reason], [Example template]),
-  table.hline(),
   [Discover],
   [no argument / unclear],
-  [\"What makes you say
-    {conclusion}?\"],
-  [Process], [off-issue], [\"How does that bear on {issue}?\"],
+  ["What makes you say
+    {conclusion}?"],
+  [Process], [off-issue], ["How does that bear on {issue}?"],
   [Premise],
   [false / contradicts commitment],
-  [\"Earlier you said
-    {commitment}. Doesn\'t that conflict with {premise}?\"],
-  [Premise], [unsupported fact (F)], [\"How do we know {premise}?\"],
+  ["Earlier you said
+    {commitment}. Doesn't that conflict with {premise}?"],
+  [Premise], [unsupported fact (F)], ["How do we know {premise}?"],
   [Premise],
   [contested judgement (V)],
-  [\"By what standard is {a}
-    {Y}?\"],
-  [Lever], [irrelevant], [\"Why would {Y} matter for {X}?\"],
+  ["By what standard is {a}
+    {Y}?"],
+  [Lever], [irrelevant], ["Why would {Y} matter for {X}?"],
   [Lever],
   [insufficient / overclaim],
-  [\"Even if {premise}, does that
-    mean {conclusion}?\"],
+  ["Even if {premise}, does that
+    mean {conclusion}?"],
   [Lever],
   [family-specific],
-  [cause: \"Could something else explain
-    {X}?\" · analogy: \"Isn\'t {a} different from {b} in a way that
-    matters?\" · authority: \"Is {source} an expert on this?\"],
+  [cause: "Could something else explain
+    {X}?" · analogy: "Isn't {a} different from {b} in a way that
+    matters?" · authority: "Is {source} an expert on this?"],
   [Conclusion], [rebut], [a counter-argument from the state],
   [Language],
   [ambiguous / loaded term],
-  [\"What do you mean by
-    {term}?\"],
+  ["What do you mean by
+    {term}?"],
 )
 
-The family-specific rows come from the lever families, and Walton\'s
+The family-specific rows come from the lever families, and Walton's
 critical questions are a ready source for them.
 
 Potential extraction candidates:

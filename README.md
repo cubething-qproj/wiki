@@ -17,7 +17,7 @@ src/
   template.typ             # Shared page, link, callout and gallery helpers
   wiki/<area>/             # Topic articles; index.typ is the area's portal
   documents/<area>/        # Selected designs, reports and historical records
-  reference/<area>/        # Supporting reference material, currently explainers
+  reference/<area>/        # Supporting reference material (currently empty)
 web/
   editor/                  # HTML and TypeScript for the source editor
   styles/                  # Reading/editor CSS and Madoromi palette
@@ -102,6 +102,10 @@ other records to design. Do not move all plans, issues or handoffs into the site
 ## Callouts and visual aids
 
 `undecided[Text.]` wraps `callout(kind: "undecided", icon: "🤔")[Text.]`.
+`wip("record-id", ...)` marks something designed but not built: "⚒️ WIP — This
+is not yet implemented. See …", citing the given records, with optional trailing
+content (`#wip("debate-game")[Extra detail.]`). Use it instead of writing
+"not yet implemented" in prose.
 The shared presentation is an emoji, a visible type heading, and text content.
 Existing `explain`, `decide`, and compatibility `open` helpers use the same format.
 
@@ -145,5 +149,7 @@ readable below the article. Mermaid still uses the existing CDN; blocking it
 leaves scrollable source without blocking reading or search.
 
 The PCG portal, Terrain generation, and Trail layout and regeneration are the
-initial editorial pilot. Original PCG Markdown files and images outside this
+initial editorial pilot. The structural pass added portals and overview
+articles for `project` (a new area in `template.typ`), `engine`, `gameplay-3d`
+and `nlp`; the NLP articles describe drafts, since none of it is in the game. Original PCG Markdown files and images outside this
 repository remain intact pending a separate triage decision.

@@ -15,7 +15,7 @@ views, typed node placement, billboards, and controls. The pending
 staged round replaces the noise terrain with regional erosion and brings
 in the round-11 layout algorithm. The unstaged round makes specific
 state and presentation corrections, identified by inline comments
-prefixed #strong[Review delta].
+prefixed *Review delta*.
 
 The design authority is #l("quell-hex-terrain-r11-design"),
 including its post-round-11 fixes. The migration plan narrows this
@@ -23,9 +23,9 @@ implementation to open ground; woodland density and player walking
 remain outside this pass. I searched the supplied Zed database
 read-only. It contains no thread titled “Heightmap pathfinding for hex
 paths,” or title containing “hex” or “height”; its newest record is
-October 7. I could not recover that thread\'s last message.
+October 7. I could not recover that thread's last message.
 
-+ #strong[Read the architecture as region → terrain → layout → preview.]
++ *Read the architecture as region → terrain → layout → preview.*
 
   `Region` is the large simulated landscape: a square raster of metre
   heights, a downhill receiver for each cell, and the area draining
@@ -52,7 +52,7 @@ October 7. I could not recover that thread\'s last message.
   pad does not leave a permanent flattened scar. No pass raises an
   escarpment to manufacture a tease.
 
-+ #strong[Erode a region before choosing the playable board.]
++ *Erode a region before choosing the playable board.*
 
   The default simulated region has 150 × 150 square cells, each 33 m
   across: `region_hexes = 100` is converted using the 1.5-edge spacing
@@ -62,10 +62,10 @@ October 7. I could not recover that thread\'s last message.
   of 250 default passes. Uplift supplies relief against fixed outlets,
   allowing branching channels to develop inland.
 
-  A pass first applies a #strong[priority flood]. Imagine exploring
+  A pass first applies a *priority flood*. Imagine exploring
   inward from the lowest available boundary, always taking the lowest
   frontier cell next. A newly reached cell receives at least its
-  original height and at least its predecessor\'s height plus a tiny
+  original height and at least its predecessor's height plus a tiny
   epsilon. Consequently it has a strictly descending route back toward
   an outlet. In the actual code this raises depressions enough to drain;
   the “breach” wording describes the intended no-pond result rather than
@@ -110,13 +110,13 @@ October 7. I could not recover that thread\'s last message.
   bicubically into a finer board raster, with two samples per edge
   length. Raster sampling then supplies hex-corner heights. Region
   heights and candidate scoring use metres; board and layout heights use
-  edge lengths. Dividing by 33 converts between them. The preview\'s
+  edge lengths. Dividing by 33 converts between them. The preview's
   vertical exaggeration is applied only when drawing and aiming; it does
   not steepen the routing terrain or lengthen the measured walk.
 
-  Keep the two lattices distinct. #strong[Trails use the honeycomb:]
+  Keep the two lattices distinct. *Trails use the honeycomb:*
   shared hex corners are vertices, and hex sides are possible trail
-  edges. #strong[Creeks use the dual lattice:] tile centres are
+  edges. *Creeks use the dual lattice:* tile centres are
   vertices, and a creek links a tile to its downstream tile. A
   centre-to-centre creek link crosses their shared hex side. Closing
   that side removes the corresponding honeycomb trail edge. Water
@@ -132,13 +132,13 @@ October 7. I could not recover that thread\'s last message.
   The unstaged documentation records a margin exception: lookup skips
   points outside the jagged outer boundary instead of snapping them to
   the nearest available tile. A remaining link there can lack a shared
-  side. The code\'s `shared_side` lookup then closes no trail edge. This
+  side. The code's `shared_side` lookup then closes no trail edge. This
   is documented as an outer-scenery limitation; the review change adds
   explanation, not new tracing behaviour.
 
-+ #strong[Place landmarks where the network can reach them.]
++ *Place landmarks where the network can reach them.*
 
-  Spawn starts near the board\'s middle and moves onto nearby dry ground
+  Spawn starts near the board's middle and moves onto nearby dry ground
   if necessary. Crossings are selected before other nodes because they
   determine which parts of the board can communicate. A union-find
   partitions playable corners under the currently closed creek edges:
@@ -153,7 +153,7 @@ October 7. I could not recover that thread\'s last message.
   for a node. After placement, a crossing is dropped if fewer than two
   banks lead to nodes, or if all useful banks collectively lead to only
   one other node. Dropping is iterative because one crossing can provide
-  another crossing\'s route around a barrier. Required connectivity
+  another crossing's route around a barrier. Required connectivity
   crossings can precede the requested count; the slider is not simply an
   exact output count. Setting crossings to zero is an explicit debug
   mode that ignores creek barriers.
@@ -201,7 +201,7 @@ October 7. I could not recover that thread\'s last message.
   still unreachable from spawn, returning an error if no terrain route
   exists.
 
-  A #strong[tease] means “I can see that POI, but reaching it takes a
+  A *tease* means “I can see that POI, but reaching it takes a
   substantial detour.” The first complete layout contains no teases and
   establishes walking order from spawn. A second build with the same
   seed uses that order to choose viewer/target pairs: the target is a
@@ -228,24 +228,24 @@ October 7. I could not recover that thread\'s last message.
   it keeps `broke` for retries and `breaking` for colouring the
   responsible edges.
 
-+ #strong[A useful loop must offer two independent ways onward.]
++ *A useful loop must offer two independent ways onward.*
 
-  The network contracts each pad\'s six corners into one graph vertex.
+  The network contracts each pad's six corners into one graph vertex.
   Otherwise the perimeter of the pad itself could look like a meaningful
-  loop. Tarjan\'s algorithm finds biconnected blocks in that graph. A
+  loop. Tarjan's algorithm finds biconnected blocks in that graph. A
   pad qualifies as on a loop when it shares a block of at least three
   vertices with another pad. Within that block, two paths can connect
   the pads without sharing an intermediate vertex. Two exits that merge
   immediately into a single chokepoint do not qualify.
 
   The first loop pass attempts cheap connectors, normally no more than
-  18 edges and three times an existing link\'s cost. Spawn gets a
+  18 edges and three times an existing link's cost. Spawn gets a
   special unlimited cost budget within that capped pass. The later
   no-tree pass removes length and cost limits while sparing tease
   targets. These are attempts under the tease guard, not unconditional
   promises that every node receives a loop.
 
-  A loop connector cannot reuse trail edges and avoids the node\'s own
+  A loop connector cannot reuse trail edges and avoids the node's own
   spur plus a two-corner clearance. Candidate paths run from a pad
   toward trail corners or other pads; existing trail edges are
   impassable, encouraging a connector to rejoin rather than follow the
@@ -255,13 +255,13 @@ October 7. I could not recover that thread\'s last message.
   route.
 
   Finally, missing crossing-bank trails are joined to the nearest
-  reachable trail or pad. The crossing\'s own perimeter is closed for
+  reachable trail or pad. The crossing's own perimeter is closed for
   this search so a proposed bank connection cannot just go around the
   pad to the opposite bank and claim success.
 
-+ #strong[Regeneration uses pins and repairs the seams.]
++ *Regeneration uses pins and repairs the seams.*
 
-  A partial regeneration pins the player\'s tile, the node under the
+  A partial regeneration pins the player's tile, the node under the
   player, crossings, nearby nodes, and trail edges whose endpoints both
   lie within the radius. Movable nodes are placed again near their
   former locations. A Fear retains the player, the node underfoot, and
@@ -270,7 +270,7 @@ October 7. I could not recover that thread\'s last message.
 
   The same `Layout::generate` handles both cases. Pinned trails are
   installed first. Their degree-one ends away from pads become
-  #strong[ports]: seams where the preserved network was cut.
+  *ports*: seams where the preserved network was cut.
   `join_ports` routes each surviving seam to another trail or pad while
   excluding its own stub. It runs around the loop/bank passes so open
   ends can be connected to the completed network. Terrain remains
@@ -292,7 +292,7 @@ October 7. I could not recover that thread\'s last message.
   screen-update systems build the board, rebuild its rendered surface
   and markers, paint revealed cards, fit the viewport beside the panel,
   handle focus and camera motion, and draw overlays. Surface triangles
-  use a centre at the mean of each tile\'s corner heights. Trails retain
+  use a centre at the mean of each tile's corner heights. Trails retain
   their honeycomb geometry in the display; colours identify the pass
   that laid an edge. Crossings and creeks are blue, and Reveal also
   exposes tease lines.
