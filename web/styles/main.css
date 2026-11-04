@@ -62,9 +62,11 @@ h5,
 h6 {
 	display: flex;
 	gap: 0.5em;
-	align-items: center;
 	font-family: "Libertinus Serif", serif;
 	font-weight: bold;
+	margin: 0.5em, 0;
+	font-variant: small-caps;
+	text-transform: lowercase;
 }
 
 code {
@@ -203,7 +205,7 @@ details.queue ::marker {
 	display: flex;
 	justify-content: center;
 	gap: 0.5em;
-	margin: 0.5em 0;
+	margin: 0.5em 0em;
 }
 
 .carousel li::scroll-marker {
@@ -257,6 +259,37 @@ details.queue ::marker {
 	margin: 0;
 }
 
+.dark .portal {
+	background: linear-gradient(var(--madoromi-nijimi0), var(--madoromi-nijimi2));
+	background-attachment: fixed;
+}
+
+.portal {
+	border-radius: 0.5em;
+	background: linear-gradient(var(--madoromi-kami), var(--madoromi-chitsu));
+	padding: 1em;
+	margin: 0.5em;
+	background-attachment: fixed;
+}
+
+.portal h3 {
+    margin: 0;
+}
+
+summary {
+	background: color-mix(var(--madoromi-kasure0), #0000);
+	border-radius: 0.25em;
+	padding: 0.25em 0.5em;
+}
+
+details[open] {
+	background: #0001;
+	border-radius: 0.5em;
+	padding: 0.5em;
+}
+details {
+    transition: 0.5s;
+}
 /* SIZE DEPENDENT */
 
 @media (width >= 40em) {

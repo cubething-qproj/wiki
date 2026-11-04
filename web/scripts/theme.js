@@ -1,35 +1,30 @@
-// The blog's system → light → dark preference cycle, applied before page paint.
+// Theme initialization and control copied from ada-x64/blog.
 (() => {
-  const themes = ["system", "light", "dark"];
-  const media = matchMedia("(prefers-color-scheme: dark)");
-  const preference = () => {
-    try {
-      const saved = localStorage.getItem("theme");
-      return saved && themes.includes(saved) ? saved : "system";
-    } catch {
-      return "system";
-    }
-  };
-  const apply = (theme) => {
-    const dark = theme === "dark" || (theme === "system" && media.matches);
-    document.documentElement.classList.toggle("dark", dark);
-    document.documentElement.dataset.madoromi = `natsu-${dark ? "yoru" : "hiru"}`;
-    const button = document.getElementById("theme-toggle");
-    if (button) button.textContent = `Theme: ${theme}`;
-  };
-  let current = preference();
-  apply(current);
-  media.addEventListener("change", () => apply(current));
-  document.addEventListener("DOMContentLoaded", () => {
-    apply(current);
-    document.getElementById("theme-toggle")?.addEventListener("click", () => {
-      current = themes[(themes.indexOf(current) + 1) % themes.length];
-      try {
-        localStorage.setItem("theme", current);
-      } catch {
-        /* Keep the in-page preference. */
-      }
-      apply(current);
-    });
-  });
+    const theme = window.localStorage.getItem("theme") ?? "system";
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const isDark = theme === "dark" || theme === "system" && prefersDark;
+    const className = `${theme} ${isDark && theme === "system" ? "dark" : ""}`;
+    const html = document.documentElement;
+	html.className = className;
+    html.setAttribute("data-madoromi", `natsu-${isDark ? "yoru" : "hiru"}`)
 })();
+
+const themeCycle = ["system", "light", "dark"];
+document.addEventListener("DOMContentLoaded", () => {
+	document
+		.querySelector(".toggle-lights")
+		.addEventListener("click", (_event) => {
+			const currentTheme = window.localStorage.getItem("theme") ?? "system";
+			const nextThemeIdx = themeCycle.indexOf(currentTheme);
+			const theme = themeCycle[(nextThemeIdx + 1) % 3];
+			const isDark =
+				theme === "dark" ||
+				(theme === "system" &&
+					window.matchMedia("(prefers-color-scheme: dark)").matches);
+			const html = document.querySelector("html");
+			const className = `${theme} ${isDark && theme === "system" ? "dark" : ""}`;
+			html.className = className;
+			html.setAttribute("data-madoromi", `natsu-${isDark ? "yoru" : "hiru"}`);
+			window.localStorage.setItem("theme", theme);
+		});
+});

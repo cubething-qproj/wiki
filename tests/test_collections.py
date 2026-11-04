@@ -179,7 +179,10 @@ class RenderedTests(unittest.TestCase):
         for name in ["terrain-generation", "trail-layout"]:
             html = self.html(f"/wiki/{name}.html")
             self.assertIn('class="carousel"', html)
-            page = Page(html)
+            # Header branding is separate from article media.
+            article = re.search(r"<main\b.*?</main>", html, re.DOTALL)
+            assert article is not None
+            page = Page(article[0])
             self.assertGreaterEqual(len(page.images), 2)
             for image in page.images:
                 self.assertTrue(image.get("alt"))

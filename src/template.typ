@@ -221,31 +221,25 @@
 /// Collection navigation, theme control and collection-specific search.
 
 #let nav(collection) = html.elem("header")[
-  #html.elem("nav", attrs: (aria-label: "Collections"))[
-    #link("/" + collection + "/index.html", html.elem("strong", if collection
-      == "wiki" {
-      [Quell wiki]
-    } else { [Documents] }))
-    #if collection == "documents" {
-      link("/documents/status.html")[status]
-    } else {
-      link("/wiki/maintenance.html")[maintenance]
-    }
-    #link(if collection == "wiki" { "/documents/index.html" } else {
-      "/wiki/index.html"
-    })[
-      #if collection == "wiki" { [Document library ↗] } else { [Quell wiki ↗] }
-    ]
-    #html.elem("button", attrs: (
-      id: "theme-toggle",
-      type: "button",
-      aria-label: "Cycle color theme",
-    ))[Theme: system]
+  #html.elem("h1")[
+    #html.elem("img", attrs: (src: "/media/icon.webp", alt: "qproj eye icon", width: "40", height: "40"))
+    #if collection == "documents" { [qproj design docs] } else { [qproj wiki] }
   ]
-  #html.elem("search", attrs: (
-    id: "search",
-    aria-label: "Search " + collection,
-  ))
+  #html.elem("nav", attrs: (aria-label: "Collections"))[
+    #html.elem("span")[
+      #link("/" + collection + "/index.html")[home] |
+      #if collection == "documents" {
+        link("/documents/status.html")[status]
+      } else {
+        link("/wiki/maintenance.html")[maintenance]
+      } |
+      #link(if collection == "wiki" { "/documents/index.html" } else { "/wiki/index.html" })[
+        #if collection == "wiki" { [docs] } else { [wiki] }
+      ] |
+      #link("#")[#html.elem("span", attrs: (class: "toggle-lights"))[toggle theme]]
+    ]
+    #html.elem("search", attrs: (id: "search", aria-label: "Search " + collection))
+  ]
 ]
 
 /// Styles, nav, title and the Mermaid and search loaders around a body. Used
@@ -282,7 +276,7 @@
     attrs: (class: collection)
       + if indexed { (data-pagefind-body: "") } else { (:) },
   )[
-    #html.elem("h1", title)
+    #if title != none { html.elem("h1", title) }
     #body
   ]
   html.elem("script", attrs: (type: "module", src: "/web/scripts/mermaid.js"))

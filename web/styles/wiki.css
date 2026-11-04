@@ -8,10 +8,13 @@
 }
 body { overflow-wrap: anywhere; }
 header nav { display: flex; flex-wrap: wrap; gap: .5em 1em; align-items: center; }
+header nav > span { flex: 0 1 auto; }
 button { font: inherit; color: inherit; cursor: pointer; }
 #search {
-  margin: 1em 0;
-  --pagefind-ui-scale: .75;
+  position: relative;
+  flex: 1 1 10em;
+  min-width: 0;
+  --pagefind-ui-scale: .6;
   --pagefind-ui-background: var(--madoromi-kami);
   --pagefind-ui-text: var(--text);
   --pagefind-ui-primary: var(--accent);
@@ -35,3 +38,13 @@ aside.callout { margin: 1em 0; }
 .carousel { min-width: 0; }
 .carousel li { min-width: 0; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+#search .pagefind-ui__drawer {
+  position: absolute;
+  right: 0;
+  width: min(36em, calc(100vw - 2em));
+  max-height: 70vh;
+  overflow: auto;
+  background: var(--madoromi-kami);
+  z-index: 1;
+}

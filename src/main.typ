@@ -37,7 +37,7 @@
 #document("documents/explainers.html", redirect("/wiki/nlp.html"))
 #document("explainers.html", redirect("/wiki/nlp.html"))
 
-#document("wiki/index.html", title: [Quell wiki], include "wiki/index.typ")
+#document("wiki/index.html", title: [qproj wiki], include "wiki/index.typ")
 #document("wiki/maintenance.html", title: [Maintenance], shell(
   [Maintenance],
   maintenance(),
