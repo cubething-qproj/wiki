@@ -512,7 +512,9 @@
               )
             }
             #if not is-article { [ · edited #e.date] }
-            · #link("/editor/?page=" + name)[Edit]
+            #if sys.inputs.at("hosted", default: "false") != "true" {
+              [ · #link("/editor/?page=" + name)[Edit]]
+            }
           ]
         }
         for f in flags {

@@ -7,10 +7,11 @@ description: Maintain the implementation of qproj's Typst wiki and design-docume
 
 The wiki lives in `.docs/wiki/`, a separate Git repository inside the qproj
 checkout. Paths below are relative to that repository unless stated otherwise.
-Read its [README](../../../.docs/wiki/README.md) for the current authoring
+Read its [contributor guide](../../../CONTRIBUTING.md) for the current authoring
 interface. Inspect both repositories' status before editing or committing;
 commit wiki code in `.docs/wiki`, not in the org repository. Preserve unrelated
-working changes. This is a local site; do not publish its reference material.
+working changes. Netlify hosts the static export; the editor and source API
+remain local.
 
 ## Find the owner
 
@@ -23,6 +24,7 @@ working changes. This is a local site; do not publish its reference material.
 | Generated topic-page layout and title sorting | `src/topic.typ` |
 | Source discovery, editor IDs, URLs, edit timestamps | `scripts/manifest.py` |
 | Shared CLI/dev build | `scripts/build.mts` |
+| Netlify build bootstrap and publish configuration | `netlify.sh`, `netlify.toml` |
 | Dev routing, rebuilds, source API, LSP bridge | `vite.config.mts` |
 | Source editor | `web/editor/`, `web/styles/editor.css` |
 | Reading styles, palette, fonts | `web/styles/{main,wiki,palette,fonts}.css` |
@@ -137,3 +139,8 @@ collection boundaries, and confirm topic/index pages stay out of results.
 `tests/browser.mjs` / `just smoke` is currently stale: it expects the removed
 Pagefind UI and `#theme-toggle` and has startup issues. Do not present it as
 passing or expand a small task into repairing it without need.
+
+Netlify runs `bash netlify.sh` and publishes `out/`. The bootstrap installs Just
+and Typst; Bun/Pagefind versions are controlled by the config and lockfile.
+`WIKI_HOSTED=true` passes Typst's `hosted=true` input to hide local editor links.
+Check hosted output as well as ordinary dev output when changing those paths.

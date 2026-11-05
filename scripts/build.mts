@@ -37,7 +37,10 @@ export async function build(): Promise<void> {
   rmSync(next, { recursive: true, force: true });
   await run(
     "typst",
-    ["compile", "--root", ".", "src/main.typ", next, "--format=bundle"],
+    [
+      "compile", "--root", ".", "src/main.typ", next, "--format=bundle",
+      ...(process.env.WIKI_HOSTED === "true" ? ["--input", "hosted=true"] : []),
+    ],
     {
       TYPST_FEATURES: "bundle,html",
     },
