@@ -81,21 +81,52 @@ layers to the GPU.
 
 == Where it lives
 
-A TypeScript script in `misc/labs/xAIF` (its own repo, no remote). It calls
-`llama-server` over HTTP and imports the editor's rules directly. Gold data:
-`aquinas-llm.json`, `engels-alt.json` (reviewed) and
-`aristotle-function.json` (awaiting critique).
+`misc/labs/nlp/spike/`, in TypeScript. It calls `llama-server` over HTTP and
+imports the editor's rules from `misc/labs/xAIF/src/lib`. The notation is
+`notation.ts`. `expand.ts` and `abstract.ts` convert it to and from xAIF; the
+six gold maps round-trip exactly. `schema.ts` is the grammar, and
+`retrieve.ts` picks examples by BM25 over whole gold maps.
 
-== Downloads to approve
+Gold data, all reviewed, in `misc/labs/xAIF/examples/`: `aquinas-llm`,
+`aristotle-function`, `engels-alt`, `searle-chinese-room`,
+`suits-absurd-games` and `truth-woman`.
 
-#decide[
-  - *llama.cpp:* the Arch package `extra/llama-cpp`, or a build inside the repo,
-    never in `/tmp`.
-  - *One small instruct model in GGUF:* 1.5–3B parameters,
-    #l("explainer-quantization")[quantized] to about 1–2 GB. Compare the
-    current small Qwen, Llama, Phi and Gemma models at download time.
-  - *One small embedding model* for retrieval, tens of MB. Optional: plain
-    word-overlap retrieval (BM25) needs no download and may do to start.
+== Downloads
 
-  Disk is at 87%, so models go in one gitignored directory in the lab.
-]
+`extra/llama-cpp` (0.6.0) and Qwen3.5 4B Instruct at Q4_K_M (2.74 GB,
+unsloth's GGUF, Apache 2.0), in the lab's gitignored `models/`. No embedding
+model: BM25 retrieval needs none.
+
+== First run (2026-11-05)
+
+One hand-built call: the Suits passage, with Engels-alt and Searle as
+examples, through the chat endpoint with thinking off, on 12 threads with
+other applications running.
+
+- *Time:* 3,196 prompt tokens at 99 tokens/s (32 s); 829 output tokens at
+  8.1 tokens/s (102 s). About 2¼ minutes for one passage.
+- *Validity:* the output matched the schema but didn't expand. It anchored
+  relations on transitions without writing any `replyTo`, so `replyTo` is
+  now required.
+- *Exemplar:* with transitions filled in, the map lints clean. Segmentation
+  was close to gold, and the flat rejection came out as gold has it (a
+  second-order U statement in conflict with the view). Reported speech was
+  missed, so the observers' argument, the rephrase and the undercut are
+  absent. Of three RAs, one treats a contrast as an argument, one uses its
+  premise as its own lever statement, and two have levers that don't fit
+  the derived form and substance.
+
+A zero-shot call, with no examples, looped inside `replyTo` until it ran out
+of tokens; arrays in the schema are now bounded.
+
+== Decision
+
+The passage-mode runner is not being built. Generation speed is about what
+this model gets on this machine, a full map is hundreds of tokens, and the
+errors are of reading, not of format, which more examples are unlikely to
+fix. The next experiment tests the #doc("debate-pipeline")[oracle pipeline]
+instead: oAMF's argument-relation classifier (ARIR) and statement-type
+classifier (PTCR), both fine-tuned RoBERTa-large, scored against the
+relations and F/V/P labels in the gold maps. Both are licensed
+CC BY-NC-SA 4.0, so they can be used in the lab but not in a commercial
+release.

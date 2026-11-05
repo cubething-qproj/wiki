@@ -66,19 +66,19 @@ link to it.
 ```typst
 #import "../../template.typ": *
 #show: article.with(
-  title: [Spring-arm camera],
+  title: [Trail layout and regeneration],
   summary: [One line saying what the subject is.],
   authors: ("Ada", "Claude Opus 5.5"),
   date: "2026-11-04",
-  topic: "Player",
-  documents: ("quell-world-generation-design",),
+  topic: "Exploration",
+  documents: ("quell-hex-terrain-r11-design",),
 )
 
 A lead of one or two short paragraphs: what this is and why it matters.
 
 #contents()
 
-= A section with a distinctive label <camera-collision>
+= A section with a distinctive label <layout-regeneration>
 ```
 
 - **Lead:** answers "what is this, and why does it matter?" No history and no
@@ -92,7 +92,7 @@ A lead of one or two short paragraphs: what this is and why it matters.
   something), "References" (sources for specific claims), and "External links"
   (further reading).
 - **Heading labels** must be unique across the whole bundle; prefix them with
-  the article's subject (`<camera-collision>`, not `<collision>`).
+  the article's subject (`<layout-regeneration>`, not `<regeneration>`).
 - **Related records:** list record IDs in `documents:`. The footer orders them
   automatically.
 
