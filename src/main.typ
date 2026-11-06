@@ -73,6 +73,9 @@
       #html.elem("ol", attrs: (
         id: "search-results",
         data-index: "/" + collection + "/pagefind/pagefind.js",
+        data-merge: if collection == "wiki" { "/documents/pagefind/" } else {
+          "/wiki/pagefind/"
+        },
       ))
       #html.elem("noscript")[Search requires JavaScript.]
       #html.elem("script", attrs: (

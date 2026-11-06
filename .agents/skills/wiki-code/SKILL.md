@@ -38,7 +38,8 @@ Do not edit `manifest.json`, `out/`, or `.out-next/`: they are generated.
 
 - `/wiki/` contains maintained articles and authored portals. `/documents/`
   contains design records and reference material. Each has its own Pagefind
-  index and search page. `/` opens the wiki.
+  index and search page; both search pages merge in the other index, so
+  search spans both collections. `/` opens the wiki.
 - Discovery scans `src/wiki/*/*.typ`, `src/documents/*/*.typ`, and
   `src/reference/*/*.typ`. Top-level `src/wiki/index.typ` is included explicitly.
   A wiki area index has editor ID `portal-<area>` and URL `/wiki/<area>.html`;
@@ -89,8 +90,8 @@ and light modes when changing surfaces.
 ## Search and dev-server behavior
 
 The topbar contains a native GET form. It navigates to the current collection's
-`search.html?q=…`. `web/scripts/search.js` calls the local Pagefind JS API and
-renders ordinary result headings, links, and text excerpts, ten per batch.
+`search.html?q=…`. `web/scripts/search.js` calls the local Pagefind JS API,
+merges the other collection's index (`data-merge`), and renders ordinary result headings, links, and text excerpts, ten per batch.
 There is no Pagefind/Svelte UI or results overlay.
 
 Load `search.js` as `type="module"`. Its dynamic import causes Vite to inject a
@@ -134,8 +135,9 @@ Tinymist may not support the bundle target used by the CLI.
 
 For frontend changes, use a bounded browser check on the live Vite server
 (default port 3040). Verify the changed behavior, desktop/phone wrapping, and
-relevant themes. For search, submit the form, wait for results, check titles and
-collection boundaries, and confirm topic/index pages stay out of results.
+relevant themes. For search, submit the form, wait for results, check titles,
+that results come from both collections with the right labels, and that
+topic/index pages stay out of results.
 `tests/browser.mjs` / `just smoke` is currently stale: it expects the removed
 Pagefind UI and `#theme-toggle` and has startup issues. Do not present it as
 passing or expand a small task into repairing it without need.

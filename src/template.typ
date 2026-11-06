@@ -218,7 +218,7 @@
 
 // ---- page shells ----
 
-/// Collection navigation, theme control and collection-specific search.
+/// Collection navigation, theme control and search across both collections.
 
 #let nav(collection) = html.elem("header")[
   #html.elem("h1")[
@@ -245,7 +245,7 @@
     ]
     #html.elem("search", attrs: (
       id: "search",
-      aria-label: "Search " + collection,
+      aria-label: "Search wiki and docs",
     ))[
       #html.elem("form", attrs: (
         action: "/" + collection + "/search.html",
@@ -255,7 +255,7 @@
           type: "search",
           name: "q",
           placeholder: "Search…",
-          aria-label: "Search " + collection,
+          aria-label: "Search wiki and docs",
           required: "",
         ))
         #html.elem("button", attrs: (type: "submit"))[Search]

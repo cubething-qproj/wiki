@@ -237,6 +237,9 @@ class RenderedTests(unittest.TestCase):
             )
             search = self.html(f"/{collection}/search.html")
             self.assertIn('id="search-results"', search)
+            # Search spans both collections: the other index is merged in.
+            other = "documents" if collection == "wiki" else "wiki"
+            self.assertIn(f'data-merge="/{other}/pagefind/"', search)
             self.assertNotIn("data-pagefind-body", search)
             self.assertNotIn("pagefind-ui", search)
         wiki_links = Page(self.html("/wiki/index.html")).links

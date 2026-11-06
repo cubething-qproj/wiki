@@ -1,4 +1,5 @@
-// Plain HTML results using the collection's local Pagefind index.
+// Plain HTML results from both collections: the page's own Pagefind index,
+// with the other collection's index merged in (Pagefind's mergeIndex).
 (async () => {
   const results = document.getElementById("search-results");
   const status = document.getElementById("search-status");
@@ -9,6 +10,7 @@
   status.textContent = `Searching for “${query}”…`;
   try {
     const pagefind = await import(results.dataset.index);
+    await pagefind.mergeIndex(results.dataset.merge);
     const search = await pagefind.search(query);
     status.textContent = `${search.results.length} results for “${query}”`;
     let shown = 0;
@@ -26,7 +28,9 @@
           const link = document.createElement("a");
           link.href = result.url;
           link.textContent = result.meta.title;
-          heading.append(link);
+          const collection = document.createElement("small");
+          collection.textContent = result.url.startsWith("/documents/") ? " · docs" : " · wiki";
+          heading.append(link, collection);
           const excerpt = document.createElement("p");
           // Decode Pagefind's excerpt as text without inserting its HTML.
           excerpt.textContent = new DOMParser().parseFromString(result.excerpt, "text/html").body.textContent;

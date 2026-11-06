@@ -3,7 +3,7 @@
 Two reading collections share Typst, git, Vite and the source editor:
 
 - `/wiki/`: maintained explanations about Quell and its development.
-- `/documents/`: supporting designs, reports and historical records, with separate search.
+- `/documents/`: supporting designs, reports and historical records.
 - `/editor/?page=<id>`: the Typst/Vim editor, previewing the correct collection.
 
 `/` opens the wiki. Legacy document URLs redirect, preserving query strings and
@@ -49,8 +49,10 @@ just --justfile .docs/wiki/justfile test
 ```
 
 Search forms submit to `/wiki/search.html?q=…` or `/documents/search.html?q=…`.
-These pages use Pagefind’s JavaScript API to render plain HTML results, with
-ten results per batch. The topbar loads no search UI framework.
+Each collection keeps its own Pagefind index; both search pages query their own
+and merge in the other's (`mergeIndex`), so search covers wiki and documents
+alike, with each result labelled by collection. Results are plain HTML, ten
+per batch. The topbar loads no search UI framework.
 
 Build before running the Python checks. They cover discovery, collection
 boundaries, links/assets, outlines, galleries and related-document ordering.
