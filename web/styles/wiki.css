@@ -13,9 +13,6 @@
 html {
     background: var(--madoromi-kami);
 }
-body {
-    overflow-wrap: anywhere;
-}
 header nav {
     display: flex;
     flex-wrap: wrap;
