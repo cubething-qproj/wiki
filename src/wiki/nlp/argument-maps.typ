@@ -78,11 +78,11 @@ guide.
   the game, is meant to be checked against the same file.
 - *Corpus.* The pilot corpus has 31 excerpts from 29 writers. It is held
   locally and never committed.
-- *Automation.* No automated approach has been chosen. Candidates include a
-  single model writing the whole map, a pipeline of rules plus small
-  specialised models, ARG-tech's oAMF, and hybrids. They are to be scored
-  stage by stage against the gold maps, split by writer so that examples from
-  one writer are never used to label that writer's own texts.
+- #outdated[*Automation.* Dropped (2026-11-06); maps are authored by hand. Previously: no automated approach has been chosen. Candidates include a
+    single model writing the whole map, a pipeline of rules plus small
+    specialised models, ARG-tech's oAMF, and hybrids. They are to be scored
+    stage by stage against the gold maps, split by writer so that examples from
+    one writer are never used to label that writer's own texts.]
 
 #undecided[How many reviewed maps are needed before scores mean anything.
   The first draft of the plan guessed 10 of the 31 excerpts.]
@@ -91,8 +91,7 @@ guide.
   reporter's chain of transitions? This is open in the judgement-call log, and it
   affects segmentation rules and export.]
 
-#undecided[Whether INCEpTION or the xAIF editor is the annotation tool. So
-  far, all real annotation has been done in the editor.]
+#outdated[INCEpTION was dropped (2026-11-06). Whether the xAIF editor is still needed is uncertain.]
 
 = See also <maps-see-also>
 

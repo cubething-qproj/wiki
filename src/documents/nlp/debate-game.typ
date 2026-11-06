@@ -15,7 +15,7 @@ flowchart TB
   READ["read in-world texts"] --> HL["highlight + take notes"]
   HL --> BANK[("statements collected")]
   BANK --> IN{"how the player argues"}
-  IN --> FT["free text"]
+  IN --> FT["free text (dropped)"]
   IN --> TE["thinking editor"]
   FT --> DEB["debate an NPC"]
   TE --> DEB
@@ -29,8 +29,8 @@ flowchart TB
 - *Reading.* Highlights snap to authored statement spans (the map's L-nodes),
   so a highlight is always a known statement. Notes stay free text.
 - *Arguing.* Two paths, both to be tried for how they feel:
-  - *Free text:* the player types; a model parses it into a small map. Needs
-    a #l("debate-spike")[runtime parse] that works.
+  - #outdated[*Free text:* the player types; a model parses it into a small map. Needs
+      a #l("debate-spike")[runtime parse] that works. Dropped (2026-11-06); thinking editor only.]
   - *Thinking editor:* the player links collected statements, premise →
     conclusion, and picks a lever. No model needed: every statement is already
     analysed, so the type follows by rule. Here the player does the
@@ -48,7 +48,7 @@ flowchart LR
   end
   subgraph Quell["Quell services"]
     RD["reading"]
-    ARG["argue: editor<br/>or free-text parse"]
+    ARG["argue: editor<br/>or free-text parse (dropped)"]
     DB["debate"]
     DL["dialogue"]
   end

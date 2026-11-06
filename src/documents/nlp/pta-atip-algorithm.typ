@@ -11,6 +11,8 @@ program. It labels arguments with their type, first against human labels in
 the note-lab annotation project, later in-game against the player's own
 arguments.
 
+#outdated[The statistical oracles, the evaluation against labels and the in-game classification of free-text arguments were dropped (2026-11-06). The PTA and ATIP as theory, the statement tags and the rule-based derivation of form and substance are kept.]
+
 = Background: the PTA and ATIP <pta-atip-algorithm-background>
 
 The _Periodic Table of Arguments_ (PTA, version 3.1) classifies arguments into

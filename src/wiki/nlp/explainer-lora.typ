@@ -17,11 +17,14 @@ result is a small file that can be applied on top of the base model.
 
 = In Quell <lora-quell>
 
-LoRA is a possible later optimization for argument analysis. A model
-fine-tuned on reviewed argument maps would no longer need worked examples in
-every prompt, which would shorten prompts and speed up processing on a CPU.
-It needs a substantial amount of reviewed data first, so it is deferred until
-the source materials have settled.
+#outdated[Automated and runtime argument analysis was dropped (2026-11-06); arguments and dialogue are authored by hand.
+
+  LoRA is a possible later optimization for argument analysis. A model
+  fine-tuned on reviewed argument maps would no longer need worked examples in
+  every prompt, which would shorten prompts and speed up processing on a CPU.
+  It needs a substantial amount of reviewed data first, so it is deferred until
+  the source materials have settled.
+]
 
 = See also <lora-see-also>
 

@@ -16,10 +16,13 @@ them is much harder, especially when, as is usual, the connection is implicit.
 
 = In Quell <mining-quell>
 
-Argument mining is one possible way to produce #l("argument-maps")[argument
-  maps] faster than annotating them by hand. ARG-tech's #l("oamf") chains
-mining modules into pipelines that read and write xAIF, the format Quell's
-maps already use, so its output can be compared directly with the gold maps.
+#outdated[Automated and runtime argument analysis was dropped (2026-11-06); arguments and dialogue are authored by hand.
+
+  Argument mining is one possible way to produce #l("argument-maps")[argument
+    maps] faster than annotating them by hand. ARG-tech's #l("oamf") chains
+  mining modules into pipelines that read and write xAIF, the format Quell's
+  maps already use, so its output can be compared directly with the gold maps.
+]
 
 = See also <mining-see-also>
 

@@ -27,10 +27,13 @@ it runs well on a CPU.
 
 = In Quell <nli-quell>
 
-The proposed argument-analysis pipeline uses NLI at several steps. It would
-check whether one statement supports or opposes another, whether a reworded
-statement still means the same as the original, and which lever best fits an
-argument.
+#outdated[Automated and runtime argument analysis was dropped (2026-11-06); arguments and dialogue are authored by hand.
+
+  The proposed argument-analysis pipeline uses NLI at several steps. It would
+  check whether one statement supports or opposes another, whether a reworded
+  statement still means the same as the original, and which lever best fits an
+  argument.
+]
 
 = See also <nli-see-also>
 

@@ -11,6 +11,8 @@ Quell's players practise debating real philosophical questions. They read
 in-world texts, take notes, build arguments, and debate NPCs. Between runs they
 keep only what they know.
 
+#outdated[Most of this plan map was dropped (2026-11-06): NLP, free-text input, runtime parsing and the text-to-map arms are out. Arguments and NPC dialogue are authored by hand. The kept parts are the gold maps as game content, the thinking editor and the debate design.]
+
 The plan has one current focus: *argument structure*. Can we turn natural
 language into an argument map (#l("explainer-iat")[IAT] +
 #l("explainer-pta")[PTA], stored as xAIF) well enough, and fast enough, to
@@ -63,10 +65,8 @@ The spike (yellow) is the next piece of work.
 
 == Not decided
 
-- Parse at #l("debate-game")[runtime] or only while authoring: the
-  #l("debate-spike")[spike] tests this.
-- Free-text input or the thinking editor: both get tried for how they
-  #l("debate-game")[feel].
+- #outdated[Parse at runtime or only while authoring: dropped (2026-11-06); no parsing.]
+- #outdated[Free-text input or the thinking editor: settled (2026-11-06); thinking editor only.]
 - How a debate is won: #l("debate-evaluation")[evaluation].
 
 See also: #l("debate-phases")[phases], #l("debate-open")[open questions].

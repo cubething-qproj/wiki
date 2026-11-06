@@ -2,8 +2,11 @@
 #show: wiki-page.with(
   title: [The oracle pipeline],
   status: "draft",
+  flags: ("outdated",),
   summary: [Rules plus one small model per question.],
 )
+
+#outdated[The automated text-to-map pipeline was dropped (2026-11-06); arguments are authored by hand.]
 
 #note[Family B on the #l("debate-arms")[arms] page. Source:
   `.docs/designs/pta-atip-algorithm.typ`.]

@@ -25,12 +25,15 @@ its *GBNF* notation.
 
 = In Quell <decoding-quell>
 
-The planned spike asks a small local model to write argument maps in a
-compact JSON notation. A deterministic program then expands that notation into
-full #l("explainer-iat")[xAIF]. Constrained decoding keeps every closed choice
-valid, such as statement types, scopes and #l("explainer-pta")[lever]
-keywords. Wrong choices are left for the editor's checks and human review to
-catch.
+#outdated[Automated and runtime argument analysis was dropped (2026-11-06); arguments and dialogue are authored by hand.
+
+  The planned spike asks a small local model to write argument maps in a
+  compact JSON notation. A deterministic program then expands that notation into
+  full #l("explainer-iat")[xAIF]. Constrained decoding keeps every closed choice
+  valid, such as statement types, scopes and #l("explainer-pta")[lever]
+  keywords. Wrong choices are left for the editor's checks and human review to
+  catch.
+]
 
 = See also <decoding-see-also>
 

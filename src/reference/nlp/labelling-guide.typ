@@ -2,8 +2,11 @@
 #show: wiki-page.with(
   title: [Labelling philosophical texts: a guide for labellers],
   status: "retired",
+  flags: ("outdated",),
   summary: [The note-lab labeller's guide: the concept, argument, move and reference scheme, and how to work in INCEpTION.],
 )
+
+#outdated[The NLP lab and its INCEpTION labelling work were dropped (2026-11-06).]
 
 *What this is for.* Quell is a game in which players read in-world texts (excerpts of real philosophy), highlight passages, and write notes. The game works out which concepts a highlight or note is about, and NPCs respond when the right ones come up. Your labels are how the game knows what each passage is about and what it's doing. They are a careful reader's reading of the text, not a summary of it.
 

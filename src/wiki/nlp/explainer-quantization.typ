@@ -22,10 +22,13 @@ model over HTTP.
 
 = In Quell <quantization-quell>
 
-The game must run on machines with modest GPUs, so any generative model it
-uses has to be small and quantized. The planned spike tests models of about
-1.5–3 billion parameters through `llama-server`. Smaller and larger sizes are
-later comparisons.
+#outdated[Automated and runtime argument analysis was dropped (2026-11-06); arguments and dialogue are authored by hand.
+
+  The game must run on machines with modest GPUs, so any generative model it
+  uses has to be small and quantized. The planned spike tests models of about
+  1.5–3 billion parameters through `llama-server`. Smaller and larger sizes are
+  later comparisons.
+]
 
 = See also <quantization-see-also>
 

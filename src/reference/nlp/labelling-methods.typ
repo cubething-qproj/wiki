@@ -2,8 +2,11 @@
 #show: wiki-page.with(
   title: [Labelling philosophical texts: methods for the project lead],
   status: "retired",
+  flags: ("outdated",),
   summary: [The note-lab methods note for the project lead: scheme design, evaluation, automation and INCEpTION setup.],
 )
+
+#outdated[The NLP lab and its INCEpTION labelling work were dropped (2026-11-06).]
 
 This condenses the reading list to what changes how the project runs. The labeller's side (scheme, heuristics, tool how-to) is in #doc("labelling-guide"); this file covers what the labeller doesn't need: scheme design, evaluation, automation, the player side, and how to set up and run INCEpTION.
 

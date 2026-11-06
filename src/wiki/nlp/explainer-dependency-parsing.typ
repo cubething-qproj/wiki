@@ -20,14 +20,17 @@ good baseline. Any more expensive model should have to beat it.
 
 = In Quell <parsing-quell>
 
-The proposed argument-analysis pipeline would use parsing, together with
-discourse markers such as "because", as the rule baseline in two places. It
-would find where the argumentative units in a text begin and end, and propose
-each statement's subject and predicate. These are the terms that the
-#l("explainer-pta")[PTA] compares to determine an argument's form. Most
-parsers are trained on news and web text, so they may struggle with the long
-sentences and older syntax of philosophical writing. That is something the
-gold maps would measure.
+#outdated[Automated and runtime argument analysis was dropped (2026-11-06); arguments and dialogue are authored by hand.
+
+  The proposed argument-analysis pipeline would use parsing, together with
+  discourse markers such as "because", as the rule baseline in two places. It
+  would find where the argumentative units in a text begin and end, and propose
+  each statement's subject and predicate. These are the terms that the
+  #l("explainer-pta")[PTA] compares to determine an argument's form. Most
+  parsers are trained on news and web text, so they may struggle with the long
+  sentences and older syntax of philosophical writing. That is something the
+  gold maps would measure.
+]
 
 = External links <parsing-external>
 

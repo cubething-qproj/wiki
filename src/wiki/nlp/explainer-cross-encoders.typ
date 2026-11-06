@@ -23,10 +23,13 @@ shortlist.
 
 = In Quell <cross-encoders-quell>
 
-In the proposed argument-analysis pipeline, a cross-encoder is one candidate
-for deciding whether two phrasings are "the same term". That decision
-determines an argument's #l("explainer-pta")[form]. Like every other
-candidate, it would be measured against the reviewed gold maps.
+#outdated[Automated and runtime argument analysis was dropped (2026-11-06); arguments and dialogue are authored by hand.
+
+  In the proposed argument-analysis pipeline, a cross-encoder is one candidate
+  for deciding whether two phrasings are "the same term". That decision
+  determines an argument's #l("explainer-pta")[form]. Like every other
+  candidate, it would be measured against the reviewed gold maps.
+]
 
 = See also <cross-encoders-see-also>
 

@@ -11,6 +11,8 @@ two kinds of groundwork. One is a model of argument structure, detailed enough
 for the game to understand what a player has built. The other is a way to tell
 what a player's notes are about.
 
+#outdated[NLP was dropped from Quell (2026-11-06): free-text input, runtime parsing, automated argument analysis, the NLP lab's labelling and INCEpTION. Arguments and dialogue are authored by hand. Whether notes are interpreted into concepts is uncertain.]
+
 #wip("debate", "debate-game")[The work so far lives in the labs.]
 
 Start with #l("debate-system"), the intended mechanic and what is still

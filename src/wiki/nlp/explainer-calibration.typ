@@ -29,10 +29,13 @@ a guide to what needs checking.
 
 = In Quell <calibration-quell>
 
-The argument-map editor is meant to show a model's confidence next to each
-suggestion, so a reviewer knows where to look first. That only helps if the
-confidences are calibrated, so calibration is one of the measures each
-automated approach is to be scored on.
+#outdated[Automated and runtime argument analysis was dropped (2026-11-06); arguments and dialogue are authored by hand.
+
+  The argument-map editor is meant to show a model's confidence next to each
+  suggestion, so a reviewer knows where to look first. That only helps if the
+  confidences are calibrated, so calibration is one of the measures each
+  automated approach is to be scored on.
+]
 
 = References <calibration-references>
 

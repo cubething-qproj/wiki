@@ -2,8 +2,11 @@
 #show: wiki-page.with(
   title: [Arms and decisions],
   status: "draft",
+  flags: ("outdated",),
   summary: [Every way from text to map, and the gates between them.],
 )
+
+#outdated[Comparing automated text-to-map approaches was dropped (2026-11-06); arguments are authored by hand.]
 
 An *arm* is one way to answer a question: a rule, or a model with a given
 setup. We try several arms, score each against the #l("debate-gold")[gold maps],

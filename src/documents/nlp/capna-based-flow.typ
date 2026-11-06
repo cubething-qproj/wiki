@@ -2,8 +2,11 @@
 #show: wiki-page.with(
   title: [CAPNA-based dialogue flow],
   status: "draft",
+  flags: ("outdated",),
   summary: [A sketch of argument assessment stages, response categories, and candidate game data.],
 )
+
+#outdated[Free-text input and runtime parsing of player arguments were dropped (2026-11-06). This assessment flow depends on them.]
 
 ```mermaid
 flowchart TB

@@ -93,38 +93,41 @@ BERT-based, took 0.345 seconds.#footnote[Gemechu et al. 2025a, section 5.]
 
 = In Quell <oamf-quell>
 
-oAMF covers the structural layer of Quell's
-#l("argument-maps")[argument maps]: locutions, propositions, and support,
-conflict and rephrase relations. PTCR's three classes are the same fact, value
-and policy distinction that the #l("explainer-pta")[Periodic Table of
-  Arguments] uses for statement types. Nothing in oAMF produces the PTA layer:
-canonical subjects and predicates, scope, levers, second-order statements or
-implicit premises. Its scheme classifiers use other taxonomies, which don't map
-onto PTA levers.
+#outdated[Automated and runtime argument analysis was dropped (2026-11-06); arguments and dialogue are authored by hand.
 
-That makes it a candidate for several roles. CASS could score the
-spike's output against the gold maps.#footnote[#doc("debate-spike")[The
-    spike] plans to compare exemplars with gold before computing statistics.] An
-off-the-shelf pipeline run over the gold passages would show how much of the
-structure can be had without new work. The framework's design matches the
-#doc("debate-pipeline")[oracle pipeline]: one small model per question, joined
-by a shared format. Its timings support using fine-tuned encoders rather than
-small generative models where the game needs answers in real time.
+  oAMF covers the structural layer of Quell's
+  #l("argument-maps")[argument maps]: locutions, propositions, and support,
+  conflict and rephrase relations. PTCR's three classes are the same fact, value
+  and policy distinction that the #l("explainer-pta")[Periodic Table of
+    Arguments] uses for statement types. Nothing in oAMF produces the PTA layer:
+  canonical subjects and predicates, scope, levers, second-order statements or
+  implicit premises. Its scheme classifiers use other taxonomies, which don't map
+  onto PTA levers.
 
-The modules themselves can't ship in the game, since they are Python web
-services. A module's model would have to be taken out and run in-process, for
-example through #l("explainer-onnx")[ONNX].
+  That makes it a candidate for several roles. CASS could score the
+  spike's output against the gold maps.#footnote[#doc("debate-spike")[The
+      spike] plans to compare exemplars with gold before computing statistics.] An
+  off-the-shelf pipeline run over the gold passages would show how much of the
+  structure can be had without new work. The framework's design matches the
+  #doc("debate-pipeline")[oracle pipeline]: one small model per question, joined
+  by a shared format. Its timings support using fine-tuned encoders rather than
+  small generative models where the game needs answers in real time.
 
-#undecided[Whether oAMF becomes part of the pipeline, as an evaluator, a
-  baseline, a source of models, or not at all.]
+  The modules themselves can't ship in the game, since they are Python web
+  services. A module's model would have to be taken out and run in-process, for
+  example through #l("explainer-onnx")[ONNX].
 
-#gotcha[The licence is stated three ways: LGPLv3 in the ACL paper, GPL-3.0 in
-  the repository's metadata and Apache 2.0 in its README. Check each module's
-  licence before using it in anything that ships.]
+  #undecided[Whether oAMF becomes part of the pipeline, as an evaluator, a
+    baseline, a source of models, or not at all.]
 
-#gotcha[ARG-tech's hosted modules receive the text they analyse. The lab's
-  corpus passages are excerpts of published books, so they must go only
-  through locally deployed modules.]
+  #gotcha[The licence is stated three ways: LGPLv3 in the ACL paper, GPL-3.0 in
+    the repository's metadata and Apache 2.0 in its README. Check each module's
+    licence before using it in anything that ships.]
+
+  #gotcha[ARG-tech's hosted modules receive the text they analyse. The lab's
+    corpus passages are excerpts of published books, so they must go only
+    through locally deployed modules.]
+]
 
 = See also <oamf-see-also>
 

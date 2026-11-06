@@ -21,9 +21,12 @@ afterwards. Retrieved examples and the new input come last.
 
 = In Quell <caching-quell>
 
-Prompt processing is a large part of a small model's running time on a CPU.
-Caching the fixed part of the prompt is one of the cost reductions the
-argument-analysis spike would try once it works at all.
+#outdated[Automated and runtime argument analysis was dropped (2026-11-06); arguments and dialogue are authored by hand.
+
+  Prompt processing is a large part of a small model's running time on a CPU.
+  Caching the fixed part of the prompt is one of the cost reductions the
+  argument-analysis spike would try once it works at all.
+]
 
 = See also <caching-see-also>
 

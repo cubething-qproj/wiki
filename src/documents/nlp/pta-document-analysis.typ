@@ -170,7 +170,7 @@ readings:
 `lever_statement` is the optional lever node; the lever _keyword_ is the
 classifier's output, stored separately. In INCEpTION, statements are
 `Statement` spans and connectors are `Connector` spans with `conclusion`,
-`premise` and `lever statement` links.
+`premise` and `lever statement` links.#outdated[INCEpTION was dropped (2026-11-06).]
 
 = Principles <pta-document-analysis-principles>
 

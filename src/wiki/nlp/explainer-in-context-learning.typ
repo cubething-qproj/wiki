@@ -27,10 +27,13 @@ cheaper. Placing fixed material first lets it be reused through
 
 = In Quell <icl-quell>
 
-The planned spike retrieves similar passages from the reviewed gold maps and
-uses them as examples. It tests whether a small local model can write valid
-#l("argument-maps")[argument maps] this way. If enough gold data accumulates,
-#l("explainer-lora")[fine-tuning] could make the examples unnecessary.
+#outdated[Automated and runtime argument analysis was dropped (2026-11-06); arguments and dialogue are authored by hand.
+
+  The planned spike retrieves similar passages from the reviewed gold maps and
+  uses them as examples. It tests whether a small local model can write valid
+  #l("argument-maps")[argument maps] this way. If enough gold data accumulates,
+  #l("explainer-lora")[fine-tuning] could make the examples unnecessary.
+]
 
 = References <icl-references>
 

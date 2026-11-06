@@ -30,9 +30,11 @@ flowchart LR
 ```
 
 Cloud models and agents are allowed here, for drafting and labelling. The
-game never depends on them.
+game never depends on them.#outdated[Model-drafted maps were dropped (2026-11-06); maps are authored by hand.]
 
 == How arms are scored
+
+#outdated[Scoring automated arms against gold was dropped (2026-11-06) along with the arms.]
 
 - *#l("explainer-stage-wise-evaluation")[Stage-wise].* Feed the gold
   answers to every step before the one under test.

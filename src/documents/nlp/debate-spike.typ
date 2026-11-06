@@ -2,8 +2,11 @@
 #show: wiki-page.with(
   title: [Spike: natural language → xAIF],
   status: "draft",
+  flags: ("outdated",),
   summary: [Can a small local model write xAIF on a CPU?],
 )
+
+#outdated[Natural-language-to-xAIF generation was dropped (2026-11-06); arguments are authored by hand.]
 
 #note[Proposed, not yet reviewed. Downloads need Ada's approval.]
 

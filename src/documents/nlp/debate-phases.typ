@@ -5,6 +5,8 @@
   summary: [Two tracks, from gold maps to a playtest.],
 )
 
+#outdated[Track A's NLP steps (A1 spike, A3 more arms, A4 assisted annotation) were dropped (2026-11-06). Gold maps are hand-authored.]
+
 Two tracks that meet at the exporter. The game track can start from hand-made
 maps; it doesn't wait for any model.
 

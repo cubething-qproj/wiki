@@ -26,11 +26,14 @@ and levers, each compared against the gold map.
 
 = In Quell <stage-wise-quell>
 
-All candidate approaches to building #l("argument-maps")[argument maps] are
-to be scored this way against the reviewed gold maps. The evaluation is split
-by writer, so that examples from one writer are never used to label that
-writer's own texts. Individual
-bad cases are to be inspected before summary statistics are computed.
+#outdated[Automated and runtime argument analysis was dropped (2026-11-06); arguments and dialogue are authored by hand.
+
+  All candidate approaches to building #l("argument-maps")[argument maps] are
+  to be scored this way against the reviewed gold maps. The evaluation is split
+  by writer, so that examples from one writer are never used to label that
+  writer's own texts. Individual
+  bad cases are to be inspected before summary statistics are computed.
+]
 
 = See also <stage-wise-see-also>
 

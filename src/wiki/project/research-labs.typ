@@ -33,7 +33,7 @@ has been chosen, it is ported to Rust.
     comparison figures.],
 
   [note-lab \ `misc/labs/nlp`],
-  [Python, uv; INCEpTION],
+  [Python, uv; INCEpTION #outdated[INCEpTION and the labelling work were dropped (2026-11-06).]],
   [Which concepts is a player's highlight or note about? It defines the
     annotation data format and validates data sets. It is meant to compare
     ways of interpreting notes, from authored annotations to small local models.],
@@ -97,5 +97,5 @@ Whether the game can ship such texts is a separate licensing question. See
 
 - #link("https://docs.astral.sh/uv/")[uv] — the Python project manager used
   by both Python labs.
-- #link("https://inception-project.github.io/")[INCEpTION] — the annotation
-  server note-lab uses for labelling.
+- #outdated[#link("https://inception-project.github.io/")[INCEpTION] — the annotation
+    server note-lab used for labelling. Dropped (2026-11-06).]

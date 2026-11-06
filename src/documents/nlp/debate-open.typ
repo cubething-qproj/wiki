@@ -5,6 +5,8 @@
   summary: [Questions without answers yet.],
 )
 
+#outdated[Rows on runtime parsing, latency, free text, oAMF and INCEpTION are settled or moot (2026-11-06): NLP was dropped, and arguments are authored by hand. The thinking editor is the only input.]
+
 Questions with no answer yet. Each links to where it matters.
 
 #table(

@@ -47,33 +47,32 @@ flowchart TB
   been identified in the text's #l("argument-maps")[argument map], so the game
   always knows which statement the player chose. Notes remain free text. See
   #l("reading-notes#notes-state") for how this relates to the notes lab.
-- *Arguing.* Two forms of input will be tried, to see how each feels:
-  - in a *thinking editor*, the player links a premise to a conclusion and
-    picks the kind of connection;
-  - with *free text*, the player types and a model parses the argument.
+- *Arguing.* In a *thinking editor*, the player links a premise to a
+  conclusion and picks the kind of connection.
+  #outdated[A second form, *free text* parsed by a model, was dropped (2026-11-06).]
 - *Carrying over.* A new run keeps some highlights, texts and established
   conclusions, which can open new conversations.
 
 The thinking editor needs no language model during play. Every collected
 statement is analysed in advance, so the argument's type can be derived by
 rule. The player performs the classification, and that is where the learning
-happens. Free-text input is attractive, but it depends on a model that can
-parse arguments quickly enough on the player's machine.
+happens. #outdated[Free-text input was dropped (2026-11-06): it depended on a model
+  that could parse arguments quickly enough on the player's machine.]
 
 = Analysis at authoring time <debate-authoring>
 
 The texts are analysed offline. Each excerpt becomes an argument map: its
 statements, how they connect, and the type of each argument under the
 Periodic Table of Arguments. Models and agents may *propose* maps, but a
-person reviews each one in the xAIF editor. Reviewed maps serve two purposes.
+person reviews each one in the xAIF editor.#outdated[Model-proposed maps were dropped (2026-11-06); maps are authored by hand.] Reviewed maps serve two purposes.
 They are game content, and they are the gold standard used to score automated
 approaches.
 
 So the game does not need an automatic analysis pipeline in order to exist.
-Hand-made maps are enough for a playable debate. A pipeline would mainly make
-authoring faster, unless it proves fast enough to parse players' free text at
-runtime. The next planned experiment, a "spike", tests whether a small local
-model on a CPU can write valid maps at all.#footnote[#doc("debate-spike")[Spike:
+Hand-made maps are enough for a playable debate. #outdated[A pipeline would mainly make
+  authoring faster, unless it proves fast enough to parse players' free text at
+  runtime. The next planned experiment, a "spike", tests whether a small local
+  model on a CPU can write valid maps at all. Both were dropped (2026-11-06).]#footnote[#doc("debate-spike")[Spike:
     natural language → xAIF], proposed and not yet reviewed. The alternatives it
   will be compared against are listed in #doc("debate-arms")[Arms and decisions].]
 
@@ -111,8 +110,7 @@ Each has its own article: #l("explainer-capna"), #l("explainer-dung") and
   - *How a debate is won.* If characters rank values differently, is it
     satisfying to lose on values alone, or must the game say so explicitly
     ("you won't move me on liberty")?
-  - *How players argue*: in free text, in the thinking editor, or both. This
-    depends partly on whether runtime parsing works.
+  - #outdated[*How players argue*: settled (2026-11-06). Free text was dropped; the thinking editor only.]
   - *How to prevent brute force* when a player could try every pair of
     statements. Ideas include a cost per submission, feedback that names the
     kind of failure but not the fix, and confirming in batches.
